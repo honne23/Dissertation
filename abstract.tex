@@ -1,0 +1,32 @@
+% $Id: abstract.tex 1789 2010-09-28 16:30:23Z jabriffa $
+
+\chapter*{Abstract}
+
+The protein folding problem is the search for a 
+function that maps a proteins primary structure, 
+composed of a string of discrete amino acid residues to 
+their respective native conformation in 
+3D space denoted as the protein's tertiary structure. 
+Recent breakthroughs in the field have utilize 
+techniques such as multiple sequence alignment 
+coupled with residual convolutional neural networks 
+to derive candidate posteriors over the distribution 
+of inter-residue distances from which multiple 
+energetically favourable tertiary structures can be 
+generated; these results are typically annealed to produce 
+a structure of lowest conformational energy. In this work 
+I propose an alternative deep reinforcement learning 
+system that does not rely on the pre-existing data of 
+other sequences and instead approximates the pair-wise 
+local interactions of the residues on a 
+3D Face-Centered Cubic Lattice model. 
+I show that mean-field approximations 
+effectively model the the free energy landscape 
+of the system with respect to the expectation of 
+the distribution of rewards in the local neighbourhood 
+for each agent. I propose that the architecture of 
+this system effectively incorporates inductive bias 
+into the problem formulation and thus provides a 
+richer training signal. Additional techniques are 
+also employed in combination to 
+reduce the sample complexity of the search space.

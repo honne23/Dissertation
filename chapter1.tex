@@ -1,0 +1,95 @@
+%% $Id: chapter1.tex 1790 2010-09-28 16:46:40Z jabriffa $
+
+\chapter{Introduction}
+
+\section{Problem Background}
+   Proteins are biological molecules that carry out specific functions within the body,
+   they are assembled out of chemical bonds between smaller sub units called amino acid residues
+   to form a poly-peptide chain. Proteins carry out their functions 
+   by conforming into specific shapes and fitting into substrates,
+   this is referred to as the "lock and key" model of proteins. A
+   protein's three-dimensional structure has been proven \textsuperscript{[reference]} to been
+   entirely determined from the ordering of a discrete set of 22 residues
+   in a sequence of arbitrary length. The ability to infer a protein's precise\footnote{Within 1\AA}
+   three dimensional structure directly from the sequence of residues would
+   unlock the potential for designer drugs that carry out specific actions within the body;
+   it would also open a path for the treatment of illnesses that arise from malformed
+   proteins such as huntington's disease \textsuperscript{[reference]}.
+   This has however been an open problem, as the search space of possible conformations
+   for a given protein is vast and subject to numerous local minima. Traditional
+   methods of protein structure determination such as X-Ray Crystallography \textsuperscript{[reference]}
+   are extremely costly\footnote{In the order of millions \textsuperscript{reference}} and time
+   consuming, sometimes taking up to \emph{four years} to determine the structure of a protein.
+   This has given rise to multiple computational approaches \textsuperscript{reference} as means
+   to drive down cost and increase the productivity of researchers. 
+   \linebreak
+   Naturally, many approaches using deep learning have been proposed to solve the problem,
+   recently a breakthrough by DeepMind \textsuperscript{[reference]} propelled them to success
+   at the bi-annual Critical Assessment of Structure Prediction (CASP) competition. Though their
+   results were state of the art, their methods still relied on building a predictive model of the
+   properties of available proteins in the Protein Data Bank (PDB)\textsuperscript{[reference]}; as 
+   opposed to inferring the tertiary structure from the primary sequence alone.
+
+\section{Project Aims and Objectives}
+   Over the course of this dissertation I aim to explore and contrast
+   modern deep learning approaches for approximating the native conformations
+   of proteins on a discrete lattice structure. I will then go on to propose
+   a novel algorithm based on mean-field approximations that addresses 
+   some of the drawbacks and biases inherent in the approaches I have reviewed.
+   \linebreak
+   The following is a list of the project's aims overall:
+   \begin{enumerate}
+      \item Provide a succinct introduction to the molecular mechanics that govern the conformations of proteins
+      \item Introduce and compare different approaches to modelling the problem computationally
+      \item Provide an extended analysis of lattice models for proteins and their ability to encode correct conformations
+      \item Introduce reinforcement learning and progress to modern Deep Q-Learning
+      \item Building on Deep Q-Learning, introduce improvements to the algorithm since it's inception
+      \item Compare and contrast deep learning approaches to the lattice model with an emphasis on reinforcement learning methods
+      \item Introduce multi-agent learning within the framework of stochastic games
+      \item Introduce mean-field approximations in particular reference to mean field games
+      \item Formulate the conformation of residues on a lattice as a cooperative game of incomplete information
+      \item Provide a novel approach to de-novo structure determination using mean-field multi-agent learning
+      \item Benchmark my approach against the results of other groups on the same proteins to evaluate the effectiveness of the novel algorithm
+   \end{enumerate}
+\section{Success Criteria}
+   In order to evaluate the utility of both my findings and subsequent algorithm,
+   I have defined the following high-level requirements that must be satisfied to 
+   mark this project as a success.
+   \begin{enumerate}
+      \item Provide comprehensive overview of the underlying problem of protein folding
+      \item Describe markov decision processes (MDPs) and its ties to reinforcement learning
+      \item Highlight drawbacks to the default DQN algorithms and notable improvements to address those
+      \item Demonstrate multi-agent learning as a generalisation of single MDPs into markov games
+      \item Successfully benchmark my multi-agent approach against similar lattice-based approaches to protein folding
+   \end{enumerate}
+
+\section{Structure of Report}
+  \begin{enumerate}
+      \item \textbf{Introduction} \\
+         In this section I provided an overview the the protein folding problem and
+         introduced the components that I will be synthesising into novel approach.
+      \item \textbf{Literature Review} \\
+         In this section I will provide an overview as-well as an introduction
+         to select topics and that comprise the necessary background knowledge. 
+         This section ends with a comparative analysis of related work on the problem.
+      \item \textbf{System Requirements and Specification} \\
+         In this section I will analyse the drawbacks of methods utilized in related work,
+         and from this evaluation derive the requirements of a systems
+         required to address these limitations.
+      \item \textbf{System Design}\\
+         This section seeks to unify the selected systems and concepts
+         into an integrated learning algorithm that coherently reflects
+         the underlying problem's structure. 
+      \item \textbf{Testing \& Validation} \\
+         In order to verify the efficacy of the learning agents,
+         a set of lattice structure of known proteins will be calculated
+         and evaluated against the results for the same set of
+         proteins in related work.
+      \item  \textbf{Discussions} \\
+         Limitations of my implementation are discussed here and
+         possible solutions and research directions are proposed.
+      \item  \textbf{Conclusion} \\
+         Here I will present my concluding thoughts and results
+         of my final analyses of the architecture.
+  \end{enumerate}
+

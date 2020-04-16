@@ -1,0 +1,46 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Alberts}{2002}{alberts}
+Alberts, B.  \harvardyearleft 2002\harvardyearright , {\em Molecular biology of
+  the cell}, Garland Science, New York.
+
+\harvarditem{Anfinsen}{1972}{Anfinsen}
+Anfinsen, C.~B.  \harvardyearleft 1972\harvardyearright , `The formation and
+  stabilization of protein structure', {\em Biochemical Journal} {\bf
+  128}(4),~737--749.
+\newline\harvardurl{https://doi.org/10.1042/bj1280737}
+
+\harvarditem{Boyle}{2018}{Boyle}
+Boyle, A.~L.  \harvardyearleft 2018\harvardyearright , Applications of de novo
+  designed peptides, {\em in} `Peptide Applications in Biomedicine,
+  Biotechnology and Bioengineering', Elsevier, pp.~51--86.
+\newline\harvardurl{https://doi.org/10.1016/b978-0-08-100736-5.00003-x}
+
+\harvarditem{Chayen}{2005}{Chayen}
+Chayen, N.  \harvardyearleft 2005\harvardyearright , `Methods for separating
+  nucleation and growth in protein crystallisation', {\em Progress in
+  Biophysics and Molecular Biology} {\bf 88}(3),~329--337.
+\newline\harvardurl{https://doi.org/10.1016/j.pbiomolbio.2004.07.007}
+
+\harvarditem{Jaffe}{2018}{jaffe}
+Jaffe, R.  \harvardyearleft 2018\harvardyearright , {\em The physics of
+  energy}, Cambridge University Press, Cambridge, United Kingdom New York, NY.
+
+\harvarditem{Lesk}{2019}{lesk}
+Lesk, A.~M.  \harvardyearleft 2019\harvardyearright , {\em Introduction to
+  Bioinformatics}, fith edn, Oxford University Press.
+
+\harvarditem[Yang et~al.]{Yang, Ji \harvardand\ Liu}{2013}{Yang}
+Yang, L.-Q., Ji, X.-L. \harvardand\ Liu, S.-Q.  \harvardyearleft
+  2013\harvardyearright , `The free energy landscape of protein folding and
+  dynamics: a global view', {\em Journal of Biomolecular Structure and
+  Dynamics} {\bf 31}(9),~982--992.
+\newline\harvardurl{https://doi.org/10.1080/07391102.2012.748536}
+
+\harvarditem{Yue \harvardand\ Dill}{1993}{Yue}
+Yue, K. \harvardand\ Dill, K.~A.  \harvardyearleft 1993\harvardyearright ,
+  `Sequence-structure relationships in proteins and copolymers', {\em Physical
+  Review E} {\bf 48}(3),~2267--2278.
+\newline\harvardurl{https://doi.org/10.1103/physreve.48.2267}
+
+\end{thebibliography}

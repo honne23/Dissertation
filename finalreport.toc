@@ -1,0 +1,43 @@
+\contentsline {chapter}{\numberline {1}Introduction}{11}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}Problem Background}{11}{section.1.1}% 
+\contentsline {section}{\numberline {1.2}Project Aims and Objectives}{12}{section.1.2}% 
+\contentsline {section}{\numberline {1.3}Success Criteria}{13}{section.1.3}% 
+\contentsline {section}{\numberline {1.4}Structure of Report}{13}{section.1.4}% 
+\contentsline {chapter}{\numberline {2}Literature Review}{15}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}Proteins}{15}{section.2.1}% 
+\contentsline {subsection}{\numberline {2.1.1}Amino Acids \& Poly-Peptides}{15}{subsection.2.1.1}% 
+\contentsline {subsection}{\numberline {2.1.2}Protein Structures}{16}{subsection.2.1.2}% 
+\contentsline {subsection}{\numberline {2.1.3}The Protein's Energy Landscape}{18}{subsection.2.1.3}% 
+\contentsline {subsection}{\numberline {2.1.4}Bioinformatics}{21}{subsection.2.1.4}% 
+\contentsline {subsubsection}{\numberline {2.1.4.1}Homology Modelling}{21}{subsubsection.2.1.4.1}% 
+\contentsline {subsubsection}{\numberline {2.1.4.2}Lattice Models}{23}{subsubsection.2.1.4.2}% 
+\contentsline {subsubsection}{\numberline {2.1.4.3}HP Model}{23}{subsubsection.2.1.4.3}% 
+\contentsline {subsubsection}{\numberline {2.1.4.4}hHPNX Model}{23}{subsubsection.2.1.4.4}% 
+\contentsline {section}{\numberline {2.2}Reinforcement Learning}{23}{section.2.2}% 
+\contentsline {subsection}{\numberline {2.2.1}Markov Decision Processes}{23}{subsection.2.2.1}% 
+\contentsline {subsection}{\numberline {2.2.2}Temporal Difference Error}{23}{subsection.2.2.2}% 
+\contentsline {subsubsection}{\numberline {2.2.2.1}Q Learning}{23}{subsubsection.2.2.2.1}% 
+\contentsline {subsubsection}{\numberline {2.2.2.2}Bellman Equation}{23}{subsubsection.2.2.2.2}% 
+\contentsline {subsection}{\numberline {2.2.3}Deep Q-Networks}{23}{subsection.2.2.3}% 
+\contentsline {subsubsection}{\numberline {2.2.3.1}Neural Networks}{23}{subsubsection.2.2.3.1}% 
+\contentsline {subsubsection}{\numberline {2.2.3.2}Limitations of function approximators}{23}{subsubsection.2.2.3.2}% 
+\contentsline {subsubsection}{\numberline {2.2.3.3}Non-stationarity}{23}{subsubsection.2.2.3.3}% 
+\contentsline {subsubsection}{\numberline {2.2.3.4}Parameterising Q values with neural networks}{23}{subsubsection.2.2.3.4}% 
+\contentsline {subsubsection}{\numberline {2.2.3.5}Experience Replay}{23}{subsubsection.2.2.3.5}% 
+\contentsline {subsection}{\numberline {2.2.4}Limitations of Vanilla Deep Q-Networks}{23}{subsection.2.2.4}% 
+\contentsline {subsubsection}{\numberline {2.2.4.1}Memory}{23}{subsubsection.2.2.4.1}% 
+\contentsline {subsubsection}{\numberline {2.2.4.2}Exploration}{23}{subsubsection.2.2.4.2}% 
+\contentsline {subsubsection}{\numberline {2.2.4.3}Exploitation}{23}{subsubsection.2.2.4.3}% 
+\contentsline {subsubsection}{\numberline {2.2.4.4}Rainbow DQN}{23}{subsubsection.2.2.4.4}% 
+\contentsline {section}{\numberline {2.3}Multi-Agent Reinforcement Learning}{23}{section.2.3}% 
+\contentsline {subsection}{\numberline {2.3.1}Stochastic Games}{23}{subsection.2.3.1}% 
+\contentsline {subsubsection}{\numberline {2.3.1.1}Game Theory}{23}{subsubsection.2.3.1.1}% 
+\contentsline {subsubsection}{\numberline {2.3.1.2}Expected Pay-offs as Expected Rewards}{23}{subsubsection.2.3.1.2}% 
+\contentsline {subsubsection}{\numberline {2.3.1.3}Multi-Agent Games}{23}{subsubsection.2.3.1.3}% 
+\contentsline {subsubsection}{\numberline {2.3.1.4}Mean Field Games}{23}{subsubsection.2.3.1.4}% 
+\contentsline {subsubsection}{\numberline {2.3.1.5}Mean Field multi-agent reinforcement learning}{23}{subsubsection.2.3.1.5}% 
+\contentsline {section}{\numberline {2.4}Related Work}{23}{section.2.4}% 
+\contentsline {subsection}{\numberline {2.4.1}MCMC methods for lattice models}{23}{subsection.2.4.1}% 
+\contentsline {subsection}{\numberline {2.4.2}Deep Learning methods for lattice models}{23}{subsection.2.4.2}% 
+\contentsline {subsubsection}{\numberline {2.4.2.1}Alpha-Fold}{23}{subsubsection.2.4.2.1}% 
+\contentsline {subsection}{\numberline {2.4.3}Reinforcement Learning methods for lattice models}{23}{subsection.2.4.3}% 
