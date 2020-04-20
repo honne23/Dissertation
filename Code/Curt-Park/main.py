@@ -6,14 +6,14 @@ import torch
 import random
 import numpy as np
 
-ATARI = False
+ATARI = True
 
 if ATARI == False:
    env_id = "CartPole-v0"
    env = gym.make(env_id) 
 else:
     from atari_wrappers import make_atari, wrap_deepmind
-     env_id = 'PongNoFrameskip-v4'
+    env_id = 'PongNoFrameskip-v4'
     env = make_atari(env_id)
     env = wrap_deepmind(env, frame_stack=True)
     directory= ('./PongVideos')

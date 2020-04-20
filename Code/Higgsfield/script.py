@@ -240,7 +240,7 @@ optimizer = optim.Adam(current_model.parameters(), lr=0.0001)
 update_target(current_model, target_model)
 
 replay_initial = 10000
-replay_buffer  = ReplayBuffer(100000)
+replay_buffer  = ReplayBuffer(10000)
 
 num_frames = 1000000
 batch_size = 32

@@ -250,13 +250,164 @@ supervised learning methods, and then I will then provide extended review
 of another class of models used for \emph{ab initio} structure prediction,
 lattice models.
 \subsubsection{Homology Modelling}
-Homology modelling, otherwise known as template modelling focuses on
-trying to predict the tertiary structure of an unknown protein
-from the structures of closely related (homologous) proteins.
-This involves measuring the Hamming distance of closely
-related proteins and trying to deduce secondary structure elements
-from sub-strings within the primary sequence that show high overlap
-with sub-strings in related sequences. 
+All proteins are members of an evolutionary tree and so related
+proteins tend to demonstrate high structural similarity with their relatives.
+Although older studies suggest that proteins are in fact random strings
+only slightly edited by evolution \cite{weiss}; more recent studies
+have shown that this is not the case, as certain methods
+were able to distinguish between random strings and real proteins
+with an accuracy of up to $88-94.36\%$ \cite{delucrezia,Tsygvintsev}.
+Given the apparent specificity of the sequences,
+Homology modelling, focuses on trying to predict 
+the tertiary structure of an unknown protein
+from the structures of closely related proteins (homologues).
+This involves measuring Hamming distances\footnote{See appendix A.2} 
+between closely related proteins and deriving an \emph{inverse scoring matrix}
+with each pair-wise comparison. When this is done for more than
+one possible pairing, this is known as Multiple Sequence Alignment (MSA).
+Highly correlated proteins with relatively low MSA scores tend to exhibit
+very similar tertiary structures \cite{lesk}; this property is used as the basis for many
+machine learning methods which is explored in \textbf{Related Work}.
 \subsubsection{Lattice Models}
+Although approaches that utilise homology modelling in some form
+have been very successful in recent years\footnote{See \textbf{AlphaFold 2.4.2.1}},
+they rely on the pre-determined structures of other proteins, this poses
+a barrier to \emph{de novo} protein design and research into undetermined structures
+for which we do not have a readily available dataset of relatives.
+
+An alternative model of computation was proposed by \cite{Yue} that seeks to
+address the combinatorial conformational space. Instead, they proposed
+that the space should be discretised to restrict the possible number of conformations
+a given sequence can take on, a \emph{Bravais} lattice was the perfect tool for this.
+\subsubsection{Bravais Lattices}
+A Bravais lattice is a simple mathematical description of a lattice structure, whereby
+each point in space is some linear combination of unit vectors with integer multiples \cite{kittel}. 
+\begin{center}
+\begin{equation}
+    \begin{split}
+        & \mathbf{r}, \mathbf{a} \in \mathbb{R}^n, u \in \mathbb{Z} \\
+        & \mathbf{r} = u_1\mathbf{a}_1 + u_2\mathbf{a}_2 + u_3\mathbf{a}_3 
+    \end{split}
+\end{equation}
+    In matrix form:
+\begin{equation}
+    \begin{split}
+        & \mathbf{r} \in \mathbb{R}^n, \mathbf{u} \in \mathbb{Z}^n \\
+        & \mathbf{a} \in \mathbb{R}^n \times \mathbb{R}^n \\
+        & \mathbf{r} = \mathbf{a} \cdot \mathbf{u}^\top
+    \end{split}
+\end{equation}
+\end{center}
+Different values for the unit vectors give rise to different classes of lattices, the number
+of neighbours for a given vertez is denoted as $z$.
+In the interest of brevity 3 lattices are discussed as they are pertinent 
+to the related work and system design. \\
+\begin{enumerate} 
+    \item \textbf{2D Square Lattice} \\ 
+        A simple lattice whose unit vectors are two dimensional: 
+        \begin{equation}
+            \begin{split}
+                & \mathbf{a} = \begin{bmatrix}
+                    1 & 0 \\
+                    0 & 1
+                    \end{bmatrix} \\
+                & z = 4
+            \end{split}
+        \end{equation}
+    \item \textbf{3D Primitive Cubic Lattice} \\
+        A 3D lattice with unit vectors in each direction of space:
+        \begin{equation}
+            \begin{split}
+               & \mathbf{a} = \begin{bmatrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & 1
+            \end{bmatrix} \\
+            & z = 6 
+            \end{split}
+        \end{equation}
+    \item \textbf{3D Face-Centered Cubic Lattice} \\
+        A 3D cubic lattice with additional vertex points
+        at the center of each square face; notably,
+        this lattice has the highest sphere packing density \footnote{Highest amount
+        of rigid spheres that can be packed per unit space $\approx 0.74$ \cite{Hoque}}:
+        \begin{equation}
+            \begin{split}
+                & \mathbf{a} = \begin{bmatrix}
+                    0 & 0.5 & 0.5 \\
+                    0.5 & 0 & 0.5 \\
+                    0.5 & 0.5 & 0
+                \end{bmatrix} \\
+                & z = 12
+            \end{split}
+        \end{equation}
+\end{enumerate}
+
+\begin{figure}[!htb]
+    \caption{3D Cubic Bravais Lattices}
+    \begin{center}
+        \includegraphics[scale=0.25]{Figures/lattices}
+    \end{center}
+    \scriptsize{\dag Source: \url{https://biochem.co/2008/08/crystal-structure-studies/}}
+ \end{figure}
+ For clarity, any point within the vector space defined by the lattice
+ structure is an integer multiple of any linear combination of the unit vectors. Nomenclature
+ on the subject dictates that a vertex on the lattice is 
+ referred to as a "\emph{site}". 
 \subsubsection{HP Model}
+\cite{Yue} initially proposed the use of a 3D primitive cubic lattice to model the conformations
+of proteins. Each amino acid was divided into two categories according to their properties:
+Hydrophobic and Polar, and a conformation was formulated as a self avoiding walk (SAW) on the lattice.
+\\ Some definitions:
+\begin{itemize}
+    \item A \emph{contact} on the lattice is define as the adjacency of two immediate neighbours on the lattice
+    not connected by the torsion backbone, if two residues are connected 
+    through the torsion backbone directly this is referred to 
+    as a \emph{bond}.
+    \item A segment is a run of monomers of a particular category (a)\footnote{P segment of length 4}, a singlet
+          occurs when a monomer is situated between two monomers of another category (b)\footnote{H singlet}.
+
+    \begin{multicols}{2}
+        \noindent
+        \begin{align*}
+            \underset{(a)}{HPPPPH} 
+        \end{align*}
+        \begin{align*}
+            \underset{(b)}{PHP}
+        \end{align*}
+    \end{multicols}
+    \item $x \in \{H,P\}$
+    \item $n_x$ is the number of $x$ monomers in the sequence. \\
+        I.e: $n_H$ is the number of $H$ monomers in the entire sequence.
+    \item $b_{xx}$ is number of bonds between $xx$.
+    \item $t_{xx}$ is the number of \emph{bonds + contacts} between $xx$.
+    \item $h_{term}$ is the number of segements that terminate in $H$ monomers
+\end{itemize}
+These quantities are related by the following equations:
+\begin{equation}
+    2b_{HH} + b_{HP} + h_{term} + (z-2)n_H = 2(t_{HH} + b_{HH}) + b_{HP} + t_{HP} + t_{H-Solvent}
+\end{equation}
+\begin{equation}
+    \begin{split}
+        & G = \frac{b_{HP} + h_{term}}{2} \\
+        & S = b_{HP} + t_{HP} + t_{H-Solvent} \\
+    \end{split}
+\end{equation}
+\begin{itemize}
+    \item $G$ is the total number of $H$ segments in a sequence
+    \item $S$ is the total surface area of the hydrophobic core, assuming that
+        the monomers as \textbf{unconnected}. This acts as an upper bound of the surface
+        area.
+\end{itemize}
+
+Substituting (2.10) into (2.9) produces the \emph{"folding equation"}:
+\begin{equation}
+    t_{HH} + \frac{S}{2} = G + \frac{(z-2)n_H}{2}
+\end{equation}
+Where the left side is dependent on the \emph{conformation}, and the right
+side is a constant that solely depends on the lattice structure and given sequence.
+Motivated by the role of the hydrophobic collapse, the folding problem within this
+framework is a function that maximises $t_{HH}$ ; this is equivalent to
+minimizing $S$. The logic follows that the most tightly packed core, that with the minimal
+surface area should also have the densest packing of $H-H$ contacts. \\
 \subsubsection{hHPNX Model}

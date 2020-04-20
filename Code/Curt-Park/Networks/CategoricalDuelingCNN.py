@@ -36,10 +36,7 @@ class CategoricalDuelingCNN(nn.Module):
             nn.ReLU(),
             NoisyLinear(512, atom_size))
         
-        for x in (self.advantage_layer, self.value_layer, self.feature_layer):
-            for i in x:
-                if isinstance(i, nn.Linear):
-                    nn.init.xavier_uniform_(i.weight)
+        
                     
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward method implementation."""

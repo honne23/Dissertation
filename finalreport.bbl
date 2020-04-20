@@ -22,13 +22,44 @@ Chayen, N.  \harvardyearleft 2005\harvardyearright , `Methods for separating
   Biophysics and Molecular Biology} {\bf 88}(3),~329--337.
 \newline\harvardurl{https://doi.org/10.1016/j.pbiomolbio.2004.07.007}
 
+\harvarditem[Hoque et~al.]{Hoque, Chetty \harvardand\ Sattar}{2009}{Hoque}
+Hoque, T., Chetty, M. \harvardand\ Sattar, A.  \harvardyearleft
+  2009\harvardyearright , `Extended {HP} model for protein structure
+  prediction', {\em Journal of Computational Biology} {\bf 16}(1),~85--103.
+\newline\harvardurl{https://doi.org/10.1089/cmb.2008.0082}
+
 \harvarditem{Jaffe}{2018}{jaffe}
 Jaffe, R.  \harvardyearleft 2018\harvardyearright , {\em The physics of
   energy}, Cambridge University Press, Cambridge, United Kingdom New York, NY.
 
-\harvarditem{Lesk}{2019}{lesk}
-Lesk, A.~M.  \harvardyearleft 2019\harvardyearright , {\em Introduction to
-  Bioinformatics}, fith edn, Oxford University Press.
+\harvarditem{Kittel}{2005}{kittel}
+Kittel, C.  \harvardyearleft 2005\harvardyearright , {\em Introduction to solid
+  state physics}, Wiley, Hoboken, NJ.
+
+\harvarditem{Lesk}{2018}{lesk}
+Lesk, A.  \harvardyearleft 2018\harvardyearright , {\em Introduction to
+  bioinformatics}, Oxford University Press, Oxford New York.
+
+\harvarditem[Lucrezia et~al.]{Lucrezia, Slanzi, Poli, Polticelli \harvardand\
+  Minervini}{2012}{delucrezia}
+Lucrezia, D.~D., Slanzi, D., Poli, I., Polticelli, F. \harvardand\ Minervini,
+  G.  \harvardyearleft 2012\harvardyearright , `Do natural proteins differ from
+  random sequences polypeptides? natural vs. random proteins classification
+  using an evolutionary neural network', {\em {PLoS} {ONE}} {\bf 7}(5),~e36634.
+\newline\harvardurl{https://doi.org/10.1371/journal.pone.0036634}
+
+\harvarditem{Tsygvintsev}{2019}{Tsygvintsev}
+Tsygvintsev, A.  \harvardyearleft 2019\harvardyearright , `Natural versus
+  random proteins: Nouvel neural network approach based on time series
+  analysis'.
+\newline\harvardurl{https://doi.org/10.1101/687558}
+
+\harvarditem[Weiss et~al.]{Weiss, Jim{\'{e}}nez-Monta{\~{n}}o \harvardand\
+  Herzel}{2000}{weiss}
+Weiss, O., Jim{\'{e}}nez-Monta{\~{n}}o, M.~A. \harvardand\ Herzel, H.
+  \harvardyearleft 2000\harvardyearright , `Information content of protein
+  sequences', {\em Journal of Theoretical Biology} {\bf 206}(3),~379--386.
+\newline\harvardurl{https://doi.org/10.1006/jtbi.2000.2138}
 
 \harvarditem[Yang et~al.]{Yang, Ji \harvardand\ Liu}{2013}{Yang}
 Yang, L.-Q., Ji, X.-L. \harvardand\ Liu, S.-Q.  \harvardyearleft
