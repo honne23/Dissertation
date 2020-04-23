@@ -10,6 +10,13 @@ Anfinsen, C.~B.  \harvardyearleft 1972\harvardyearright , `The formation and
   128}(4),~737--749.
 \newline\harvardurl{https://doi.org/10.1042/bj1280737}
 
+\harvarditem{Bornberg-Bauer}{1997}{BornbergBauer1997}
+Bornberg-Bauer, E.  \harvardyearleft 1997\harvardyearright , Chain growth
+  algorithms for {HP}-type lattice proteins, {\em in} `Proceedings of the first
+  annual international conference on Computational molecular biology', {ACM}
+  Press.
+\newline\harvardurl{https://doi.org/10.1145/267521.267528}
+
 \harvarditem{Boyle}{2018}{Boyle}
 Boyle, A.~L.  \harvardyearleft 2018\harvardyearright , Applications of de novo
   designed peptides, {\em in} `Peptide Applications in Biomedicine,
@@ -21,6 +28,20 @@ Chayen, N.  \harvardyearleft 2005\harvardyearright , `Methods for separating
   nucleation and growth in protein crystallisation', {\em Progress in
   Biophysics and Molecular Biology} {\bf 88}(3),~329--337.
 \newline\harvardurl{https://doi.org/10.1016/j.pbiomolbio.2004.07.007}
+
+\harvarditem{Crippen}{1991}{Crippen1991}
+Crippen, G.~M.  \harvardyearleft 1991\harvardyearright , `Prediction of protein
+  folding from amino acid sequence over discrete conformation spaces', {\em
+  Biochemistry} {\bf 30}(17),~4232--4237.
+\newline\harvardurl{https://doi.org/10.1021/bi00231a018}
+
+\harvarditem[Dill et~al.]{Dill, Bromberg, Yue, Chan, Ftebig, Yee \harvardand\
+  Thomas}{2008}{Dill}
+Dill, K.~A., Bromberg, S., Yue, K., Chan, H.~S., Ftebig, K.~M., Yee, D.~P.
+  \harvardand\ Thomas, P.~D.  \harvardyearleft 2008\harvardyearright ,
+  `Principles of protein folding - a perspective from simple exact models',
+  {\em Protein Science} {\bf 4}(4),~561--602.
+\newline\harvardurl{https://doi.org/10.1002/pro.5560040401}
 
 \harvarditem[Hoque et~al.]{Hoque, Chetty \harvardand\ Sattar}{2009}{Hoque}
 Hoque, T., Chetty, M. \harvardand\ Sattar, A.  \harvardyearleft
@@ -36,6 +57,12 @@ Jaffe, R.  \harvardyearleft 2018\harvardyearright , {\em The physics of
 Kittel, C.  \harvardyearleft 2005\harvardyearright , {\em Introduction to solid
   state physics}, Wiley, Hoboken, NJ.
 
+\harvarditem{Lau \harvardand\ Dill}{1989}{Lau1989}
+Lau, K.~F. \harvardand\ Dill, K.~A.  \harvardyearleft 1989\harvardyearright ,
+  `A lattice statistical mechanics model of the conformational and sequence
+  spaces of proteins', {\em Macromolecules} {\bf 22}(10),~3986--3997.
+\newline\harvardurl{https://doi.org/10.1021/ma00200a030}
+
 \harvarditem{Lesk}{2018}{lesk}
 Lesk, A.  \harvardyearleft 2018\harvardyearright , {\em Introduction to
   bioinformatics}, Oxford University Press, Oxford New York.
@@ -47,6 +74,11 @@ Lucrezia, D.~D., Slanzi, D., Poli, I., Polticelli, F. \harvardand\ Minervini,
   random sequences polypeptides? natural vs. random proteins classification
   using an evolutionary neural network', {\em {PLoS} {ONE}} {\bf 7}(5),~e36634.
 \newline\harvardurl{https://doi.org/10.1371/journal.pone.0036634}
+
+\harvarditem{Sutton}{2018}{sutton2018reinforcement}
+Sutton, R.  \harvardyearleft 2018\harvardyearright , {\em Reinforcement
+  learning : an introduction}, The MIT Press, Cambridge, Massachusetts London,
+  England.
 
 \harvarditem{Tsygvintsev}{2019}{Tsygvintsev}
 Tsygvintsev, A.  \harvardyearleft 2019\harvardyearright , `Natural versus

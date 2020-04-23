@@ -1,5 +1,78 @@
 \section{Reinforcement Learning}
+In this section I will introduce the Reinforcement Learning (RL)
+paradigm. Then, its integration with deep learning is explored, and
+subsequent improvements in the algorithm are also elaborated upon.
+The end result, the Rainbow DQN agent, is integrated as part of the \textbf{System Design and Specification}.
 \subsection{Markov Decision Processes}
+A finite markov chain is a process that consists of a set of states
+$\mathbf{S^n} \coloneqq \{S_1, S_2, \hdots, S_n\}$ and a transition
+function $F(\mathbf{S})$ that takes the state at the current
+timestep $t$ and outputs a new state at timestep $t+1$.
+\begin{equation}
+    F(S_t) \mapsto S_{t+1} \;\;\;\; \forall S \in \mathbf{S}, \forall t\in \mathbf{T}
+\end{equation}
+For a given process, the states are linked by a transition probability
+$P(S_{t+1}, S_t)$. A process is markov only if the markov property holds:
+\begin{equation}
+    P(S_{t+1}, S_t) = P(S_{t+1} | S_t) \\
+\end{equation}
+The next state in a process that obeys the markov property is determined
+solely by the value of the current state, and for any given sequence, the transition
+probability between any two states remains the same. Thus, markov chains can begin
+characterised by a transition matrix $\mathbf{P} \coloneqq |\mathbf{S}^n| \times |\mathbf{S}^n|$
+where each row $j$ is a distribution $P(i, \cdot)$ such that:
+\begin{equation}
+    i \in \mathbf{S}^n, \sum_{j \in \mathbf{S}^n} P(i,j) = 1
+\end{equation}\\
+The product along the column space $j \in \mathbf{S}^n,{\displaystyle \prod_{i \in \mathbf{S}^n}} P(i,j)$ of the transition matrix reveals
+the stationary probability of being in any particular state $P(S_j)$.
+\begin{center}
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+        semithick,]
+    \tikzstyle{every state}=[fill=white,draw=none,text=black,draw=black]
+  
+    \node[state] (A)                    {$S_1$};
+    \node[state]         (B) [above right of=A] {$S_2$};
+    \node[state]         (D) [below right of=A] {$S_3$};
+    \node[state]         (C) [below right of=B] {$S_4$};
+    \node[state]         (E) [below of=D]       {$S_5$};
+    
+    \path (A) edge              node {0.42} (B)
+    edge              node {0.58} (C)
+    (B) edge [loop above] node {0.6} (B)
+    edge              node {0.4} (C)
+    (C) edge              node {0.82} (D)
+    edge [bend left]  node {0.18} (E)
+    (D) edge [loop above] node {0.35} (D)
+    edge              node {0.65} (A)
+    (E) edge   node {0.2} (D)
+    (E) edge [bend left]  node {0.8} (A);
+    \end{tikzpicture}
+    \captionof{figure}{Markov chain with state space and transition propabilities}
+\end{center}
+A Markov Decision Process (MDP) is a generalisation of this framework to sequential
+decision making \cite{sutton2018reinforcement}. An MDP consists of an agent-environment
+interface, where the \emph{Agent} is the learner and decision maker and the \emph{Environment}
+consists of everything outside of the agent. The agent interacts with the environment
+bny taking action $a \in \mathbf{A}$ in the current state $S_t$ and receives a reward $R_{t+1}$\footnote{Reward received at $t+1$ to indicate the fact that 
+an action must be taken first to move to a new state in order to obtain a reward}, the outcome of the agents actions
+transitions the environment from state $S_t$ to $S_{t+1}$.
+The agent's long term reward is maximised by taking actions that move the agents into 
+favourable states that yield higher rewards, the \textbf{expected} reward in any given state
+is equal to the probability of entering state $S_{t+1}$ multiplied by the value of the reward $R_{t+1}$ in that state.
+\begin{equation}
+    {\displaystyle \E_{S \in \mathbf{S}^n}\biggl[R_{t+1} \; | \; S_t, A_t \biggl] = 
+    P(R_{t+1}\; | \; S_t, A_t)\cdot R_{t+1}}
+\end{equation}
+The \emph{value} of a given state $\mathcal{V}(S)$ is the total expected reward for that state for any action taken in that state.
+This is taken to be the \emph{long run} return of state $S$ if the process was repeated in the infinite limit:
+\begin{equation}
+    { \displaystyle \mathcal{V}(S) = \sum_{\forall a \in \mathbf{A}} \E_{S \in \mathbf{S}^n}\biggl[R_{t+1} \; | \; S, a \biggl]}
+\end{equation}
+An agent in the environment seeks to take actions that maximise its long term reward at each timestep:
+\begin{equation}
+    \sum_{t \in \mathbf{T}}\underset{a}{max}\biggl(\E_{S \in \mathbf{S}^n}\biggl[R_{t+1} \; | \; S, a \biggl]\biggl)
+\end{equation}
 \subsection{Temporal Difference Error}
 \subsubsection{Q Learning}
 \subsubsection{Bellman Equation}

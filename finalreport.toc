@@ -13,32 +13,32 @@
 \contentsline {subsubsection}{\numberline {2.1.4.2}Lattice Models}{23}{subsubsection.2.1.4.2}% 
 \contentsline {subsubsection}{\numberline {2.1.4.3}Bravais Lattices}{23}{subsubsection.2.1.4.3}% 
 \contentsline {subsubsection}{\numberline {2.1.4.4}HP Model}{25}{subsubsection.2.1.4.4}% 
-\contentsline {subsubsection}{\numberline {2.1.4.5}hHPNX Model}{28}{subsubsection.2.1.4.5}% 
+\contentsline {subsubsection}{\numberline {2.1.4.5}hHPNX Model}{27}{subsubsection.2.1.4.5}% 
 \contentsline {section}{\numberline {2.2}Reinforcement Learning}{28}{section.2.2}% 
 \contentsline {subsection}{\numberline {2.2.1}Markov Decision Processes}{28}{subsection.2.2.1}% 
-\contentsline {subsection}{\numberline {2.2.2}Temporal Difference Error}{28}{subsection.2.2.2}% 
-\contentsline {subsubsection}{\numberline {2.2.2.1}Q Learning}{28}{subsubsection.2.2.2.1}% 
-\contentsline {subsubsection}{\numberline {2.2.2.2}Bellman Equation}{28}{subsubsection.2.2.2.2}% 
-\contentsline {subsection}{\numberline {2.2.3}Deep Q-Networks}{28}{subsection.2.2.3}% 
-\contentsline {subsubsection}{\numberline {2.2.3.1}Neural Networks}{28}{subsubsection.2.2.3.1}% 
-\contentsline {subsubsection}{\numberline {2.2.3.2}Limitations of function approximators}{28}{subsubsection.2.2.3.2}% 
-\contentsline {subsubsection}{\numberline {2.2.3.3}Non-stationarity}{28}{subsubsection.2.2.3.3}% 
-\contentsline {subsubsection}{\numberline {2.2.3.4}Parameterising Q values with neural networks}{28}{subsubsection.2.2.3.4}% 
-\contentsline {subsubsection}{\numberline {2.2.3.5}Experience Replay}{28}{subsubsection.2.2.3.5}% 
-\contentsline {subsection}{\numberline {2.2.4}Limitations of Vanilla Deep Q-Networks}{28}{subsection.2.2.4}% 
-\contentsline {subsubsection}{\numberline {2.2.4.1}Memory}{28}{subsubsection.2.2.4.1}% 
-\contentsline {subsubsection}{\numberline {2.2.4.2}Exploration}{28}{subsubsection.2.2.4.2}% 
-\contentsline {subsubsection}{\numberline {2.2.4.3}Exploitation}{28}{subsubsection.2.2.4.3}% 
-\contentsline {subsubsection}{\numberline {2.2.4.4}Rainbow DQN}{28}{subsubsection.2.2.4.4}% 
-\contentsline {section}{\numberline {2.3}Multi-Agent Reinforcement Learning}{28}{section.2.3}% 
-\contentsline {subsection}{\numberline {2.3.1}Stochastic Games}{28}{subsection.2.3.1}% 
-\contentsline {subsubsection}{\numberline {2.3.1.1}Game Theory}{28}{subsubsection.2.3.1.1}% 
-\contentsline {subsubsection}{\numberline {2.3.1.2}Expected Pay-offs as Expected Rewards}{28}{subsubsection.2.3.1.2}% 
-\contentsline {subsubsection}{\numberline {2.3.1.3}Multi-Agent Games}{28}{subsubsection.2.3.1.3}% 
-\contentsline {subsubsection}{\numberline {2.3.1.4}Mean Field Games}{28}{subsubsection.2.3.1.4}% 
-\contentsline {subsubsection}{\numberline {2.3.1.5}Mean Field multi-agent reinforcement learning}{28}{subsubsection.2.3.1.5}% 
-\contentsline {section}{\numberline {2.4}Related Work}{28}{section.2.4}% 
-\contentsline {subsection}{\numberline {2.4.1}MCMC methods for lattice models}{28}{subsection.2.4.1}% 
-\contentsline {subsection}{\numberline {2.4.2}Deep Learning methods for lattice models}{28}{subsection.2.4.2}% 
-\contentsline {subsubsection}{\numberline {2.4.2.1}Alpha-Fold}{28}{subsubsection.2.4.2.1}% 
-\contentsline {subsection}{\numberline {2.4.3}Reinforcement Learning methods for lattice models}{28}{subsection.2.4.3}% 
+\contentsline {subsection}{\numberline {2.2.2}Temporal Difference Error}{32}{subsection.2.2.2}% 
+\contentsline {subsubsection}{\numberline {2.2.2.1}Q Learning}{32}{subsubsection.2.2.2.1}% 
+\contentsline {subsubsection}{\numberline {2.2.2.2}Bellman Equation}{32}{subsubsection.2.2.2.2}% 
+\contentsline {subsection}{\numberline {2.2.3}Deep Q-Networks}{32}{subsection.2.2.3}% 
+\contentsline {subsubsection}{\numberline {2.2.3.1}Neural Networks}{32}{subsubsection.2.2.3.1}% 
+\contentsline {subsubsection}{\numberline {2.2.3.2}Limitations of function approximators}{32}{subsubsection.2.2.3.2}% 
+\contentsline {subsubsection}{\numberline {2.2.3.3}Non-stationarity}{32}{subsubsection.2.2.3.3}% 
+\contentsline {subsubsection}{\numberline {2.2.3.4}Parameterising Q values with neural networks}{32}{subsubsection.2.2.3.4}% 
+\contentsline {subsubsection}{\numberline {2.2.3.5}Experience Replay}{32}{subsubsection.2.2.3.5}% 
+\contentsline {subsection}{\numberline {2.2.4}Limitations of Vanilla Deep Q-Networks}{32}{subsection.2.2.4}% 
+\contentsline {subsubsection}{\numberline {2.2.4.1}Memory}{32}{subsubsection.2.2.4.1}% 
+\contentsline {subsubsection}{\numberline {2.2.4.2}Exploration}{32}{subsubsection.2.2.4.2}% 
+\contentsline {subsubsection}{\numberline {2.2.4.3}Exploitation}{32}{subsubsection.2.2.4.3}% 
+\contentsline {subsubsection}{\numberline {2.2.4.4}Rainbow DQN}{32}{subsubsection.2.2.4.4}% 
+\contentsline {section}{\numberline {2.3}Multi-Agent Reinforcement Learning}{32}{section.2.3}% 
+\contentsline {subsection}{\numberline {2.3.1}Stochastic Games}{32}{subsection.2.3.1}% 
+\contentsline {subsubsection}{\numberline {2.3.1.1}Game Theory}{32}{subsubsection.2.3.1.1}% 
+\contentsline {subsubsection}{\numberline {2.3.1.2}Expected Pay-offs as Expected Rewards}{32}{subsubsection.2.3.1.2}% 
+\contentsline {subsubsection}{\numberline {2.3.1.3}Multi-Agent Games}{32}{subsubsection.2.3.1.3}% 
+\contentsline {subsubsection}{\numberline {2.3.1.4}Mean Field Games}{32}{subsubsection.2.3.1.4}% 
+\contentsline {subsubsection}{\numberline {2.3.1.5}Mean Field multi-agent reinforcement learning}{32}{subsubsection.2.3.1.5}% 
+\contentsline {section}{\numberline {2.4}Related Work}{32}{section.2.4}% 
+\contentsline {subsection}{\numberline {2.4.1}MCMC methods for lattice models}{32}{subsection.2.4.1}% 
+\contentsline {subsection}{\numberline {2.4.2}Deep Learning methods for lattice models}{32}{subsection.2.4.2}% 
+\contentsline {subsubsection}{\numberline {2.4.2.1}Alpha-Fold}{32}{subsubsection.2.4.2.1}% 
+\contentsline {subsection}{\numberline {2.4.3}Reinforcement Learning methods for lattice models}{32}{subsection.2.4.3}% 

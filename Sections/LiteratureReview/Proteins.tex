@@ -410,9 +410,17 @@ Motivated by the role of the hydrophobic collapse, the folding problem within th
 framework is a function that maximises $t_{HH}$ ; this is equivalent to
 minimizing $S$. The logic follows that the most tightly packed core, that with the minimal
 surface area should also have the densest packing of $H-H$ contacts. \\
-
-The favourability of any contact pair in terms of interaction potential ($\varepsilon$) matrix, which measures
-the contribution to the total Gibbs free energy of the system \cite{Hoque}:
+\cite{Dill,Lau1989} show that an unguided exhaustive search through the coformational
+landscape is unlikely to find a single candidate native state but instead produce
+a set of states with high degeneracy; indicating that many conformations shared
+the same free energy value due to the numerous local minima. However by introducing
+a heuristic that guided the conformation through as hydrophobic collapse, a much
+smaller set of candidate conformations with much less degeneracy was produced.
+Genetic algorithms were developed to overcome the rugged landscape, their fitness
+function was determined by the favourability of any contact 
+pair derived for experimental data.
+This resulted in the interaction potential ($\varepsilon$) matrix, which is a measure of
+that interaction's contribution to the total $\Delta G$ of the system \cite{Hoque}:
 \begin{table}[!htb]
     \begin{center}
         \caption{}
@@ -426,6 +434,66 @@ the contribution to the total Gibbs free energy of the system \cite{Hoque}:
             \hline
         \end{tabular}
     \end{center}
-\end{table}
+\end{table}\\
+When \cite{Lau1989} first proposed the model, only 2D lattices were explored at the time with
+exhaustive search techniques and the simulations were evaluated
+against \emph{mean-field} approximations of the system. \cite{Yue} then introduced linear integer programming methods
+that conducted volumetric optimization such as those described by (2.10-2.11) 
+on a 3D primitive cubic lattice. There are some key limitations imposed on the mean-field
+approximations which are explored in \textbf{Related Work} and \textbf{System Design and Specification};
+subsequent improvements to the original HP model were also introduced and are explored next.
 
 \subsubsection{hHPNX Model}
+\cite{Hoque} showed that previously explored variants of the HP model on 2D and 3D
+lattices were still prone to large degeneracy in the solutions they produced. This was
+a result of the limitations imposed by having only two possible categories; stochastic
+methods end up traversing many redundant solutions for each non-native conformation visited
+in the search-space\footnote{This can be proved using Group Theory axioms as lattices form geometric groups - needs citation}.
+The original HP categories were further subdivided according the relative polarities of
+the side chains:
+\begin{itemize}
+    \item $P \mapsto \{P, N, X\}$ 
+    \item $H \mapsto \{h, H\}$
+\end{itemize}
+They then correcte errors in the calculated interaction potentials
+of the previously proposed HPNX and YhHX models \cite{BornbergBauer1997} producing
+the hHPNX interaction matrix :
+\begin{table}[!htb]
+    \begin{center}
+        \caption{}
+        \begin{tabular}{|c || c | c | c | c | c|}
+            \hline
+             & h & H & P & N & X \\
+            \hline
+            h & 2 & -4 & 0 & 0 & 0 \\
+            \hline
+            H & -4 & -3 & 0 & 0 & 0 \\
+            \hline
+            P & 0 & 0 & 1 & -1 & 0\\
+            \hline
+            N & 0 & 0 & -1 & 1 & 0\\
+            \hline
+            X & 0 & 0 & 0 & 0 & 0\\ 
+            \hline
+        \end{tabular}
+    \end{center}
+\end{table}\\
+The extended categories were also motivated by experimatal data that
+emphasises the importance of treating \emph{Alanine} and \emph{Valine}\footnote{$A, V \in H$ in HPNX}
+separately from other hydrophobic residues as they consistently observed
+that these groups underwent different reactions, resulting in different potentials;
+this was attributed to their geometrical positions in the folded protein \cite{Crippen1991}.\\
+
+More detailed work has been conducted in the work I has cited thus far,
+including but not limited to:
+\begin{itemize}
+    \item Investigating geometric and volumentric constraints of various lattice structures\footnote{\cite{Yue,Dill}}.
+    \item Optimizing linear integer programming constraints with tighter bounds on $H-H$ contacts\footnote{\cite{Yue}}.
+    \item Analysis of conformational lanscapes with respect to free energy landscapes\footnote{\cite{Dill}}.
+    \item Probabilistic thermodynamic analysis of folding pathways\footnote{\cite{Yang,Dill}}.
+\end{itemize}
+
+Thus far I have summarised the most important results from these authors within the context of this project.
+In \textbf{Related Work} I will explore how these models have been re-contextualised within the
+reinforcement learning framework and then propose a novel method that incorporates results
+covered in this section that have yet to be exploited in recent work.
