@@ -50,7 +50,7 @@ class CDPAgent:
         atom_size: int = 51,
         # PER parameters
         alpha: float = 0.2,
-        beta: float = 0.6,
+        beta: float = 0.4,
         prior_eps: float = 1e-6,
         min_train: int = 0
     ):

@@ -63,6 +63,18 @@ Lau, K.~F. \harvardand\ Dill, K.~A.  \harvardyearleft 1989\harvardyearright ,
   spaces of proteins', {\em Macromolecules} {\bf 22}(10),~3986--3997.
 \newline\harvardurl{https://doi.org/10.1021/ma00200a030}
 
+\harvarditem[Lee et~al.]{Lee, Bahri, Novak, Schoenholz, Pennington \harvardand\
+  Sohl-Dickstein}{2017}{Jaehoon2017}
+Lee, J., Bahri, Y., Novak, R., Schoenholz, S.~S., Pennington, J. \harvardand\
+  Sohl-Dickstein, J.  \harvardyearleft 2017\harvardyearright , `Deep neural
+  networks as gaussian processes'.
+
+\harvarditem[Lee et~al.]{Lee, Xiao, Schoenholz, Bahri, Novak, Sohl-Dickstein
+  \harvardand\ Pennington}{2019}{Jaehoon2019}
+Lee, J., Xiao, L., Schoenholz, S.~S., Bahri, Y., Novak, R., Sohl-Dickstein, J.
+  \harvardand\ Pennington, J.  \harvardyearleft 2019\harvardyearright , `Wide
+  neural networks of any depth evolve as linear models under gradient descent'.
+
 \harvarditem{Lesk}{2018}{lesk}
 Lesk, A.  \harvardyearleft 2018\harvardyearright , {\em Introduction to
   bioinformatics}, Oxford University Press, Oxford New York.
@@ -74,6 +86,24 @@ Lucrezia, D.~D., Slanzi, D., Poli, I., Polticelli, F. \harvardand\ Minervini,
   random sequences polypeptides? natural vs. random proteins classification
   using an evolutionary neural network', {\em {PLoS} {ONE}} {\bf 7}(5),~e36634.
 \newline\harvardurl{https://doi.org/10.1371/journal.pone.0036634}
+
+\harvarditem{Margossian}{2019}{Margossian2019}
+Margossian, C.~C.  \harvardyearleft 2019\harvardyearright , `A review of
+  automatic differentiation and its efficient implementation', {\em {WIREs}
+  Data Mining and Knowledge Discovery} {\bf 9}(4).
+\newline\harvardurl{https://doi.org/10.1002/widm.1305}
+
+\harvarditem[Mnih et~al.]{Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare,
+  Graves, Riedmiller, Fidjeland, Ostrovski, Petersen, Beattie, Sadik,
+  Antonoglou, King, Kumaran, Wierstra, Legg \harvardand\
+  Hassabis}{2015}{Mnih2015}
+Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
+  M.~G., Graves, A., Riedmiller, M., Fidjeland, A.~K., Ostrovski, G., Petersen,
+  S., Beattie, C., Sadik, A., Antonoglou, I., King, H., Kumaran, D., Wierstra,
+  D., Legg, S. \harvardand\ Hassabis, D.  \harvardyearleft
+  2015\harvardyearright , `Human-level control through deep reinforcement
+  learning', {\em Nature} {\bf 518}(7540),~529--533.
+\newline\harvardurl{https://doi.org/10.1038/nature14236}
 
 \harvarditem{Sutton}{2018}{sutton2018reinforcement}
 Sutton, R.  \harvardyearleft 2018\harvardyearright , {\em Reinforcement
@@ -93,6 +123,14 @@ Weiss, O., Jim{\'{e}}nez-Monta{\~{n}}o, M.~A. \harvardand\ Herzel, H.
   sequences', {\em Journal of Theoretical Biology} {\bf 206}(3),~379--386.
 \newline\harvardurl{https://doi.org/10.1006/jtbi.2000.2138}
 
+\harvarditem[Weisz et~al.]{Weisz, Budzianowski, Su \harvardand\
+  Gasic}{2018}{Weisz2018}
+Weisz, G., Budzianowski, P., Su, P.-H. \harvardand\ Gasic, M.  \harvardyearleft
+  2018\harvardyearright , `Sample efficient deep reinforcement learning for
+  dialogue systems with large action spaces', {\em {IEEE}/{ACM} Transactions on
+  Audio, Speech, and Language Processing} {\bf 26}(11),~2083--2097.
+\newline\harvardurl{https://doi.org/10.1109/taslp.2018.2851664}
+
 \harvarditem[Yang et~al.]{Yang, Ji \harvardand\ Liu}{2013}{Yang}
 Yang, L.-Q., Ji, X.-L. \harvardand\ Liu, S.-Q.  \harvardyearleft
   2013\harvardyearright , `The free energy landscape of protein folding and
@@ -105,5 +143,11 @@ Yue, K. \harvardand\ Dill, K.~A.  \harvardyearleft 1993\harvardyearright ,
   `Sequence-structure relationships in proteins and copolymers', {\em Physical
   Review E} {\bf 48}(3),~2267--2278.
 \newline\harvardurl{https://doi.org/10.1103/physreve.48.2267}
+
+\harvarditem[Zhu et~al.]{Zhu, Cheng, Zhang, Liu, He, Yao \harvardand\
+  Zhou}{2019}{Xiaoke2019}
+Zhu, X., Cheng, T., Zhang, Q., Liu, L., He, J., Yao, S. \harvardand\ Zhou, W.
+  \harvardyearleft 2019\harvardyearright , `Nn-sort: Neural network based data
+  distribution-aware sorting'.
 
 \end{thebibliography}

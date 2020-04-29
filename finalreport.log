@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.6)  23 APR 2020 12:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.6)  28 APR 2020 19:20
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -623,57 +623,267 @@ Package: multicol 2018/12/27 v1.8v multicolumn formatting (FMi)
 \mc@col@check@num=\count161
 ) (/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
+) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2019-07-01 L3 programming layer (loader) 
+ (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+Package: expl3 2019-07-01 L3 programming layer (code)
+\c_max_int=\count162
+\l_tmpa_int=\count163
+\l_tmpb_int=\count164
+\g_tmpa_int=\count165
+\g_tmpb_int=\count166
+\g__kernel_prg_map_int=\count167
+\c__ior_term_ior=\count168
+\c_log_iow=\count169
+\l_iow_line_count_int=\count170
+\l__iow_line_target_int=\count171
+\l__iow_one_indent_int=\count172
+\l__iow_indent_int=\count173
+\c_zero_dim=\dimen265
+\c_max_dim=\dimen266
+\l_tmpa_dim=\dimen267
+\l_tmpb_dim=\dimen268
+\g_tmpa_dim=\dimen269
+\g_tmpb_dim=\dimen270
+\c_zero_skip=\skip71
+\c_max_skip=\skip72
+\l_tmpa_skip=\skip73
+\l_tmpb_skip=\skip74
+\g_tmpa_skip=\skip75
+\g_tmpb_skip=\skip76
+\c_zero_muskip=\muskip12
+\c_max_muskip=\muskip13
+\l_tmpa_muskip=\muskip14
+\l_tmpb_muskip=\muskip15
+\g_tmpa_muskip=\muskip16
+\g_tmpb_muskip=\muskip17
+\l_keys_choice_int=\count174
+\l__intarray_loop_int=\count175
+\c__intarray_sp_dim=\dimen271
+\g__intarray_font_int=\count176
+\c__fp_leading_shift_int=\count177
+\c__fp_middle_shift_int=\count178
+\c__fp_trailing_shift_int=\count179
+\c__fp_big_leading_shift_int=\count180
+\c__fp_big_middle_shift_int=\count181
+\c__fp_big_trailing_shift_int=\count182
+\c__fp_Bigg_leading_shift_int=\count183
+\c__fp_Bigg_middle_shift_int=\count184
+\c__fp_Bigg_trailing_shift_int=\count185
+\c__kernel_randint_max_int=\count186
+\g__fp_array_int=\count187
+\l__fp_array_loop_int=\count188
+\l__sort_length_int=\count189
+\l__sort_min_int=\count190
+\l__sort_top_int=\count191
+\l__sort_max_int=\count192
+\l__sort_true_max_int=\count193
+\l__sort_block_int=\count194
+\l__sort_begin_int=\count195
+\l__sort_end_int=\count196
+\l__sort_A_int=\count197
+\l__sort_B_int=\count198
+\l__sort_C_int=\count199
+\l__str_internal_int=\count266
+\c__str_replacement_char_int=\count267
+\l__tl_analysis_normal_int=\count268
+\l__tl_analysis_index_int=\count269
+\l__tl_analysis_nesting_int=\count270
+\l__tl_analysis_type_int=\count271
+\l__regex_internal_a_int=\count272
+\l__regex_internal_b_int=\count273
+\l__regex_internal_c_int=\count274
+\l__regex_balance_int=\count275
+\l__regex_group_level_int=\count276
+\l__regex_mode_int=\count277
+\c__regex_cs_in_class_mode_int=\count278
+\c__regex_cs_mode_int=\count279
+\l__regex_catcodes_int=\count280
+\l__regex_default_catcodes_int=\count281
+\c__regex_catcode_D_int=\count282
+\c__regex_catcode_S_int=\count283
+\c__regex_catcode_L_int=\count284
+\c__regex_catcode_O_int=\count285
+\c__regex_catcode_A_int=\count286
+\c__regex_all_catcodes_int=\count287
+\l__regex_show_lines_int=\count288
+\l__regex_min_state_int=\count289
+\l__regex_max_state_int=\count290
+\l__regex_left_state_int=\count291
+\l__regex_right_state_int=\count292
+\l__regex_capturing_group_int=\count293
+\l__regex_min_pos_int=\count294
+\l__regex_max_pos_int=\count295
+\l__regex_curr_pos_int=\count296
+\l__regex_start_pos_int=\count297
+\l__regex_success_pos_int=\count298
+\l__regex_curr_char_int=\count299
+\l__regex_curr_catcode_int=\count300
+\l__regex_last_char_int=\count301
+\l__regex_case_changed_char_int=\count302
+\l__regex_curr_state_int=\count303
+\l__regex_step_int=\count304
+\l__regex_min_active_int=\count305
+\l__regex_max_active_int=\count306
+\l__regex_replacement_csnames_int=\count307
+\l__regex_match_count_int=\count308
+\l__regex_min_submatch_int=\count309
+\l__regex_submatch_int=\count310
+\l__regex_zeroth_submatch_int=\count311
+\g__regex_trace_regex_int=\count312
+\c_empty_box=\box70
+\l_tmpa_box=\box71
+\l_tmpb_box=\box72
+\g_tmpa_box=\box73
+\g_tmpb_box=\box74
+\l__box_top_dim=\dimen272
+\l__box_bottom_dim=\dimen273
+\l__box_left_dim=\dimen274
+\l__box_right_dim=\dimen275
+\l__box_top_new_dim=\dimen276
+\l__box_bottom_new_dim=\dimen277
+\l__box_left_new_dim=\dimen278
+\l__box_right_new_dim=\dimen279
+\l__box_internal_box=\box75
+\l__coffin_internal_box=\box76
+\l__coffin_internal_dim=\dimen280
+\l__coffin_offset_x_dim=\dimen281
+\l__coffin_offset_y_dim=\dimen282
+\l__coffin_x_dim=\dimen283
+\l__coffin_y_dim=\dimen284
+\l__coffin_x_prime_dim=\dimen285
+\l__coffin_y_prime_dim=\dimen286
+\c_empty_coffin=\box77
+\l__coffin_aligned_coffin=\box78
+\l__coffin_aligned_internal_coffin=\box79
+\l_tmpa_coffin=\box80
+\l_tmpb_coffin=\box81
+\g_tmpa_coffin=\box82
+\g_tmpb_coffin=\box83
+\l__coffin_bounding_shift_dim=\dimen287
+\l__coffin_left_corner_dim=\dimen288
+\l__coffin_right_corner_dim=\dimen289
+\l__coffin_bottom_corner_dim=\dimen290
+\l__coffin_top_corner_dim=\dimen291
+\l__coffin_scaled_total_height_dim=\dimen292
+\l__coffin_scaled_width_dim=\dimen293
+\c__coffin_empty_coffin=\box84
+\l__coffin_display_coffin=\box85
+\l__coffin_display_coord_coffin=\box86
+\l__coffin_display_pole_coffin=\box87
+\l__coffin_display_offset_dim=\dimen294
+\l__coffin_display_x_dim=\dimen295
+\l__coffin_display_y_dim=\dimen296
+\g__file_internal_ior=\read2
+\l__seq_internal_a_int=\count313
+\l__seq_internal_b_int=\count314
+\c__deprecation_minus_one=\count315
+) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2019-04-06 v L3 Experimental backend support: PDF mode
+\l__kernel_color_stack_int=\count316
+\l__pdf_internal_box=\box88
+))
+Package: xparse 2019-05-28 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count317
+\g__xparse_grabber_int=\count318
+\l__xparse_m_args_int=\count319
+\l__xparse_v_nesting_int=\count320
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count321
+\algocf@hangindent=\skip77
+ (/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count322
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+\skiptotal=\skip78
+\skiplinenumber=\skip79
+\skiprule=\skip80
+\skiphlne=\skip81
+\skiptext=\skip82
+\skiplength=\skip83
+\algomargin=\skip84
+\skipalgocfslide=\skip85
+\algowidth=\dimen297
+\inoutsize=\dimen298
+\inoutindent=\dimen299
+\interspacetitleruled=\dimen300
+\interspacealgoruled=\dimen301
+\interspacetitleboxruled=\dimen302
+\algocf@ruledwidth=\skip86
+\algocf@inoutbox=\box89
+\algocf@inputbox=\box90
+\AlCapSkip=\skip87
+\AlCapHSkip=\skip88
+\algoskipindent=\skip89
+\algocf@nlbox=\box91
+\algocf@hangingbox=\box92
+\algocf@untilbox=\box93
+\algocf@skipuntil=\skip90
+\algocf@capbox=\box94
+\algocf@lcaptionbox=\skip91
+\algoheightruledefault=\skip92
+\algoheightrule=\skip93
+\algotitleheightruledefault=\skip94
+\algotitleheightrule=\skip95
+\c@algocfline=\count323
+\c@algocfproc=\count324
+\c@algocf=\count325
+\algocf@algoframe=\box95
+\algocf@algobox=\box96
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
 File: tikzlibraryarrows.code.tex 2019/05/09 v3.1.3 (3.1.3)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
 File: pgflibraryarrows.code.tex 2019/05/09 v3.1.3 (3.1.3)
-\arrowsize=\dimen265
+\arrowsize=\dimen303
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryautomata.code.tex
 File: tikzlibraryautomata.code.tex 2019/05/09 v3.1.3 (3.1.3)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.multipart.code.tex
 File: tikzlibraryshapes.multipart.code.tex 2019/05/09 v3.1.3 (3.1.3)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2019/05/09 v3.1.3 (3.1.3)
-\pgfnodepartlowerbox=\box70
-\pgfnodeparttwobox=\box71
-\pgfnodepartthreebox=\box72
-\pgfnodepartfourbox=\box73
-\pgfnodeparttwentybox=\box74
-\pgfnodepartnineteenbox=\box75
-\pgfnodeparteighteenbox=\box76
-\pgfnodepartseventeenbox=\box77
-\pgfnodepartsixteenbox=\box78
-\pgfnodepartfifteenbox=\box79
-\pgfnodepartfourteenbox=\box80
-\pgfnodepartthirteenbox=\box81
-\pgfnodeparttwelvebox=\box82
-\pgfnodepartelevenbox=\box83
-\pgfnodeparttenbox=\box84
-\pgfnodepartninebox=\box85
-\pgfnodeparteightbox=\box86
-\pgfnodepartsevenbox=\box87
-\pgfnodepartsixbox=\box88
-\pgfnodepartfivebox=\box89
+\pgfnodepartlowerbox=\box97
+\pgfnodeparttwobox=\box98
+\pgfnodepartthreebox=\box99
+\pgfnodepartfourbox=\box100
+\pgfnodeparttwentybox=\box101
+\pgfnodepartnineteenbox=\box102
+\pgfnodeparteighteenbox=\box103
+\pgfnodepartseventeenbox=\box104
+\pgfnodepartsixteenbox=\box105
+\pgfnodepartfifteenbox=\box106
+\pgfnodepartfourteenbox=\box107
+\pgfnodepartthirteenbox=\box108
+\pgfnodeparttwelvebox=\box109
+\pgfnodepartelevenbox=\box110
+\pgfnodeparttenbox=\box111
+\pgfnodepartninebox=\box112
+\pgfnodeparteightbox=\box113
+\pgfnodepartsevenbox=\box114
+\pgfnodepartsixbox=\box115
+\pgfnodepartfivebox=\box116
 )))
-\c@lemma=\count162
-\c@theorem=\count163
+\c@lemma=\count326
+\c@theorem=\count327
  (./finalreport.aux (./abstract.aux) (./acknowledgements.aux) (./glossary.aux) (./abbrev.aux) (./chapter1.aux) (./chapter2.aux))
 \openout1 = `finalreport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -711,16 +921,16 @@ LaTeX Font Info:    ... okay on input line 42.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count164
-\scratchdimen=\dimen266
-\scratchbox=\box90
-\nofMPsegments=\count165
-\nofMParguments=\count166
+\scratchcounter=\count328
+\scratchdimen=\dimen304
+\scratchbox=\box117
+\nofMPsegments=\count329
+\nofMParguments=\count330
 \everyMPshowfont=\toks43
-\MPscratchCnt=\count167
-\MPscratchDim=\dimen267
-\MPnumerator=\count168
-\makeMPintoPDFobject=\count169
+\MPscratchCnt=\count331
+\MPscratchDim=\dimen305
+\MPnumerator=\count332
+\makeMPintoPDFobject=\count333
 \everyMPtoPDFconversion=\toks44
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -734,18 +944,18 @@ Package grfext Info: Graphics extension search list:
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\AtBeginShipoutBox=\box91
-Package hyperref Info: Link coloring OFF on input line 42.
+\AtBeginShipoutBox=\box118
+Package hyperref Info: Link coloring OFF on input line 60.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count170
+\c@section@level=\count334
 )
-LaTeX Info: Redefining \ref on input line 42.
-LaTeX Info: Redefining \pageref on input line 42.
-LaTeX Info: Redefining \nameref on input line 42.
+LaTeX Info: Redefining \ref on input line 60.
+LaTeX Info: Redefining \pageref on input line 60.
+LaTeX Info: Redefining \nameref on input line 60.
  (./finalreport.out) (./finalreport.out)
 \@outlinefile=\write4
 \openout4 = `finalreport.out'.
@@ -761,14 +971,14 @@ ABD: EveryShipout initializing macros [1
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.43 \maketitle
+l.61 \maketitle
                 [1]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 61.
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 61.
  [2]
 \openout2 = `abstract.aux'.
 
@@ -793,11 +1003,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [5
 
 
-])
+] [6])
 \tf@toc=\write5
 \openout5 = `finalreport.toc'.
 
- [6] [7] (./finalreport.lof)
+ [7] (./finalreport.lof)
 \tf@lof=\write6
 \openout6 = `finalreport.lof'.
 
@@ -839,7 +1049,7 @@ Chapter 2.
 (./Sections/LiteratureReview/Proteins.tex
 Package svg Info: Last page of `./svg-inkscape/PeptideBond_svg-tex.pdf' is 1 on input line 47.
  (./svg-inkscape/PeptideBond_svg-tex.pdf_tex
-<./svg-inkscape/PeptideBond_svg-tex.pdf, id=364, page=1, 445.96072pt x 91.15013pt>
+<./svg-inkscape/PeptideBond_svg-tex.pdf, id=374, page=1, 445.96072pt x 91.15013pt>
 File: ./svg-inkscape/PeptideBond_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/PeptideBond_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/PeptideBond_svg-tex.pdf , page1 used on input line 56.
@@ -864,13 +1074,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 65--73
 
  []
 
-<Figures/RamachandranPlot.jpg, id=372, 373.81035pt x 333.93724pt>
+<Figures/RamachandranPlot.jpg, id=382, 373.81035pt x 333.93724pt>
 File: Figures/RamachandranPlot.jpg Graphic file (type jpg)
 <use Figures/RamachandranPlot.jpg>
 Package pdftex.def Info: Figures/RamachandranPlot.jpg  used on input line 77.
 (pdftex.def)             Requested size: 224.28793pt x 200.36388pt.
 [17 <./svg-inkscape/PeptideBond_svg-tex.pdf>] [18 <./Figures/RamachandranPlot.jpg>]
-<Figures/Structures.jpg, id=405, 337.04681pt x 155.41248pt>
+<Figures/Structures.jpg, id=415, 337.04681pt x 155.41248pt>
 File: Figures/Structures.jpg Graphic file (type jpg)
 <use Figures/Structures.jpg>
 Package pdftex.def Info: Figures/Structures.jpg  used on input line 109.
@@ -881,24 +1091,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 193--204
  []
 
 [20]
-<Figures/FreeEnergyLandscape.jpeg, id=422, 236.95082pt x 122.87593pt>
+<Figures/FreeEnergyLandscape.jpeg, id=432, 236.95082pt x 122.87593pt>
 File: Figures/FreeEnergyLandscape.jpeg Graphic file (type jpg)
 <use Figures/FreeEnergyLandscape.jpeg>
 Package pdftex.def Info: Figures/FreeEnergyLandscape.jpeg  used on input line 208.
 (pdftex.def)             Requested size: 123.1395pt x 115.76247pt.
  [21 <./Figures/FreeEnergyLandscape.jpeg>] [22]
-Underfull \hbox (badness 10000) in paragraph at lines 301--305
+Underfull \hbox (badness 10000) in paragraph at lines 301--306
 
  []
 
 [23]
-<Figures/lattices.png, id=455, 903.375pt x 301.125pt>
+<Figures/lattices.png, id=466, 903.375pt x 301.125pt>
 File: Figures/lattices.png Graphic file (type png)
 <use Figures/lattices.png>
-Package pdftex.def Info: Figures/lattices.png  used on input line 349.
+Package pdftex.def Info: Figures/lattices.png  used on input line 350.
 (pdftex.def)             Requested size: 225.8432pt x 75.28105pt.
  [24 <./Figures/lattices.png>] [25] [26]
-Underfull \hbox (badness 10000) in paragraph at lines 458--486
+Underfull \hbox (badness 10000) in paragraph at lines 459--487
 
  []
 
@@ -908,30 +1118,37 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 51.
 See the caption package documentation for explanation.
 
-[29]) (./Sections/LiteratureReview/MultiAgentLearning.tex) (./Sections/LiteratureReview/RelatedWork.tex)) [30] [31]
-Overfull \vbox (213.77977pt too high) has occurred while \output is active []
-
- [32] (./finalreport.bbl [33
+[29] [30] [31] [32] [33] [34] [35] [36] [37] [38] [39] [40] [41] [42]) (./Sections/LiteratureReview/MultiAgentLearning.tex) (./Sections/LiteratureReview/RelatedWork.tex)) [43] (./finalreport.bbl [44
 
 
-]) [34]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 71.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 71.
+] [45]) [46]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 89.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 89.
  (./finalreport.aux (./abstract.aux) (./acknowledgements.aux) (./glossary.aux) (./abbrev.aux) (./chapter1.aux) (./chapter2.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 71.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 71.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 89.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 89.
 Package rerunfilecheck Info: File `finalreport.out' has not changed.
-(rerunfilecheck)             Checksum: FD02FB4256F824A83C98A81F79B2AF67;3409.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 71.
+(rerunfilecheck)             Checksum: 42FB9C47D535C65170472C23A4DB8BDB;3561.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 89.
  ) 
 Here is how much of TeX's memory you used:
- 22938 strings out of 492609
- 435756 string characters out of 6131463
- 552864 words of memory out of 5000000
- 26177 multiletter control sequences out of 15000+600000
- 30286 words of font info for 85 fonts, out of 8000000 for 9000
+ 34192 strings out of 492609
+ 656863 string characters out of 6131463
+ 753655 words of memory out of 5000000
+ 37342 multiletter control sequences out of 15000+600000
+ 558984 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,21n,87p,453b,1125s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.26} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.25} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.24} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.23} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.22} has been referenced but does not exist, replaced by a fixed one
+
 pdfTeX warning (dest): name{Hfootnote.21} has been referenced but does not exist, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.20} has been referenced but does not exist, replaced by a fixed one
@@ -974,11 +1191,11 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on finalreport.pdf (35 pages, 1053455 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on finalreport.pdf (47 pages, 1133143 bytes).
 PDF statistics:
- 694 PDF objects out of 1000 (max. 8388607)
- 611 compressed objects within 7 object streams
- 171 named destinations out of 1000 (max. 500000)
- 401 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 831 PDF objects out of 1000 (max. 8388607)
+ 734 compressed objects within 8 object streams
+ 233 named destinations out of 1000 (max. 500000)
+ 417 words of extra memory for PDF output out of 10000 (max. 10000000)
 
