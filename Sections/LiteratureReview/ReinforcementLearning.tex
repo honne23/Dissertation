@@ -577,8 +577,255 @@ human benchmarks at a super human level for the first time (adapted from the ori
 \end{algorithm}
 
 \subsection{Improvements to Vanilla Deep Q-Networks}
-The success of the original DQN algorithm was not without flaws however.
-\subsubsection{Memory}
-\subsubsection{Exploration}
-\subsubsection{Exploitation}
+Although the initial algorithm was very successful, it came with various stability 
+issues arising from different sources. In particular, bootstraped values can be inherently
+unstable \cite{sutton2018reinforcement} due to the nature of trying to estimate a guess from
+a guess. Additionaly, sampling memories uniformly at random implicitly samples
+are larger number of unsuccesful memories (i.e ones that did not attain a reward) than successful
+memories as the action selections are initially random and uninformed at the start of training.
+The na\"{i}ve $\varepsilon$ greedy policy is also prohibitive; it monotonic decrease across
+the training run indicates that the exploration coefficient decreases for all states uniformly.
+Another way of stating this is that no matter what state the agent is in, the likelihood
+of choosing a random action to explore more of the state space decreases over time.
+This may not be a desireable attribute, as we may want to explore more in some states over others,
+and this preference for exploration may change over time as learn new information and update
+our estimates (via bootstrapping). \\
+In follow up work \cite{Hessel2017} combine subsequent improvements to the original DQN algorithm
+addressing the issues listed above into a single agent termedthe "Rainbow" agent. I will
+go over each of the suggested improvements.
+\subsubsection{Prioritised Experience Replay}
+The motivation behind \emph{Prioritised Experience Replay} \cite{Schaul2015} is the notion that given
+a batch of pre-recorded memories, the agent should ideally prioritise learning 
+from certain experiences over others. Their work follows from neuroscientific studies
+suggesting that the sequences of memories selected for experience replay in animals
+are chosen proportionally to the rewards associated with that sequence and the magnitude of the
+$\delta_t$ error. The magnitude of the $\delta_t$ error can be interpreted as the amount of "surprise"
+associated with the that sequence, if our estimated Q value for a state action pair was far
+from our target, the the result of our actions will always deviate from expectations because we did not
+form a reliable way to ascertain the outcome of events. Updating our estimates for events in which
+we were surprised is a necessary part of the learning cycle, and so prioritising memories according
+to this surprise is warrented.\\
+The authors assign a probability of being played to each memory as such:
+\begin{equation}
+    \begin{gathered}
+        p_i = \vert \delta_i \vert + \epsilon \\
+        P(i) = \biggl(\frac{p_i}{\sum_k p_k}\biggl)^\alpha
+    \end{gathered}
+\end{equation}
+Where $\epsilon$ is some small positive constant to prevent the priority $p_i$ from being zero
+and $P(i)$ is the probability of the transition being chosen for replay. The exponent $\alpha$
+determines the amound of prioritisation used where $\alpha = 0$ is uniform (regular experience replay).
+However the use of such a distribution introduces bias into the updates of the $Q$ value. The estimation
+of an expected value with stochastic updates relies on those updates come from the same distribution as
+our estimatiom, by construction the distribution as in (2.51), we are now drawing on observations
+from a different distribution than the one underlying the MDP. This is corrected for with 
+importance sampling weights introduced in \textbf{2.2.1.5}.
+\begin{equation}
+    \begin{gathered}
+        w_i = \biggl(\frac{1}{N}\cdot \frac{1}{P(i)} \biggl)^\beta \\
+        \nabla_\theta E = \sum_{j=1}^N w_j \delta_j \nabla_\theta Q(S_{j-1}, A_{j-1}\:; \: \theta)
+    \end{gathered}
+\end{equation}
+The bias is fully compensated for at $\beta = 1$ this ofcourse is coupled with a significant
+increase in variance. In practice, the authors additionaly normalise the weights with $\frac{1}{\max_i w_i}$
+so that the updates only scale downwards to reduce the overall magnitudes of the gradient updates
+and $\beta$ is initialised to a low value $\backsim 0.4$ which is 
+linearly annealed up to 1, this encourages additional stability during the training procedure.
+The observations themselves are stored in a binary heap, specifically a \emph{Sum Segement Tree} rather
+than a typical array or buffer:
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered,
+    font=\sffamily},
+  arn_n/.style = {treenode, circle, black, draw=black,
+    text width=2em},% arbre rouge noir, noeud noir
+  arn_r/.style = {treenode, circle, black, draw=black,
+  text width=2em},% arbre rouge noir, noeud rouge
+  arn_x/.style = {treenode, rectangle, draw=black,
+    minimum width=0.5em, minimum height=0.5em}% arbre rouge noir, nil
+}
+\begin{figure}[!htb]
+    \caption{Sum Segment Tree}
+    \begin{center}
+        \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
+            level distance = 1.5cm}] 
+            
+            \node [arn_n] {1}
+            child{ node [arn_r] {0.33}
+                        child{ node [arn_n] {0.15} 
+                        }
+                        child{ node [arn_n] {0.18}
+                        }
+                    }
+                child{ node [arn_r] {0.67} 
+                        child{ node [arn_n] {0.25} edge from parent node[above left]
+                        {$0.67 - 0.42$} 
+                        }
+                        child{ node [arn_n] {0.42}
+                        }  
+                        edge from parent node[above right]
+                        {$1 - 0.33$}                           
+                }
+                
+            ; 
+            \end{tikzpicture}
+    \end{center}
+\end{figure}
+This offers the added benefit of $O(1)$ max priority read, the root of the tree, and 
+$O(log N)$ time to update the priorities of each transition which resides on the leaves of
+the tree. To traverse the tree for a batch size of $k$ memories, the interval $[0, p_{total}]$ is divided into $k$ equal intervals.
+Each of these intervals is then uniformly sampled to produce a priority in that interval. The
+transition whose value is the closest to each sampled priority is then chosen for replay by succesively
+subtracting results until you arrive at a leaf. Observe that the leaves of the tree are ordered, enabling
+this speed up in traversal.
+\subsubsection{Dueling Networks}
+\cite{Ziyu2015} observed that the action value function can be decomposed
+further into a value and advantage function:
+\begin{equation}
+    Q(s,a) = V(s) + A(s,a)
+\end{equation}
+Where the advantage is a measure of the advantage of taking an action in that state relative
+to other possible actions. The expected value of a state is an estimate that takes into account
+all possible action values of that state. Given than some values will be more valuable than others,
+the expected value of a state can be taken to represent the weighted mean of all action values. Therefore
+the maximal value of the optimal action of a state, will be greater than the mean, this difference is 
+expressed as the advantage of that action. Ofcourse, in an optimal setting:
+\begin{equation}
+    \begin{gathered}
+        A(s,a) = 0 \Longleftrightarrow V^*(s) = \max_a Q^*(s,a)\\
+        \rightarrow A(s,a) = Q^*(s,a) - V^*(s) = 0
+    \end{gathered}
+\end{equation}
+As the value of a state is the value of the most optimal action, the relative advantage of
+the action to itself is $0$. Given only a $Q$ function we cannot recover the value
+and advantage and value uniquely due to the nature of the inter-connectedness of the neural
+network. Changes in the weights affect the entire space of approximation. Instead
+the authors decompose the output layer of the DQN into two seperate heads, one that calculates
+the advantage and another to calculate the value (as a scalar).
+
+\definecolor{olivegreen}{rgb}{0,0.6,0}
+\begin{figure}[!htb]
+    \caption{Dueling Network Heads}
+    \begin{center}
+        \begin{tikzpicture}
+
+            \path[rounded corners, fill=blue, fill opacity=0.2] (-0.4, 3.5) --  (-0.4, -3.5) -- (4, -3.5) -- (4, -0.2) -- (5, -0.2) -- (5, 3.5) -- (-0.4, 3.5) -- (-0.4, 0);
+            \path[rounded corners, fill=red, fill opacity=0.2] (-0.4, -3.5) --  (-0.4, 3.5) -- (4, 3.5) -- (4, -0.2) -- (5, -0.2) -- (5, -3.5) -- (-0.4, -3.5) -- (-0.4, 0);
+            \path[rounded corners, fill=white] (-0.4, 0) -- (-0.4, -3.5) -- (4, -3.5) -- (4, 3.5) -- (-0.4, 3.5) -- (-0.4, 0);
+            \path[rounded corners, fill=olivegreen, fill opacity=0.2] (-0.4, 0) -- (-0.4, -3.5) -- (4, -3.5) -- (4, 3.5) -- (-0.4, 3.5) -- (-0.4, 0);
+            \path [draw, dashed, very thick, rectangle, rounded corners] (-0.4, 0) -- (-0.4, -3.5) -- (5, -3.5) -- (5, 3.5) -- (-0.4, 3.5) -- (-0.4, 0);
+            
+            \node[circle, thick, fill=white, draw] (x1) {};
+            \node[circle, thick, draw, fill=white, below=1em of x1] (x2) {};
+            \node[circle, thick, fill=white, draw, below=1em of x2] (x3) {};
+            \node[circle, thick, fill=white, draw, below=1em of x3] (x4) {};
+            \node[circle, thick, fill=white, draw, below=1em of x4] (x5) {};
+            \node[circle, thick, fill=white, draw, above=1em of x1] (x6) {};
+            \node[circle, thick, fill=white, draw, above=1em of x6] (x7) {};
+            \node[circle, thick, fill=white, draw, above=1em of x7] (x8) {};
+            \node[circle, thick, fill=white, draw, above=1em of x8] (x9) {};
+            \node[circle, thick, right=4em of x1, fill=white, draw] (xhh1) {};
+            \node[circle, thick, draw, fill=white, below=1em of xhh1] (xhh2) {};
+            \node[circle, thick, fill=white, draw, below=1em of xhh2] (xhh3) {};
+            \node[circle, thick, fill=white, draw, below=1em of xhh3] (xhh4) {};
+            \node[circle, thick, fill=white, draw, above=1em of xhh1] (xhh5) {};
+            \node[circle, thick, fill=white, draw, above=1em of xhh5] (xhh6) {};
+            \node[circle, thick, fill=white, draw, above=1em of xhh6] (xhh7) {};
+            \node[circle, thick, right=8em of x1, fill=white, draw] (xh1) {};
+            \node[circle, thick, draw, fill=white, below=1em of xh1] (xh2) {};
+            \node[circle, thick, fill=white, draw, below=1em of xh2] (xh3) {};
+            \node[circle, thick, fill=white, draw, below=1em of xh3] (xh4) {};
+            \node[circle, thick, fill=white, draw, above=1em of xh1] (xh5) {};
+            \node[circle, thick, fill=white, draw, above=1em of xh5] (xh6) {};
+            \node[circle, thick, fill=white, draw, above=1em of xh6] (xh7) {};
+            \node[circle, very thick, fill=blue!30, draw, right=12em of x1, yshift=5em] (hm1) {};
+            \node[circle, very thick, draw, fill=blue!30, below=0.5em of hm1] (hm2) {};
+            \node[circle, very thick, draw, fill=blue!30, below=0.5em of hm2] (hm3) {};
+            \node[circle, very thick, draw, fill=blue!30, above=0.5em of hm1] (hm4) {};
+            \node[circle, very thick, draw, fill=blue!30, above=0.5em of hm4] (hm5) {};
+            \node[circle, very thick, fill=red!30, draw, right=12em of x1, yshift=-5em] (hs1) {};
+            \node[right=1.5em of hm1, blue] (mu1) {$A_{\theta_1}(s, \alpha_3)$};
+            \node[right=1.5em of hm2, blue] (mu2) {$A_{\theta_1}(s, \alpha_4)$};
+            \node[right=1.5em of hm3, blue] (mu3) {$A_{\theta_1}(s, \alpha_5)$};
+            \node[right=1.5em of hm4, blue] (mu4) {$A_{\theta_1}(s, \alpha_2)$};
+            \node[right=1.5em of hm5, blue] (mu5) {$A_{\theta_1}(s, \alpha_1)$};
+            \node[right=1.5em of hs1, red] (s1) {$V_{\theta_2}(s)$};
+                
+            \foreach \x in {1,...,9}
+                \foreach \y in {1,...,7}
+                    \draw[-stealth, thick] (x\x) -- (xhh\y);
+            
+            \foreach \x in {1,...,7}
+                \foreach \y in {1,...,7}
+                    \draw[-stealth, thick] (xhh\x) -- (xh\y);
+            
+            \foreach \x in {1,...,7}
+                \foreach \y in {1,...,5}
+                    \draw[-stealth, thick, blue] (xh\x) -- (hm\y);
+            
+            \foreach \x in {1,...,7}
+                \draw[-stealth, thick, red] (xh\x) -- (hs1);
+            
+            \draw[-stealth, decoration={snake, pre length=0.01mm, segment length=2mm, amplitude=0.3mm, post length=1.5mm}, decorate, thick, red] (hs1) -- (s1);
+            
+            \foreach \x in {1,...,5}
+                \draw[-stealth, decoration={snake, pre length=0.01mm, segment length=2mm, amplitude=0.3mm, post length=1.5mm}, decorate, thick, blue] (hm\x) -- (mu\x);
+                        
+            \node[left=0.75em of x1] (l1) {$s$};
+        \end{tikzpicture}
+    \end{center}
+    \scriptsize{\dag Source: \url{https://github.com/PetarV-/TikZ/blob/master/A3C\%20neural\%20network/a3c_neural_network.tex} }
+\end{figure}
+The action value is then calculated:
+\begin{equation}
+    Q(s,a \: ; \: \theta) = V(s\:;\:\theta_2 ) + (A(s,a\:;\:\theta_1) - \mathbb{E}[A(s,a\:;\:\theta_1)])
+\end{equation}
+We fix this lack of identifiability by forcing the function approximator to maximise the
+value of the state by having a 0 advantage at the chosen action, hence we subtract the mean.
+The $Q$ values for bothe the behaviour and target network are calculated this way.
+\subsubsection{Double Q Learning }
+Consider the MDP given by fig (2.10),
+\begin{figure}[!htb]
+    \caption{Maximization Bias Example}
+    \begin{center}
+        \begin{tikzpicture}[auto,node distance=8mm,>=latex,font=\small]
+
+            \tikzstyle{round}=[thick,draw=black,circle]
+        
+            \node[round] (s0) {$A$};
+            \node[round, right=0mm and 20mm of s0] (s1) {$T_1$};
+            \node[round, left=0mm and 20mm of s0] (s2) {$B$};
+            \node[round, left=0mm and 20mm of s2] (s3) {$T_2$};
+            \draw[->]  (s0) -- (s1) node [midway, above]{$0$};
+            \draw[->] (s0) -- (s2) node [midway, above]{$0$};
+            \draw[->] (s2.north) to [out=110,in=70] node[above]{$\mathcal{N}(-0.1,1)$} (s3.north);
+            \draw[->] (s2) -- (s3) node [midway, above]{$\vdots$} node [midway, below]{$\vdots$};
+            \draw[->] (s2.south) to [out=-110,in=-70] node[below]{} (s3.south);
+        \end{tikzpicture}
+    \end{center}
+    \scriptsize{\dag Source: \cite{sutton2018reinforcement}}
+\end{figure}
+the agent begins in state A and can either move left or right for a reward in 0.
+Moving right will terminate the process with reward 0. Moving left (with reward 0)
+puts the agent in a state where it can choose amongst a multitude of actions whose
+rewards are normaly distributed with a mean of 0.1 and variance of 1.
+During policy iteration we select actions according to $\underset{a}{argmax} \: Q(s,a)$,
+this incurs a significant \emph{positive} bias due to the nature of the maximization, in
+fig (2.10) the agent will always choose the left action as it seeks to maximise the expected
+return and certain returns from going to $B$ will be greater than 0; instead the agent should
+choose to go right, because the expected value of that action is greater
+than the expected value of going to $B \backsim -0.1$.
+The error occurs because the same samples are used to determine both the value of each action and to select
+the maximising action. \cite{Hasselt2015} address this within the context of deep Q learning
+by proposing the following variant of the temporal difference $\delta_t$ error:
+\begin{equation}
+    y_i = R_{t+1} + \gamma Q(S_{t+1}, \underset{a}{argmax} \: Q(S_{t+1}, A_{t+1}\:;\:\theta)\:;\: \theta^-)
+\end{equation}
+The Q value of the next state is calculated first by finding the most optimal action for
+that next state according to our behaviour policy parameters $\theta$ and then selecting
+the Q value of the action according to its value under the target network's parameters $\theta^-$.
+By doing so we decouple the estimation of an actions value from its selection. The authors
+show that this is effective in combination with the previously discussed improvements.
+\subsubsection{Categorical DQN}
+And so we meet again...
+\subsubsection{Noisy Nets}
 \subsubsection{Rainbow DQN}

@@ -35,7 +35,7 @@ env.seed(seed)
 
 # parameters
 num_frames = 600000
-memory_size = 10**5
+memory_size = 10**6
 batch_size = 32
 target_update = 1000
 epsilon_decay = 1 / 10**5   

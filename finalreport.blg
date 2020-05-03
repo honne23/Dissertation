@@ -9,44 +9,44 @@ A level-1 auxiliary file: chapter1.aux
 A level-1 auxiliary file: chapter2.aux
 The style file: agsm.bst
 Database file #1: references.bib
-You've used 24 entries,
+You've used 28 entries,
             2909 wiz_defined-function locations,
-            833 strings with 9911 characters,
-and the built_in function-call counts, 123422 in all, are:
-= -- 20120
-> -- 1796
+            849 strings with 10574 characters,
+and the built_in function-call counts, 156467 in all, are:
+= -- 25612
+> -- 2307
 < -- 0
-+ -- 9865
-- -- 560
-* -- 10929
-:= -- 24470
-add.period$ -- 24
-call.type$ -- 24
-change.case$ -- 331
-chr.to.int$ -- 24
-cite$ -- 24
-duplicate$ -- 376
-empty$ -- 793
-format.name$ -- 626
-if$ -- 22101
++ -- 12650
+- -- 721
+* -- 13915
+:= -- 30869
+add.period$ -- 28
+call.type$ -- 28
+change.case$ -- 387
+chr.to.int$ -- 28
+cite$ -- 28
+duplicate$ -- 420
+empty$ -- 897
+format.name$ -- 799
+if$ -- 28043
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 26
-newline$ -- 91
-num.names$ -- 250
-pop$ -- 119
+newline$ -- 103
+num.names$ -- 294
+pop$ -- 151
 preamble$ -- 1
-purify$ -- 360
+purify$ -- 420
 quote$ -- 0
-skip$ -- 286
+skip$ -- 334
 stack$ -- 0
-substring$ -- 28883
-swap$ -- 56
-text.length$ -- 336
+substring$ -- 36851
+swap$ -- 60
+text.length$ -- 392
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 86
+type$ -- 102
 warning$ -- 0
-while$ -- 530
+while$ -- 614
 width$ -- 0
-write$ -- 330
+write$ -- 382

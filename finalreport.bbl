@@ -43,6 +43,13 @@ Dill, K.~A., Bromberg, S., Yue, K., Chan, H.~S., Ftebig, K.~M., Yee, D.~P.
   {\em Protein Science} {\bf 4}(4),~561--602.
 \newline\harvardurl{https://doi.org/10.1002/pro.5560040401}
 
+\harvarditem[Hessel et~al.]{Hessel, Modayil, van Hasselt, Schaul, Ostrovski,
+  Dabney, Horgan, Piot, Azar \harvardand\ Silver}{2017}{Hessel2017}
+Hessel, M., Modayil, J., van Hasselt, H., Schaul, T., Ostrovski, G., Dabney,
+  W., Horgan, D., Piot, B., Azar, M. \harvardand\ Silver, D.  \harvardyearleft
+  2017\harvardyearright , `Rainbow: Combining improvements in deep
+  reinforcement learning'.
+
 \harvarditem[Hoque et~al.]{Hoque, Chetty \harvardand\ Sattar}{2009}{Hoque}
 Hoque, T., Chetty, M. \harvardand\ Sattar, A.  \harvardyearleft
   2009\harvardyearright , `Extended {HP} model for protein structure
@@ -105,6 +112,11 @@ Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
   learning', {\em Nature} {\bf 518}(7540),~529--533.
 \newline\harvardurl{https://doi.org/10.1038/nature14236}
 
+\harvarditem[Schaul et~al.]{Schaul, Quan, Antonoglou \harvardand\
+  Silver}{2015}{Schaul2015}
+Schaul, T., Quan, J., Antonoglou, I. \harvardand\ Silver, D.  \harvardyearleft
+  2015\harvardyearright , `Prioritized experience replay'.
+
 \harvarditem{Sutton}{2018}{sutton2018reinforcement}
 Sutton, R.  \harvardyearleft 2018\harvardyearright , {\em Reinforcement
   learning : an introduction}, The MIT Press, Cambridge, Massachusetts London,
@@ -115,6 +127,17 @@ Tsygvintsev, A.  \harvardyearleft 2019\harvardyearright , `Natural versus
   random proteins: Nouvel neural network approach based on time series
   analysis'.
 \newline\harvardurl{https://doi.org/10.1101/687558}
+
+\harvarditem[van Hasselt et~al.]{van Hasselt, Guez \harvardand\
+  Silver}{2015}{Hasselt2015}
+van Hasselt, H., Guez, A. \harvardand\ Silver, D.  \harvardyearleft
+  2015\harvardyearright , `Deep reinforcement learning with double q-learning'.
+
+\harvarditem[Wang et~al.]{Wang, Schaul, Hessel, van Hasselt, Lanctot
+  \harvardand\ de~Freitas}{2015}{Ziyu2015}
+Wang, Z., Schaul, T., Hessel, M., van Hasselt, H., Lanctot, M. \harvardand\
+  de~Freitas, N.  \harvardyearleft 2015\harvardyearright , `Dueling network
+  architectures for deep reinforcement learning'.
 
 \harvarditem[Weiss et~al.]{Weiss, Jim{\'{e}}nez-Monta{\~{n}}o \harvardand\
   Herzel}{2000}{weiss}

@@ -154,7 +154,7 @@ class CategoricalAgent:
         
         elementwise_loss = self._compute_dqn_loss(samples)
         # PER: update priorities
-        loss = loss = torch.mean(elementwise_loss * weights)
+        loss = torch.mean(elementwise_loss * weights)
 
         self.optimizer.zero_grad()
         loss.backward()
