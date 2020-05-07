@@ -25,7 +25,7 @@ where each row $j$ is a distribution $P(i, \cdot)$ such that:
     i \in \mathbf{S}^n, \sum_{j \in \mathbf{S}^n} P(i,j) = 1
 \end{equation}\\
 The product along the column space $j \in \mathbf{S}^n,{\displaystyle \prod_{i \in \mathbf{S}^n}} P(i,j)$ of the transition matrix reveals
-the stationary probability of being in any particular state $P(S_j)$.
+the \textbf{steady state} probability of being in any particular state $P(S_j)$.
 \begin{center}
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
         semithick,]
@@ -97,14 +97,13 @@ tasks with non-stationary distributions of rewards becomes computationally tract
         \end{gathered}
 \end{equation}
 Where $\gamma$ is referred to as the \emph{discount factor}. The use of a discount
-factor contracts rewards further into the future asymptotically towards zero  as (2.19) forms a geometric
+factor contracts rewards further into the future asymptotically towards zero as (2.19) forms a geometric
 series\footnote{See Appendix A.3} with ratio $r < 1$:
 \begin{equation}
-    \lim_{n \rightarrow \infty} \biggl( \sum_{k= 0}^{n} \alpha \cdot r^k \biggl) = \frac{\alpha}{1-r}, \;\; \forall \; 0 < r < 1, \;\;\; \alpha \in \mathbb{R}^+
-\end{equation}
-Therefore by (2.20):
-\begin{equation}
+    \begin{gathered}
+        \lim_{n \rightarrow \infty} \biggl( \sum_{k= 0}^{n} \alpha \cdot r^k \biggl) = \frac{\alpha}{1-r}, \;\; \forall \; 0 < r < 1, \;\;\; \alpha \in \mathbb{R}^+ \\
     \lim_{n \rightarrow \infty}\biggl(\sum_{k=0}^n 1 \cdot \gamma^k \biggl) = \frac{1}{1 - \gamma}
+    \end{gathered}
 \end{equation}
 Intuitively, this ensures that the agents values immediate rewards more so than delayed rewards as
 the rewards in the current timestep can be more accurately estimated than rewards further into 
@@ -623,7 +622,7 @@ importance sampling weights introduced in \textbf{2.2.1.5}.
 \begin{equation}
     \begin{gathered}
         w_i = \biggl(\frac{1}{N}\cdot \frac{1}{P(i)} \biggl)^\beta \\
-        \nabla_\theta E = \sum_{j=1}^N w_j \delta_j \nabla_\theta Q(S_{j-1}, A_{j-1}\:; \: \theta)
+        \nabla_\theta E = w_j \delta_j \nabla_\theta Q(S_{j-1}, A_{j-1}\:; \: \theta)
     \end{gathered}
 \end{equation}
 The bias is fully compensated for at $\beta = 1$ this ofcourse is coupled with a significant
@@ -675,8 +674,8 @@ $O(log N)$ time to update the priorities of each transition which resides on the
 the tree. To traverse the tree for a batch size of $k$ memories, the interval $[0, p_{total}]$ is divided into $k$ equal intervals.
 Each of these intervals is then uniformly sampled to produce a priority in that interval. The
 transition whose value is the closest to each sampled priority is then chosen for replay by succesively
-subtracting results until you arrive at a leaf. Observe that the leaves of the tree are ordered, enabling
-this speed up in traversal.
+subtracting results until you arrive at a leaf as least as big as the query. Using this binary heap structure eliminates the
+need for sorting, enabling the speed up in time complexity.
 \subsubsection{Dueling Networks}
 \cite{Ziyu2015} observed that the action value function can be decomposed
 further into a value and advantage function:
@@ -825,7 +824,84 @@ that next state according to our behaviour policy parameters $\theta$ and then s
 the Q value of the action according to its value under the target network's parameters $\theta^-$.
 By doing so we decouple the estimation of an actions value from its selection. The authors
 show that this is effective in combination with the previously discussed improvements.
-\subsubsection{Categorical DQN}
-And so we meet again...
+\subsubsection{Distributional Reinforcement Learning}
+Recalling equation (2.41), the expected future discounted reward is a weighted mean,
+whose final output is a scalar value. This mean ignors the variance and possible multi-modality
+of the underlying distribution. Assuming that the process of generalized policy iteration
+reaches a fixed point $\pi^* = \pi_\theta$ where the policy under the neural network's parameters
+aproximates the optimal policy arbitarily well, this approximation is only in their means, and equality
+of means does gurantee that the "shape" of the underlying distributions are the same.
+Motivated by these shortcomings, \cite{Bellemare2017} proposed an alternative distributional perspective
+on reinforcement learning. The authors reinterpret equation (2.41) under a distributional variant;
+first they contextualize the Q learning update under the \emph{Bellman operator} $\mathcal{T}^\pi$ and in the control setting
+as the application of the \emph{"optimality operator"} $\mathcal{T}$:
+\begin{equation}
+    \begin{gathered}
+        x \in \mathbf{S}, \;\; x' \coloneqq x_{t+1}\\
+        \mathcal{T}^\pi Q(x,a) = \mathbb{E}[R(x,a)] + \gamma \underset{P,\pi}{\mathbb{E}} [Q(x',a')] \\
+        \rightarrow \mathcal{T} Q(x,a) = \mathbb{E}[R(x,a)] + \gamma \underset{P,\pi}{\mathbb{E}} [\max_{a' \in A}Q(x',a')]
+    \end{gathered}
+\end{equation}
+This reflects the same objective as (2.41), where successive applications of the Bellman operator
+produce new policies paramterised by the updated estimates to the Q value function. Additionally we recognise
+that the reward $R(x,a)$ the agent receives depends on the action taken in that particular state. Under the
+distributional setting the state is denoted $x' \backsim P( \cdot \mid x, a)$ as the state is assumed
+to be sampled from the underlying steady state distribution of the MDP\footnote{See equation (2.41)}.
+Considering the markov property\footnote{See \textbf{2.2.1}}, the discounted future returns $\gamma G_{t+1}$ of a particular state
+can be considered a random variable $Z$ distrbuted according to the probability of attaining
+certain returns dependent on the action taken in each state, formally $R \in \mathbf{Z}$, where
+$\mathbf{Z}$ represents a mapping from state-action pairs to \emph{distributions} of returns.
+Furthermore the authors describe "transition operator" as an operator that transforms the current
+distribution of discounted returns into the distribution of discounted returns for the next state:
+\begin{equation}
+    \begin{gathered}
+        \mathcal{P}^\pi : Z \mapsto Z'\\
+        \mathcal{P}^\pi Z(x,a) \distributed Z(x',a') \\
+        x' \backsim P(\cdot \mid x,a), \;\; a' \backsim \pi(\cdot \mid x')
+    \end{gathered}
+\end{equation}
+In this case, the transition operator will map the distribution
+of returns under the current state and action, to the distribution returns under the next state action  pair which
+is distributed according to the same law (denoted by $\distributed$) as the previous distribution. They then
+reformulate the Bellman operator:
+\begin{equation}
+    \begin{gathered}
+        \mathcal{T}^\pi Z(x,a) \distributed R(x,a) + \gamma \mathcal{P}^\pi Z(x,a)
+    \end{gathered}
+\end{equation}
+Three sources of randomness arise under this interpretation:
+\begin{itemize}
+    \item Randomness in reward $R(x,a)$.
+    \item Randomness in the transition $\mathcal{P}^\pi$.
+    \item Randomness in the next state-value distribution $Z(x',a')$.
+\end{itemize}
+These sources are important to observe when considering if the distributional variant of the Bellman equation
+converges to a fixed point $Z^\pi$. In order to measure the relative distance between an arbitary distribution,
+the authors utilise the \emph{Wasserstein} distance defined on cumulative density functions (c.d.f) of arbitary probability
+density functions (p.d.f). If a random variable is distributed according to $F(x)$ then it's c.d.f is $F^{-1}(x)$. The \emph{Wasserstein} distance
+between two random variables $U, V$ on the space of possible samples (values the variable can take on) $\omega \in \Omega$
+is the smallest possible difference between the probability density of each sample defined on the support of the random variables:
+\begin{equation}
+    \begin{gathered}
+        W_p(F,G) = \biggl ( \int_{0}^{1} \vert F^{-1}_U(\omega) - F^{-1}_{V}(\omega) \vert^p \,\mathrm{d}x \biggl )^{\frac{1}{p}} \\
+        = \inf_{U,V} \Vert U - V \Vert_p
+    \end{gathered}
+\end{equation}
+To measure the distance between value distributions $Z_1, Z_2$, they define the maximal form of the Wasserstein metric
+as the highest element-wise absolute difference between the two:
+\begin{equation}
+    \bar{d}_p(Z_1, Z_2) \coloneqq \sup_{x,a} W_p(Z_1(x,a), Z_2(x,a)) 
+\end{equation}
+The authors show that similarly to equation (2.20) the $\bar{d}_p$ metric is a contraction in $\gamma$
+by \emph{Banach's fixed point theorem}\footnote{See Appendix}:
+\begin{equation}
+    \begin{gathered}
+        \bar{d}_p( \mathcal{T}^\pi Z_1, \mathcal{T}^\pi Z_2) \leqslant \bar{d}_p(R + \gamma \mathcal{P}^\pi Z_1, R + \gamma \mathcal{P}^\pi Z_2) \\
+        \leqslant \bar{d}_p(\gamma \mathcal{P}^\pi Z_1, \gamma \mathcal{P}^\pi Z_2) \\
+        \leqslant \vert \gamma \vert \bar{d}_p(\mathcal{P}^\pi Z_1, \mathcal{P}^\pi Z_2) \\
+        \leqslant \gamma \bar{d}_p(Z_1, Z_2) 
+    \end{gathered}
+\end{equation}
+In theory, these results can be applied directly by substitution
 \subsubsection{Noisy Nets}
 \subsubsection{Rainbow DQN}
