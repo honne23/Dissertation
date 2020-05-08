@@ -17,6 +17,8 @@
 \NewDocumentCommand{\Condition}{mm}{\ensuremath{\biggl [ #1 \: \biggl | \: #2 \biggl]}}
 \NewDocumentCommand{\condition}{mm}{\ensuremath{( #1  \mid #2 )}}
 \DeclareMathOperator*{\E}{\mathlarger{\mathlarger{\mathbb{E}}}}
+\newcommand\distributed{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily D}}}{\coloneqq}}}
+
 \usetikzlibrary{arrows,automata,positioning,decorations.pathmorphing,angles,quotes}
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.6)  1 MAY 2020 18:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.6)  8 MAY 2020 20:27
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -887,20 +887,20 @@ File: tikzlibraryquotes.code.tex 2019/05/09 v3.1.3 (3.1.3)
  (./finalreport.aux (./abstract.aux) (./acknowledgements.aux) (./glossary.aux) (./abbrev.aux) (./chapter1.aux) (./chapter2.aux))
 \openout1 = `finalreport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -962,7 +962,7 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \AtBeginShipoutBox=\box119
-Package hyperref Info: Link coloring OFF on input line 60.
+Package hyperref Info: Link coloring OFF on input line 62.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -970,9 +970,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count335
 )
-LaTeX Info: Redefining \ref on input line 60.
-LaTeX Info: Redefining \pageref on input line 60.
-LaTeX Info: Redefining \nameref on input line 60.
+LaTeX Info: Redefining \ref on input line 62.
+LaTeX Info: Redefining \pageref on input line 62.
+LaTeX Info: Redefining \nameref on input line 62.
  (./finalreport.out) (./finalreport.out)
 \@outlinefile=\write4
 \openout4 = `finalreport.out'.
@@ -988,14 +988,14 @@ ABD: EveryShipout initializing macros [1
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.61 \maketitle
+l.63 \maketitle
                 [1]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 61.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 63.
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 61.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
  [2]
 \openout2 = `abstract.aux'.
 
@@ -1066,7 +1066,7 @@ Chapter 2.
 (./Sections/LiteratureReview/Proteins.tex
 Package svg Info: Last page of `./svg-inkscape/PeptideBond_svg-tex.pdf' is 1 on input line 47.
  (./svg-inkscape/PeptideBond_svg-tex.pdf_tex
-<./svg-inkscape/PeptideBond_svg-tex.pdf, id=390, page=1, 445.96072pt x 91.15013pt>
+<./svg-inkscape/PeptideBond_svg-tex.pdf, id=380, page=1, 445.96072pt x 91.15013pt>
 File: ./svg-inkscape/PeptideBond_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/PeptideBond_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/PeptideBond_svg-tex.pdf , page1 used on input line 56.
@@ -1091,13 +1091,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 65--73
 
  []
 
-<Figures/RamachandranPlot.jpg, id=398, 373.81035pt x 333.93724pt>
+<Figures/RamachandranPlot.jpg, id=388, 373.81035pt x 333.93724pt>
 File: Figures/RamachandranPlot.jpg Graphic file (type jpg)
 <use Figures/RamachandranPlot.jpg>
 Package pdftex.def Info: Figures/RamachandranPlot.jpg  used on input line 77.
 (pdftex.def)             Requested size: 224.28793pt x 200.36388pt.
 [17 <./svg-inkscape/PeptideBond_svg-tex.pdf>] [18 <./Figures/RamachandranPlot.jpg>]
-<Figures/Structures.jpg, id=431, 337.04681pt x 155.41248pt>
+<Figures/Structures.jpg, id=421, 337.04681pt x 155.41248pt>
 File: Figures/Structures.jpg Graphic file (type jpg)
 <use Figures/Structures.jpg>
 Package pdftex.def Info: Figures/Structures.jpg  used on input line 109.
@@ -1108,7 +1108,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 193--204
  []
 
 [20]
-<Figures/FreeEnergyLandscape.jpeg, id=448, 236.95082pt x 122.87593pt>
+<Figures/FreeEnergyLandscape.jpeg, id=438, 236.95082pt x 122.87593pt>
 File: Figures/FreeEnergyLandscape.jpeg Graphic file (type jpg)
 <use Figures/FreeEnergyLandscape.jpeg>
 Package pdftex.def Info: Figures/FreeEnergyLandscape.jpeg  used on input line 208.
@@ -1119,7 +1119,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 301--306
  []
 
 [23]
-<Figures/lattices.png, id=482, 903.375pt x 301.125pt>
+<Figures/lattices.png, id=472, 903.375pt x 301.125pt>
 File: Figures/lattices.png Graphic file (type png)
 <use Figures/lattices.png>
 Package pdftex.def Info: Figures/lattices.png  used on input line 350.
@@ -1136,30 +1136,48 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [29] [30] [31] [32] [33] [34] [35] [36] [37] [38] [39] [40] [41] [42] [43]
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 652.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 651.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [44] [45] [46]) (./Sections/LiteratureReview/MultiAgentLearning.tex) (./Sections/LiteratureReview/RelatedWork.tex)) [47] [48] (./finalreport.bbl [49
+) [44] [45] [46] [47] [48]
+Underfull \hbox (badness 10000) in paragraph at lines 905--916
+
+ []
 
 
-] [50]) [51]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 89.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 89.
+Underfull \hbox (badness 10000) in paragraph at lines 917--922
+
+ []
+
+[49] [50]) (./Sections/LiteratureReview/MultiAgentLearning.tex) (./Sections/LiteratureReview/RelatedWork.tex)) [51] (./finalreport.bbl [52
+
+
+] [53] [54]) [55]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 91.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 91.
  (./finalreport.aux (./abstract.aux) (./acknowledgements.aux) (./glossary.aux) (./abbrev.aux) (./chapter1.aux) (./chapter2.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 89.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 89.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 91.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 91.
 Package rerunfilecheck Info: File `finalreport.out' has not changed.
-(rerunfilecheck)             Checksum: D1E4FEA1EDC616EB8CDB0ACF976AAB33;3748.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 89.
+(rerunfilecheck)             Checksum: A7422F0843F1D7EB078BB327C9768C4F;3621.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 91.
  ) 
 Here is how much of TeX's memory you used:
- 35288 strings out of 492609
- 685940 string characters out of 6131463
- 815816 words of memory out of 5000000
- 38395 multiletter control sequences out of 15000+600000
- 560520 words of font info for 97 fonts, out of 8000000 for 9000
+ 35313 strings out of 492609
+ 686258 string characters out of 6131463
+ 816037 words of memory out of 5000000
+ 38403 multiletter control sequences out of 15000+600000
+ 561292 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,21n,87p,453b,1433s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.30} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.29} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.28} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.27} has been referenced but does not exist, replaced by a fixed one
+
 pdfTeX warning (dest): name{Hfootnote.26} has been referenced but does not exist, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.25} has been referenced but does not exist, replaced by a fixed one
@@ -1212,11 +1230,11 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on finalreport.pdf (52 pages, 1184373 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on finalreport.pdf (56 pages, 1207003 bytes).
 PDF statistics:
- 890 PDF objects out of 1000 (max. 8388607)
- 785 compressed objects within 8 object streams
- 249 named destinations out of 1000 (max. 500000)
- 433 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 924 PDF objects out of 1000 (max. 8388607)
+ 813 compressed objects within 9 object streams
+ 265 named destinations out of 1000 (max. 500000)
+ 417 words of extra memory for PDF output out of 10000 (max. 10000000)
 

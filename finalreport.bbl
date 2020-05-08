@@ -10,6 +10,12 @@ Anfinsen, C.~B.  \harvardyearleft 1972\harvardyearright , `The formation and
   128}(4),~737--749.
 \newline\harvardurl{https://doi.org/10.1042/bj1280737}
 
+\harvarditem[Bellemare et~al.]{Bellemare, Dabney \harvardand\
+  Munos}{2017}{Bellemare2017}
+Bellemare, M.~G., Dabney, W. \harvardand\ Munos, R.  \harvardyearleft
+  2017\harvardyearright , `A distributional perspective on reinforcement
+  learning'.
+
 \harvarditem{Bornberg-Bauer}{1997}{BornbergBauer1997}
 Bornberg-Bauer, E.  \harvardyearleft 1997\harvardyearright , Chain growth
   algorithms for {HP}-type lattice proteins, {\em in} `Proceedings of the first
@@ -34,6 +40,12 @@ Crippen, G.~M.  \harvardyearleft 1991\harvardyearright , `Prediction of protein
   folding from amino acid sequence over discrete conformation spaces', {\em
   Biochemistry} {\bf 30}(17),~4232--4237.
 \newline\harvardurl{https://doi.org/10.1021/bi00231a018}
+
+\harvarditem[Dabney et~al.]{Dabney, Rowland, Bellemare \harvardand\
+  Munos}{2017}{Dabney2017}
+Dabney, W., Rowland, M., Bellemare, M.~G. \harvardand\ Munos, R.
+  \harvardyearleft 2017\harvardyearright , `Distributional reinforcement
+  learning with quantile regression'.
 
 \harvarditem[Dill et~al.]{Dill, Bromberg, Yue, Chan, Ftebig, Yee \harvardand\
   Thomas}{2008}{Dill}

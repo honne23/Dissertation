@@ -47,7 +47,7 @@ gamma = 0.9999
 
 hidden_layer = 64
 
-replay_mem_size = 500
+replay_mem_size = 5000
 batch_size = 32
 
 update_target_frequency = 500

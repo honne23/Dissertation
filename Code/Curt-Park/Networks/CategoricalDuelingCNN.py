@@ -66,4 +66,4 @@ class CategoricalDuelingCNN(nn.Module):
         for x in (self.advantage_layer, self.value_layer):
             for i in x:
                 if isinstance(i, NoisyLinear):
-                    i.reset_noise()
+                    i.sample_noise()

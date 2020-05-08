@@ -362,7 +362,7 @@ the central algorithm \cite{sutton2018reinforcement}:
 \begin{algorithm}[!htb]
     \SetAlgoLined
      $\alpha \in (0,1]$\;
-     $0 < \varepsilon \ll 1$\;
+     $0 < \varepsilon < 1$\;
      Init Q(s,a) $\forall \; s \in \mathbf{S}, \: a \in \mathbf{A}(s)$ randomly\;
      Q(terminal, $\cdot$) = 0\;
      \ForAll{episodes}{
@@ -560,7 +560,7 @@ human benchmarks at a super human level for the first time (adapted from the ori
         Preprocess sequence $\phi_1 = \phi(s_1)$\;
         \ForAll{timesteps in episode}{
             $r \backsim U(0,1)$\;
-            \eIf{r < $\varepsilon$}{
+            \eIf{r > $\varepsilon$}{
                 $a_t \backsim {A}$ \tcp*[l]{ Randomly sample action from action space}
             }{
                 $a_t = \underset{a}{argmax}\;\;Q(\phi(s_t),a ; \theta)$\;
@@ -878,7 +878,8 @@ Three sources of randomness arise under this interpretation:
 These sources are important to observe when considering if the distributional variant of the Bellman equation
 converges to a fixed point $Z^\pi$. In order to measure the relative distance between an arbitary distribution,
 the authors utilise the \emph{Wasserstein} distance defined on cumulative density functions (c.d.f) of arbitary probability
-density functions (p.d.f). If a random variable is distributed according to $F(x)$ then it's c.d.f is $F^{-1}(x)$. The \emph{Wasserstein} distance
+density functions (p.d.f). If a random variable is distributed according to $F(x)$ then it's c.d.f, also known
+as a quantile function, is $F^{-1}(x)$. The \emph{Wasserstein} distance
 between two random variables $U, V$ on the space of possible samples (values the variable can take on) $\omega \in \Omega$
 is the smallest possible difference between the probability density of each sample defined on the support of the random variables:
 \begin{equation}
@@ -902,6 +903,70 @@ by \emph{Banach's fixed point theorem}\footnote{See Appendix}:
         \leqslant \gamma \bar{d}_p(Z_1, Z_2) 
     \end{gathered}
 \end{equation}
-In theory, these results can be applied directly by substitution
-\subsubsection{Noisy Nets}
-\subsubsection{Rainbow DQN}
+In theory, these results can be applied directly by substituting (2.56) for the Q learning update, however
+the issue arises when incorporating function approximation in an effort to parameterise the distribution
+of returns for each state-action pair. Starting from random, the network's parameters 
+are continually updated to more closely reflect the actual distribution of returns for each state action pair.
+As a result, the support\footnote{Range of values that the expected discounted return of a state action pair can take on with a non-zero probability}
+of the predicted distribution, the output of the neural network, will drift over time. Generalised policy iteration
+continuously produces new policies, in this case, the result is that each policy is defined on a different support.
+This poses an issue, as the distance between two random variables on disjoint supports is infinite \cite{Bellemare2017}.
+In practice the authors overcome this by utilising a $\mathbf{\Phi}_2$ projection of the output distribution of the network 
+onto a discrete support with $N$ atoms and then minimzing the \emph{Kullback Liebler} divergence between the target and the prediction.\\
+
+However as \cite{Dabney2017} note in their follow up work, the conjugation of the $\mathbf{\Phi}_2$ operator with the Bellman operator $\mathcal{T}^\pi$
+does not necessarily converge to the \emph{same fixed point} as the repeated application of the $\mathcal{T}^\pi$. Additionally, in practice
+the $\mathbf{\Phi}_2$ projection requires conducting a nearest neighbour search between the atoms of the predicted distribution
+and the target distribution, and assigning credit proportionally to the 2 nearest neighbours, this can be unwieldy to implement.
+\cite{Dabney2017} instead propose \emph{quantile regression} as a way around these limitations.\\
+
+Where \cite{Bellemare2017} choose to fix the support and vary the probabilities,\cite{Dabney2017} invert
+this formulation to instead fix the probabilities and vary the support. The complete metric space of
+probability $[0,1]$ is discretized into $\tau$ uniform intervals and the appropriate density of returns 
+is allocated to each interval. First they show that the projection $\Pi_{W_1}$ of any arbitary value distribution
+$Z$ onto a distribution of $\tau$ number of quantiles $Z_Q$, preserves the convergence to a fixed point under the conjugation
+of $\Pi_{W_1} \bar{d}_p$:
+\begin{equation}
+    \bar{d}_p(\Pi_{W_1} \mathcal{T}^\pi Z_1,\Pi_{W_1} \mathcal{T}^\pi Z_2) \leqslant \gamma \bar{d}_p(Z_1, Z_2)
+\end{equation}
+The Q network aims to predict the quantiles $\theta_i$ for each action  resulting in a vector $Z_\theta \in Z_Q$
+for each action. In order to project an arbitary distribution onto a distribution of $N$ quantiles
+it follows that the most suitable distribution is that which minizes the \emph{Wasserstein} metric $\Pi_{W_1}Z= \arg \min W_p(Z, Z_Q)$. 
+The authors show that the value on the interval of each quantile that minimizes this distance is the
+median of the interval:
+\begin{equation}
+    \begin{gathered}
+        \arg \min \int^{\tau'}_\tau \vert F^{-1}(\omega) - \theta \vert \, d\omega \\
+        \text{Is given by} \\
+        \theta : F(\theta) = \frac{\tau + \tau'}{2}
+    \end{gathered}
+\end{equation}
+They utilise \emph{quantile regression loss} developed within economics, to fit the predicted
+quantile distribution of action-values to a target quantile distribution. Formally, a dirac delta
+function positioned on the quantiled is scaled proportionally when the distance $\xi = \hat{Z} - \theta$ 
+is overestimated $\xi \geq 0$ or underestimated $\xi < 0$. Quantile regression is used
+to fit the predicted quantile to the target by minimizing the following objective:
+\begin{equation}
+    \begin{gathered}
+        \rho_\tau(u) = \begin{cases}
+            \tau \cdot u & u \geq 0 \\
+            (1 - \tau) \cdot u & u < 0
+        \end{cases} \\
+        \mathcal{L}^\tau_{QR} \coloneqq  \sum_{i=1}^N \E_{\hat{Z} \backsim Z}[\rho_\tau(\hat{Z} -\theta_i)]
+    \end{gathered}
+\end{equation}
+This is in turn applied to the Bellman update: 
+\begin{equation}
+    \begin{gathered}
+        \mathcal{T}Q(x,a) = \mathbb{E}[R(x,a)] + \gamma \mathbb{E}_{z' \backsim P}[\max_{a'}Q(x',a')] \\
+        \rightarrow \mathcal{T}Z(x,a) = R(x,a) + \gamma Z(x',a') \\
+        x' \backsim P(\cdot \mid x,a), a' = \arg \max_{a'} \mathbb{E}_{z \backsim Z(x',a')}[z] \\
+    \end{gathered}
+\end{equation}
+From which the authors derive the TD control update:
+\begin{equation}
+    \theta_i(x) \leftarrow \theta_i(x) + \alpha(\hat{\tau}_i - \delta_{r + \gamma < \theta_i(x)})
+\end{equation}
+\cite{Dabney2017} results show that learners that incorporate the distribution of returns (risk-sensitive learnings)
+perform much better and converge to optimal policies much faster, this increase in performance is no doubt
+due to the greater representational power of distributions.
