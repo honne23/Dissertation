@@ -14,9 +14,10 @@
 \usepackage{relsize}
 \usepackage{xparse}
 \usepackage[ruled,vlined]{algorithm2e}
+\usepackage[scr=boondox]{mathalfa}
 \NewDocumentCommand{\Condition}{mm}{\ensuremath{\biggl [ #1 \: \biggl | \: #2 \biggl]}}
 \NewDocumentCommand{\condition}{mm}{\ensuremath{( #1  \mid #2 )}}
-\DeclareMathOperator*{\E}{\mathlarger{\mathlarger{\mathbb{E}}}}
+\DeclareMathOperator*{\E}{\mathlarger{\mathbb{E}}}
 \newcommand\distributed{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily D}}}{\coloneqq}}}
 
 \usetikzlibrary{arrows,automata,positioning,decorations.pathmorphing,angles,quotes}
@@ -74,8 +75,8 @@ mean field multi-agent reinforcement learning}
 % main body
 \include{chapter1}
 \include{chapter2}
-%\include{chapter3}
-%\include{chapter4}
+\include{chapter3}
+\include{chapter4}
 %\include{chapter5}
 %\include{chapter6}
 %\include{chapter7}

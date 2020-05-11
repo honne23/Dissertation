@@ -879,9 +879,9 @@ These sources are important to observe when considering if the distributional va
 converges to a fixed point $Z^\pi$. In order to measure the relative distance between an arbitary distribution,
 the authors utilise the \emph{Wasserstein} distance defined on cumulative density functions (c.d.f) of arbitary probability
 density functions (p.d.f). If a random variable is distributed according to $F(x)$ then it's c.d.f, also known
-as a quantile function, is $F^{-1}(x)$. The \emph{Wasserstein} distance
+as a quantile function, is $F^{-1}(x)$. The \emph{Wasserstein} distance is an $L_p$ metric for some $p \in \mathbb{N}$ that measures the distance
 between two random variables $U, V$ on the space of possible samples (values the variable can take on) $\omega \in \Omega$
-is the smallest possible difference between the probability density of each sample defined on the support of the random variables:
+is the smallest possible difference between the probability density of each sample whose support is the metric space $[0,1]$:
 \begin{equation}
     \begin{gathered}
         W_p(F,G) = \biggl ( \int_{0}^{1} \vert F^{-1}_U(\omega) - F^{-1}_{V}(\omega) \vert^p \,\mathrm{d}x \biggl )^{\frac{1}{p}} \\
@@ -967,6 +967,6 @@ From which the authors derive the TD control update:
 \begin{equation}
     \theta_i(x) \leftarrow \theta_i(x) + \alpha(\hat{\tau}_i - \delta_{r + \gamma < \theta_i(x)})
 \end{equation}
-\cite{Dabney2017} results show that learners that incorporate the distribution of returns (risk-sensitive learnings)
+\cite{Dabney2017} results show that learners that incorporate the distribution of returns (\textbf{risk-sensitive learners})
 perform much better and converge to optimal policies much faster, this increase in performance is no doubt
 due to the greater representational power of distributions.

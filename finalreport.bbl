@@ -16,6 +16,12 @@ Bellemare, M.~G., Dabney, W. \harvardand\ Munos, R.  \harvardyearleft
   2017\harvardyearright , `A distributional perspective on reinforcement
   learning'.
 
+\harvarditem{Blume}{1993}{Blume1993}
+Blume, L.~E.  \harvardyearleft 1993\harvardyearright , `The statistical
+  mechanics of strategic interaction', {\em Games and Economic Behavior} {\bf
+  5}(3),~387--424.
+\newline\harvardurl{https://doi.org/10.1006/game.1993.1023}
+
 \harvarditem{Bornberg-Bauer}{1997}{BornbergBauer1997}
 Bornberg-Bauer, E.  \harvardyearleft 1997\harvardyearright , Chain growth
   algorithms for {HP}-type lattice proteins, {\em in} `Proceedings of the first
@@ -68,6 +74,11 @@ Hoque, T., Chetty, M. \harvardand\ Sattar, A.  \harvardyearleft
   prediction', {\em Journal of Computational Biology} {\bf 16}(1),~85--103.
 \newline\harvardurl{https://doi.org/10.1089/cmb.2008.0082}
 
+\harvarditem{Hu \harvardand\ Wellman}{2003}{Hu2003}
+Hu, J. \harvardand\ Wellman, M.  \harvardyearleft 2003\harvardyearright , `Nash
+  q-learning for general-sum stochastic games.', {\em Journal of Machine
+  Learning Research} {\bf 4},~1039--1069.
+
 \harvarditem{Jaffe}{2018}{jaffe}
 Jaffe, R.  \harvardyearleft 2018\harvardyearright , {\em The physics of
   energy}, Cambridge University Press, Cambridge, United Kingdom New York, NY.
@@ -75,6 +86,11 @@ Jaffe, R.  \harvardyearleft 2018\harvardyearright , {\em The physics of
 \harvarditem{Kittel}{2005}{kittel}
 Kittel, C.  \harvardyearleft 2005\harvardyearright , {\em Introduction to solid
   state physics}, Wiley, Hoboken, NJ.
+
+\harvarditem{Lasry \harvardand\ Lions}{2007}{Lasry2007}
+Lasry, J.-M. \harvardand\ Lions, P.-L.  \harvardyearleft 2007\harvardyearright
+  , `Mean field games', {\em Japanese Journal of Mathematics} {\bf
+  2},~229--260.
 
 \harvarditem{Lau \harvardand\ Dill}{1989}{Lau1989}
 Lau, K.~F. \harvardand\ Dill, K.~A.  \harvardyearleft 1989\harvardyearright ,
@@ -106,11 +122,22 @@ Lucrezia, D.~D., Slanzi, D., Poli, I., Polticelli, F. \harvardand\ Minervini,
   using an evolutionary neural network', {\em {PLoS} {ONE}} {\bf 7}(5),~e36634.
 \newline\harvardurl{https://doi.org/10.1371/journal.pone.0036634}
 
+\harvarditem{Lyu \harvardand\ Amato}{2018}{Xueguang2018}
+Lyu, X. \harvardand\ Amato, C.  \harvardyearleft 2018\harvardyearright ,
+  `Likelihood quantile networks for coordinating multi-agent reinforcement
+  learning'.
+
 \harvarditem{Margossian}{2019}{Margossian2019}
 Margossian, C.~C.  \harvardyearleft 2019\harvardyearright , `A review of
   automatic differentiation and its efficient implementation', {\em {WIREs}
   Data Mining and Knowledge Discovery} {\bf 9}(4).
 \newline\harvardurl{https://doi.org/10.1002/widm.1305}
+
+\harvarditem[Mguni et~al.]{Mguni, Jennings \harvardand\ Munoz~de
+  Cote}{2018}{Mguni2018}
+Mguni, D., Jennings, J. \harvardand\ Munoz~de Cote, E.  \harvardyearleft
+  2018\harvardyearright , `Decentralised learning in systems with many, many
+  strategic agents'.
 
 \harvarditem[Mnih et~al.]{Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare,
   Graves, Riedmiller, Fidjeland, Ostrovski, Petersen, Beattie, Sadik,
@@ -128,6 +155,18 @@ Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
   Silver}{2015}{Schaul2015}
 Schaul, T., Quan, J., Antonoglou, I. \harvardand\ Silver, D.  \harvardyearleft
   2015\harvardyearright , `Prioritized experience replay'.
+
+\harvarditem{Shoham}{2009}{shoham2009multiagent}
+Shoham, Y.  \harvardyearleft 2009\harvardyearright , {\em Multiagent systems :
+  algorithmic, game-theoretic, and logical foundations}, Cambridge University
+  Press, Cambridge New York.
+
+\harvarditem[Subramanian et~al.]{Subramanian, Poupart, Taylor \harvardand\
+  Hegde}{2020}{Sriram2020}
+Subramanian, S.~G., Poupart, P., Taylor, M.~E. \harvardand\ Hegde, N.
+  \harvardyearleft 2020\harvardyearright , Multi type mean field reinforcement
+  learning, {\em in} `Proc. of the 19th International Conference on Autonomous
+  Agents and Multiagent Systems (AAMAS 2020)', Auckland, New Zealand.
 
 \harvarditem{Sutton}{2018}{sutton2018reinforcement}
 Sutton, R.  \harvardyearleft 2018\harvardyearright , {\em Reinforcement
@@ -172,6 +211,15 @@ Yang, L.-Q., Ji, X.-L. \harvardand\ Liu, S.-Q.  \harvardyearleft
   dynamics: a global view', {\em Journal of Biomolecular Structure and
   Dynamics} {\bf 31}(9),~982--992.
 \newline\harvardurl{https://doi.org/10.1080/07391102.2012.748536}
+
+\harvarditem[Yang et~al.]{Yang, Luo, Li, Zhou, Zhang \harvardand\
+  Wang}{2018}{Yang2018}
+Yang, Y., Luo, R., Li, M., Zhou, M., Zhang, W. \harvardand\ Wang, J.
+  \harvardyearleft 2018\harvardyearright , Mean field multi-agent reinforcement
+  learning, {\em in} J.~Dy \harvardand\ A.~Krause, eds, `Proceedings of the
+  35th International Conference on Machine Learning', Vol.~80 of {\em
+  Proceedings of Machine Learning Research}, PMLR, Stockholmsmässan, Stockholm
+  Sweden, pp.~5567--5576.
 
 \harvarditem{Yue \harvardand\ Dill}{1993}{Yue}
 Yue, K. \harvardand\ Dill, K.~A.  \harvardyearleft 1993\harvardyearright ,
