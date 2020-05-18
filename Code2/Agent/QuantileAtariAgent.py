@@ -61,7 +61,6 @@ class QuantileAtariAgent:
         quantiles = self.dqn(state)
         quantiles = quantiles[torch.arange(quantiles.size(0)), action].squeeze(1) #select the quantiles of the actions chosen in each state
         quantiles_next = self.next_distribution(reward, next_state, done)
-        print(quantiles_next.t().unsqueeze(-1).size())  
         diff = quantiles_next.t().unsqueeze(-1) - quantiles.unsqueeze(0)
 
         loss = self.huber(diff) * torch.abs(self.cumulative_density.view(1, -1) - (diff < 0).to(torch.float))

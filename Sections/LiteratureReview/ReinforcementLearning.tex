@@ -925,12 +925,13 @@ this formulation to instead fix the probabilities and vary the support. The comp
 probability $[0,1]$ is discretized into $\tau$ uniform intervals and the appropriate density of returns 
 is allocated to each interval. First they show that the projection $\Pi_{W_1}$ of any arbitary value distribution
 $Z$ onto a distribution of $\tau$ number of quantiles $Z_Q$, preserves the convergence to a fixed point under the conjugation
-of $\Pi_{W_1} \bar{d}_p$:
+of $\bar{d}_p \circ \Pi_{W_1}$:
 \begin{equation}
     \bar{d}_p(\Pi_{W_1} \mathcal{T}^\pi Z_1,\Pi_{W_1} \mathcal{T}^\pi Z_2) \leqslant \gamma \bar{d}_p(Z_1, Z_2)
 \end{equation}
 The Q network aims to predict the quantiles $\theta_i$ for each action  resulting in a vector $Z_\theta \in Z_Q$
-for each action. In order to project an arbitary distribution onto a distribution of $N$ quantiles
+for each action such that $Z_{\theta_i} = P(y_i < \theta_i)$\footnote{For instance if $\tau = 6$ then $Z_{\theta_5} = y_i$ s.t $P(y_i < Q(\frac{5}{6})) \mid  F^{-1}(Q(\frac{5}{6})) = \frac{5}{6}$}. 
+In order to project an arbitary distribution onto a distribution of $N$ quantiles
 it follows that the most suitable distribution is that which minizes the \emph{Wasserstein} metric $\Pi_{W_1}Z= \arg \min W_p(Z, Z_Q)$. 
 The authors show that the value on the interval of each quantile that minimizes this distance is the
 median of the interval:

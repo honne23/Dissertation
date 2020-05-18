@@ -84,8 +84,13 @@ first pioneered by \cite{Lasry2007} examine classes of games that have extremely
 numbers of players,particularly in the infinite limit. Many of the intractabilities
 associated with games of many players simplify in the infinite limit; instead of considering
 the interaction of the agent with all other agents, we consider the pairwise interaction
-between the agent and some virtual \emph{mean} agent. Within the context of reinforcement
-learning, \cite{Yang} factorize the Q function into only the pairwise local interactions
+between the agent and some virtual \emph{mean} agent. Under the standard
+assumptions of mean-field approximation, each agent is assumed to be
+\emph{indistinguishable} and \emph{interchangable}, indicating that given an indexed
+set of agents, the ordering of their indices does not have an effect on their
+interactions, this assumption will be relaxed later when multiple types of agents
+are introduced. Within the context of reinforcement
+learning, \cite{Yang2018} factorize the Q function into only the pairwise local interactions
 in the \emph{neighbourhood} of the agent:
 \begin{equation}
     \begin{gathered}
@@ -214,8 +219,47 @@ minimize the following loss function in the same fashion as equation (2.48):
 Where $y^j = r^j + \gamma v^{MF}_{\theta^-}(s')$ is the TD target constructed from the weights $\theta^-$ of the target network.
 
 \subsection{Spatial Congestion Games}
-\cite{Mguni2018}.
-
-
+\cite{Mguni2018} develop results similar to \cite{Yang2018} for different settings, particularly that of spatial congestion games.
+A spatial congestion game is a variant of a stochastic game where the agent's rewards are based
+on some shared resource usage, in this a case a region of space in $\mathbb{R}^2$. 
+\begin{displayquote}[\cite{Mguni2018}]
+    In the spatial congestion (SC) game there are $N$ agents, given some initial position $x_0 \in \mathbf{S}$, each agent
+chooses an action in order to move to a desired location $x_T \in \mathbf{S}$ 
+which is a terminal state. Certain areas of $\mathbf{S}$ are more desirable to occupy than others, 
+however the agents are averse to occupying crowded areas
+\end{displayquote}
+They define the joint state of the agents as their combined density 
+as anypoint in space as the average dirac deltas
+centered on the position of neighbouring agents at coordinate $x_k$\footnote{This can be interpreted the average of the one-hot encoded action vectors}:
+\begin{equation}
+    m_{x_k} \triangleq \frac{1}{N} \sum_{i=1}^N \delta_{x^i_k}
+\end{equation}
+The go on to model the desireability of a coordinate $x_t$ with the following loss function:
+\begin{equation}
+    L(x_t, m_{x_t}) = \frac{1}{2 \pi \sqrt{\vert \Sigma \vert}} \frac{\exp (-(x_t - \mu)^\top \Sigma^{-1} (x_t - \mu))}{(1 + m_{x_t})^\alpha}
+\end{equation}
+With $\mu \in \mathbb{R}^2$ representing the centroid and $\Sigma \propto 1_{2 \times 2}$ derived from the covariance of the coordinates. The hyperparameter $\alpha$ measures the agent's averseness
+to dense areas, $\alpha > 0$ representing greater averseness and $\alpha < 0$ indicating an affinity for
+dense areas. The reward for each agent is determined based on the combined expected desireability
+of the position of each agent:
+\begin{equation}
+    \E \Condition{\sum_{k=t}^T L(x_k, m_{x_k}, a_k)}{a_k \backsim \pi}
+\end{equation}  
+Although the authors develop the results specifically for the Actor-Critic architecture,
+as \cite{Yang2018} shows, the same convergence gurantees can be extended to off-policy Q-Learning.
 \subsection{Mean Field Multi Type Reinforcement Learning}
-\cite{Sriram2020}, \cite{Xueguang2018}
+\cite{Sriram2020}, build directly ontop of the results of \cite{Yang2018} by extending the framework
+to incorporate multiple heterogenous types of agents. They introduce the loose term of \emph{type},
+within the paper a unique type refers to agents that share the same action space but have different
+reward structures, this will be the definition used throughout here. They extend the Q function
+developed by \cite{Yang2018} by partioning the \emph{empirical distribution} of the actions of
+neighbours, into an empirical distribution of the actions for each type of neighbour:
+\begin{equation}
+    Q^j(s,\mathbf{a}) = \frac{1}{M} \sum_{i=1}^{M}[Q^j(s, a^j, a^{-j}_1, a^{-j}_2, \hdots, a^{-j}_M)]
+\end{equation}
+For each central agent $j$, there exist $M$ total types of surrounding agents, 
+and $a^{-j}_m$ denotes the empirical distribution of the actions of neighbours of type $m$. The rest 
+of \cite{Yang2018} results follow accordingly. The primary contribution of this paper to this work was to show
+that although \cite{Yang2018}'s work converged in settings with heterogenous agents, by explicitly
+considering types, agents often perform better and exhibit greater accumulated rewards in the long run
+as compared to settings that do not incorporate types explicitly.

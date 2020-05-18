@@ -1,5 +1,137 @@
-\section{Optimal discretization of space}
+\section{Environment and actions}
+In contrast to other approaches on a 2D lattice, I will instead 
+model the environment using a 3D FCC lattice, which has the added benefit of
+being computationally trivial to model. I make use of the
+matrix representation:
+\begin{equation}
+    \begin{split}
+        & \mathbf{e} = \begin{bmatrix}
+            0 & 0.5 & 0.5 \\
+            0.5 & 0 & 0.5 \\
+            0.5 & 0.5 & 0
+        \end{bmatrix} \\
+    \end{split}
+\end{equation}
+Any point in space is represented as a linear combination of the
+column space of the bravaise lattice, within a discrete action setting,
+this can be viewed as a choice among $3^3$ possible actions $ a = \begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}$ s.t $(x,y,z) \in \{-1,0,1 \}$.
+The chains of amino acids are initialised as a straight line in space, and each
+time-step each residue moves to another position $x_t$ by selecting a movement vector
+$a_{\mathbf{j}}$ to be applied to it's current position. The transition function
+is characterised as:
+\begin{equation}
+    T(x_t, a_{\mathbf{j}}) =\mathbf{e} \cdot a_{\mathbf{j}}
+\end{equation}
+At any point in time, I also consider the joint state $m_{x_t}$ as described by \cite{Mguni2018}
+to model the densities of residues in 3D space.
 \section{Revising reward structures}
-\section{Modelling the action space}
+Instead of using the standard rewards associated with the $HP$ model, 
+I will instead divide each of the residues into their respective categories
+under the $hHPNX$ model with the signs of values inverted, each residue acts as their own agent with their own
+reward function determined according to the column space in table (2.3). In
+addition to these rewards, the agents are further penalized with with a reward
+of -10 for occupying the same space as another residue to discourage overlapping residues:
+\begin{table}[!htb]
+    \caption{Reward structure}
+    \begin{center}
+        \caption{}
+        \begin{tabular}{|c || c | c | c | c | c|}
+            \hline
+             & h & H & P & N & X \\
+            \hline
+            h & -2 & 4 & 0 & 0 & 0 \\
+            \hline
+            H & 4 & 3 & 0 & 0 & 0 \\
+            \hline
+            P & 0 & 0 & -1 & 1 & 0\\
+            \hline
+            N & 0 & 0 & 1 & -1 & 0\\
+            \hline
+            X & 0 & 0 & 0 & 0 & 0\\ 
+            \hline
+            $x' = x$ & -10 & -10 & -10 & -10 & -10\\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{table}\\
+In addition to these rewards, the agents are also weighted proportionally to 
+the spatial congestion as described by \cite{Mguni2018} as follows:
+\begin{equation}
+    R(m_{x_t},a') = \psi R_{hHPNX} + (1 - \psi)  \frac{\exp (-(x_t - \mu)^\top \Sigma^{-1} (x_t - \mu))}{2 \pi \sqrt{\vert \Sigma \vert}(1 + m_{x_t})^\alpha}
+\end{equation}
+Where $\alpha < 0$ encourages the occupation of dense areas and $0 < \psi < 1$ is a hyperparameter
+that weights the agent's intrinsic reward against the global reward, with higher values
+of $\psi$ favouring intrinsic reward more than global reward. This serves two purposes,
+it offsets the sparse rewards of the neutral group $X$ and it serves to provide
+a richer training signal in the proteins initial denatured state, guiding it to the
+hydrophobic collapse, both rewards are complementary and provide different benefits at 
+different stages of training, $\psi$ is set initially low $\backsim 0.2$ and annealed up to $\backsim 0.9$.
+This heterogenous reward structure is afforded by the gurantees provided by \cite{Sriram2020},
+which ensures convergence with lower bounds within the mean-field scheme when considering 
+multiple types of agents.                
 \section{Mean field multi-type spatial congestion games}
+As suggested previously, each residue is modelled as an individual agent belonging to one of the
+categories as listed in the hHPNX model. The reward structure of each type is heterogenous and so can be considered
+to be members of disjoint types. I model the inter-domain cooperativity by positively rewarding
+the agents for the occupation of lattice sites with:
+\begin{itemize}
+    \item Favourable contacts with neighbouring residues 
+    \item Dense occupation of other residues
+\end{itemize}
+Rewards for the occupation of dense areas of space encourages cooperativity amongst all
+agents and acts as a guide to the most compact states. The reward for favourable contacts
+also filters the landscape of possible conformations leaving only those that maximise
+the number of hydrophic contacts while being optimally compact, this mirrors the
+work of \cite{Yang} regarding the two tiers of interactions. The reward for
+dense packing is initially high, driving the fast interactions due rapidly
+accumulating rewards as the density increases. As the value of $\psi$ is annealed,
+the specific contacts among residues becomes more important as they rearrange themselves
+while in a compact form, this resembles the tier 2 of slower interactions that guide the 
+proteins to the bottom of the \emph{Gibbs energy funnel}. The use of the \emph{hHPNX} scheme
+on a 3D FCC lattice also reduces the number of degenerative results as \cite{Hoque} shows.\\
+
+Each agent's Q function is updated in accordance with the multi-type paradigm which was shown to be provably convergent:
+\begin{equation}
+    Q^j_{t+1}(s,a^j,a^{-j}, a^{-j}_1, \hdots , a^{-j}_M)= (1-\alpha)Q^j_t(s,a^j,a^{-j}, a^{-j}_1, \hdots , a^{-j}_M) +\alpha[R^j(m_{x_t}, a^j)+ \gamma v^j_t(s')]
+\end{equation}
+Where $a^j$ represents the action taken by the central agent, $a^{-j}$ and $a^{-j}_m$ represents
+the empirical distribution of all neighbours and neighbours of type $m$ respectively.
 \section{Risk sensitive agents}
+As \cite{Xueguang2018} show, distributional reinforcement learning proves to be effective
+in multi-agent settings; an agent is better able to \emph{distribute blame} proportionally
+among the actions of neighbouring agents. For instance, for a given transition $s\rightarrow s'$,
+if we consider the joint action taken by all agents $\mathbf{a}$, then a central agent $j$ may determine
+that the action taken by a specific agent $\mathbf{a}_k$ was the most influential factor in the
+transition to specific state $s'$; this is also known as the \emph{credit assignment problem}. In their work, they use quantile networks to determine a state-specific learning rate $\alpha$
+that changes based on the interaction with other agents, becoming more or less exploratory
+as the situation deems. I instead take an alternative approach in favour of \emph{reward shaping}.
+
+\subsection{Reward Shaping with Quantile Estimates}
+\cite{Devlin2014} show that
+
+Let $\mathbf{\hat{q}}^{-j}_{i,k}$ denote the quantile 
+distribution of a selected action $i$ by neighbour $k$. First I average the quantiles returns
+for each action across all neighbours:
+\begin{equation}
+    \begin{gathered}
+        \mathbf{a}^{-j}_i = \frac{1}{K} \cdot \sum_K  \mathbf{\hat{q}}^{-j}_{i,k}
+    \end{gathered}
+\end{equation}
+The weighted sum of the quantile distributions 
+is then taken \emph{indiscriminately} and \emph{type-wise} by multiplying
+the average returns for each action by the empirical probability of that action,
+this produces $M + 1$ quantile estimates:
+\begin{equation}
+    \mathbf{a}^{-j} = \sum_{i=1}^{\vert \mathbf{A} \vert} p(a_i) \cdot \mathbf{a}^{-j}_i
+\end{equation}
+\begin{itemize}
+    \item A quantile estimate for the returns of all the neighbours combined
+\end{itemize}
+\begin{equation}
+    \mathbf{a}^{-j}_m =  \sum_{i=1}^{\vert \mathbf{A} \vert} p(a_{i,m}) \cdot \mathbf{a}^{-j}_{i,m}
+\end{equation}
+\begin{itemize}
+    \item A quantile estimate of the contribution of each type to the total returns
+\end{itemize}
