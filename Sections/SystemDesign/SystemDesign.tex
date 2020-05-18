@@ -106,32 +106,12 @@ if we consider the joint action taken by all agents $\mathbf{a}$, then a central
 that the action taken by a specific agent $\mathbf{a}_k$ was the most influential factor in the
 transition to specific state $s'$; this is also known as the \emph{credit assignment problem}. In their work, they use quantile networks to determine a state-specific learning rate $\alpha$
 that changes based on the interaction with other agents, becoming more or less exploratory
-as the situation deems. I instead take an alternative approach in favour of \emph{reward shaping}.
+as the situation deems.\\
+
+I considered this approach, aswell as an alternative approach that shaped the the reward accord to the
+predicted distribution of of returns for the actions selected by neighbours. However I instead argue that
+
 
 \subsection{Reward Shaping with Quantile Estimates}
-\cite{Devlin2014} show that
+Reward shaping is an approach to optimal credit assignment in environments with sparse rewards.
 
-Let $\mathbf{\hat{q}}^{-j}_{i,k}$ denote the quantile 
-distribution of a selected action $i$ by neighbour $k$. First I average the quantiles returns
-for each action across all neighbours:
-\begin{equation}
-    \begin{gathered}
-        \mathbf{a}^{-j}_i = \frac{1}{K} \cdot \sum_K  \mathbf{\hat{q}}^{-j}_{i,k}
-    \end{gathered}
-\end{equation}
-The weighted sum of the quantile distributions 
-is then taken \emph{indiscriminately} and \emph{type-wise} by multiplying
-the average returns for each action by the empirical probability of that action,
-this produces $M + 1$ quantile estimates:
-\begin{equation}
-    \mathbf{a}^{-j} = \sum_{i=1}^{\vert \mathbf{A} \vert} p(a_i) \cdot \mathbf{a}^{-j}_i
-\end{equation}
-\begin{itemize}
-    \item A quantile estimate for the returns of all the neighbours combined
-\end{itemize}
-\begin{equation}
-    \mathbf{a}^{-j}_m =  \sum_{i=1}^{\vert \mathbf{A} \vert} p(a_{i,m}) \cdot \mathbf{a}^{-j}_{i,m}
-\end{equation}
-\begin{itemize}
-    \item A quantile estimate of the contribution of each type to the total returns
-\end{itemize}

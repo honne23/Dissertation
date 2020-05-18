@@ -47,16 +47,17 @@ class Bravais(object):
                     types.append(j)
         return types
     
-    def step(self, action, index):
+    def step(self, action : int, index : int) -> tuple:
         old_pos = self.position_buffer[index,:].reshape(-1,1)
         new_pos = old_pos + self.e.dot(self.actions[action,:].reshape(-1,1))
-        reward = self.calc_reward(index,old_pos,new_pos)
-        self.position_buffer[index] = new_pos.reshape(-1,1)
-        self_avoiding = self.check_self_avoiding(index)
+        reward, new_g = self.calc_reward(index,old_pos,new_pos)
+        self_avoiding = self.check_self_avoiding(index, new_pos)
         if reward == -10 or not self_avoiding:
             done = False
         else:
             done = True
+            self.position_buffer[index] = new_pos.reshape(-1,1)
+            self.global_reward = new_g
         return self.position_buffer.flatten(), reward, done
     
     def check_self_avoiding(self, index:int, new_pos : np.array) -> bool:
@@ -69,7 +70,7 @@ class Bravais(object):
         else:
             return next_index and last_index
         
-    def reset(self):
+    def reset(self) -> np.array:
         """
         Denature the protein
         """
@@ -116,7 +117,7 @@ class Bravais(object):
     def global_difference_reward(self, index: int, new_local_rewards : int) -> int:
         old_global_prime = self.global_reward - self.site_potentials[index]
         new_global = old_global_prime + new_local_rewards
-        return new_global - old_global_prime
+        return new_global - old_global_prime, new_global
     
     def calc_reward(self, index: int, old_pos: np.array, new_pos: np.array) -> float:
         """
@@ -125,5 +126,5 @@ class Bravais(object):
         new_local_rewards, num_new_neighbours = self.get_contacts(self.types[index],new_pos)
         phi_next = self.calc_desireability(new_pos, num_new_neighbours)
         phi_current = self.calc_desireability(old_pos, self.find_neighbours(self.position_buffer[index]).shape(1))
-        g_diff = self.global_difference_reward(index, new_local_rewards)
-        return g_diff + self.gamma * phi_next - phi_current
+        g_diff, new_g = self.global_difference_reward(index, new_local_rewards)
+        return g_diff + self.gamma * phi_next - phi_current, new_g
