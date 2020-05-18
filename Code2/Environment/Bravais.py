@@ -50,13 +50,14 @@ class Bravais(object):
     def step(self, action : int, index : int) -> tuple:
         old_pos = self.position_buffer[index,:].reshape(-1,1)
         new_pos = old_pos + self.e.dot(self.actions[action,:].reshape(-1,1))
-        reward, new_g = self.calc_reward(index,old_pos,new_pos)
+        reward, new_local, new_g = self.calc_reward(index,old_pos,new_pos)
         self_avoiding = self.check_self_avoiding(index, new_pos)
         if reward == -10 or not self_avoiding:
             done = False
         else:
             done = True
             self.position_buffer[index] = new_pos.reshape(-1,1)
+            self.site_potentials[index] = new_local
             self.global_reward = new_g
         return self.position_buffer.flatten(), reward, done
     
@@ -127,4 +128,5 @@ class Bravais(object):
         phi_next = self.calc_desireability(new_pos, num_new_neighbours)
         phi_current = self.calc_desireability(old_pos, self.find_neighbours(self.position_buffer[index]).shape(1))
         g_diff, new_g = self.global_difference_reward(index, new_local_rewards)
-        return g_diff + self.gamma * phi_next - phi_current, new_g
+        shaped_reward = g_diff + self.gamma * phi_next - phi_current
+        return shaped_reward, new_local_rewards, new_g
