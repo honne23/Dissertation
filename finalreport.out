@@ -49,6 +49,6 @@
 \BOOKMARK [0][-]{chapter.4}{System Design and Analysis}{}% 49
 \BOOKMARK [1][-]{section.4.1}{Environment and actions}{chapter.4}% 50
 \BOOKMARK [1][-]{section.4.2}{Revising reward structures}{chapter.4}% 51
-\BOOKMARK [1][-]{section.4.3}{Mean field multi-type spatial congestion games}{chapter.4}% 52
-\BOOKMARK [1][-]{section.4.4}{Risk sensitive agents}{chapter.4}% 53
-\BOOKMARK [2][-]{subsection.4.4.1}{Reward Shaping with Quantile Estimates}{section.4.4}% 54
+\BOOKMARK [2][-]{subsection.4.2.1}{Potential based reward shaping}{section.4.2}% 52
+\BOOKMARK [1][-]{section.4.3}{Mean field multi-type spatial congestion games}{chapter.4}% 53
+\BOOKMARK [1][-]{section.4.4}{Risk sensitive agents}{chapter.4}% 54

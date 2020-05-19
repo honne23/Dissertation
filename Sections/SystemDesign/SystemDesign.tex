@@ -24,8 +24,18 @@ is characterised as:
 \begin{equation}
     T(x_t, a_{\mathbf{j}}) =\mathbf{e} \cdot a_{\mathbf{j}}
 \end{equation}
-At any point in time, I also consider the joint state $m_{x_t}$ as described by \cite{Mguni2018}
-to model the densities of residues in 3D space.
+In order to preserve constraints between neighbouring resisues on the backbone, each agent
+continues to take steps in the environment until a \emph{legal} action in made, otherwise
+being punishived for violating the self avoiding walk, occupying active sites and occupying a lattice site that is 
+too far from neighbouring residues i.e if the distance between residues with index $(i-1, i)$
+and $(i, i+1)$ is not an element of $\{\sqrt{0.5}, 1\}$ in an FCC configuration, then the backbone
+of the chain has been broken. Once a permitted action is taken, the agent is rewarded accordingly,
+then transitioned into an \emph{absorbing state} with reward 0 to preserve the gurantees of finite MDPs\footnote{Modified from \cite{Mguni2018}'s construction of spatial congestion games}.
+Each episode consists of one round of agents sequentially taking actions until a terminal state is reached,
+in which case the end state of the previous episode is passed as the starting state of the next episode. The
+system is therefore evaluated for a finite number of timesteps $\backsim 1e6$ and halted when an equilibrium
+state has been reached, indicating no more permissible moves are available, or any that are taken will only negatively
+impact the global reward.
 \section{Revising reward structures}
 Instead of using the standard rewards associated with the $HP$ model, 
 I will instead divide each of the residues into their respective categories
@@ -56,19 +66,57 @@ of -10 for occupying the same space as another residue to discourage overlapping
         \end{tabular}
     \end{center}
 \end{table}\\
-In addition to these rewards, the agents are also weighted proportionally to 
-the spatial congestion as described by \cite{Mguni2018} as follows:
+\subsection{Potential based reward shaping}
+In multi-agent settings, altering the structure of rewards has been shown to 
+encourage faster convergence to an optimal joint policy \cite{Devlin2014}.
+The \emph{difference reward} restructures the reward such that agent is rewarded
+based on their contribution to the global optimization goal, this does not
+require expert knowledge. \emph{Potential based reward
+shaping} instead shapes the reward according to a potential function that encodes the desireability
+of certain states crafted by expert knowledge. \cite{Devlin2014} unify these two domains
+under \emph{difference rewards incorporating potential-based reward shaping (DRiP} in order to gain the mutual advantages of both methods.\\
+
+Firstly, the local reward is defined as $L_j$, this is the reward for the immediate transition
+that has just occured $(s,a,s',r)$. The global reward is the sum over all the local rewards of all the agents
+$G = \sum_J L_j$.
+\begin{itemize}
+    \item This difference reward is defined as: \[D_i(z) = G(z) - G(z^{-j})\] where $z$ indicates
+    the collective states or state-action pairs of the agents.
+    \item The potential based reward shaping is defined by \[PBRS = L_j + \gamma \boldsymbol \Phi(s') - \boldsymbol \Phi(s)\]
+    where $\boldsymbol \Phi(s)$ encodes the intrisic desireability of the state and $\gamma$ is the same discount
+    factor used by the agent. 
+    \begin{displayquote}[\cite{Devlin2014}]
+        This formulation of reward shaping has been proven to not
+        alter the optimal policy of a single agent in both infinite- andfinite- state MDPs. 
+    \end{displayquote}
+\end{itemize}
+\cite{Devlin2014} describe the generic form of a shaped reward (4.3) and formulate \emph{DRiP} (4.4) within this framework:
 \begin{equation}
-    R(m_{x_t},a') = \psi R_{hHPNX} + (1 - \psi)  \frac{\exp (-(x_t - \mu)^\top \Sigma^{-1} (x_t - \mu))}{2 \pi \sqrt{\vert \Sigma \vert}(1 + m_{x_t})^\alpha}
+    \begin{gathered}
+        r_{shaped} = r(s,a,s') + F(s,s')\\
+        \text{Where $r(s,a,s') = L_k$ and $F(s,s')$ is the additional shaping function}
+    \end{gathered}
 \end{equation}
-Where $\alpha < 0$ encourages the occupation of dense areas and $0 < \psi < 1$ is a hyperparameter
-that weights the agent's intrinsic reward against the global reward, with higher values
-of $\psi$ favouring intrinsic reward more than global reward. This serves two purposes,
-it offsets the sparse rewards of the neutral group $X$ and it serves to provide
-a richer training signal in the proteins initial denatured state, guiding it to the
-hydrophobic collapse, both rewards are complementary and provide different benefits at 
-different stages of training, $\psi$ is set initially low $\backsim 0.2$ and annealed up to $\backsim 0.9$.
-This heterogenous reward structure is afforded by the gurantees provided by \cite{Sriram2020},
+\begin{equation}
+    \begin{gathered}
+        r(s,a,s') = G(s,a,s')\\
+        F(s,s') = -G(s'^{-j}) + \gamma \boldsymbol \Phi(s') - \boldsymbol \Phi(s)
+    \end{gathered}
+\end{equation}
+I take the global reward to be the sum of the rewards of all contacts on lattice
+sites centered at each agent's position, the desireability of occupying a site
+is given by the spatial congestion loss defined by \cite{Mguni2018} for $\alpha < 0$
+favouring sites with greater density. The joint state $m_{x_t}$ of a site is given
+by the fraction of neighbouring residues on a particular site. In an FCC configuration,
+a given site can have a maximum of $n = 12$ neighbours, so if the occupation of a site
+results in the central residue taking on 12 neighbours, the site is said to be maximally dense.
+\begin{equation}
+    \begin{gathered}
+        \boldsymbol \Phi(m_{x_t}, x_t) = \frac{\exp (-(x_t - \mu)^\top \Sigma^{-1} (x_t - \mu))}{2 \pi \sqrt{\vert \Sigma \vert}(1 + m_{x_t})^\alpha}
+    \end{gathered}
+\end{equation}
+This heterogenous reward structure given by the hHPNX categorisation
+is afforded by the gurantees provided by \cite{Sriram2020},
 which ensures convergence with lower bounds within the mean-field scheme when considering 
 multiple types of agents.                
 \section{Mean field multi-type spatial congestion games}
@@ -84,17 +132,16 @@ Rewards for the occupation of dense areas of space encourages cooperativity amon
 agents and acts as a guide to the most compact states. The reward for favourable contacts
 also filters the landscape of possible conformations leaving only those that maximise
 the number of hydrophic contacts while being optimally compact, this mirrors the
-work of \cite{Yang} regarding the two tiers of interactions. The reward for
-dense packing is initially high, driving the fast interactions due rapidly
-accumulating rewards as the density increases. As the value of $\psi$ is annealed,
-the specific contacts among residues becomes more important as they rearrange themselves
-while in a compact form, this resembles the tier 2 of slower interactions that guide the 
-proteins to the bottom of the \emph{Gibbs energy funnel}. The use of the \emph{hHPNX} scheme
-on a 3D FCC lattice also reduces the number of degenerative results as \cite{Hoque} shows.\\
+work of \cite{Yang} regarding the two tiers of interactions. The \emph{DRiP} reward attempts to
+shape the reward lanscape similarly to the \emph{Gibbs energy funnel}, the addition
+of the potential shaping ensures that agents do not encounter significantly sparse rewards
+and can respond to a consistent training signal.
+The use of the \emph{hHPNX} scheme on a 3D FCC lattice also reduces the number of degenerative 
+results as \cite{Hoque} shows.\\
 
 Each agent's Q function is updated in accordance with the multi-type paradigm which was shown to be provably convergent:
 \begin{equation}
-    Q^j_{t+1}(s,a^j,a^{-j}, a^{-j}_1, \hdots , a^{-j}_M)= (1-\alpha)Q^j_t(s,a^j,a^{-j}, a^{-j}_1, \hdots , a^{-j}_M) +\alpha[R^j(m_{x_t}, a^j)+ \gamma v^j_t(s')]
+    Q^j_{t+1}(s,a^j,a^{-j}, a^{-j}_1, \hdots , a^{-j}_M)= (1-\alpha)Q^j_t(s,a^j,a^{-j}, a^{-j}_1, \hdots , a^{-j}_M) +\alpha[R^j(m_{x_t}, x_t, a^j, \gamma)+ \gamma v^j_t(s')]
 \end{equation}
 Where $a^j$ represents the action taken by the central agent, $a^{-j}$ and $a^{-j}_m$ represents
 the empirical distribution of all neighbours and neighbours of type $m$ respectively.
@@ -110,8 +157,22 @@ as the situation deems.\\
 
 I considered this approach, aswell as an alternative approach that shaped the the reward accord to the
 predicted distribution of of returns for the actions selected by neighbours. However I instead argue that
-
-
-\subsection{Reward Shaping with Quantile Estimates}
-Reward shaping is an approach to optimal credit assignment in environments with sparse rewards.
-
+due to the structure of the reward, the quantile returns that the agents are modelling are that of their
+\textbf{expected contribution} to the global goal and so no changes to the loss function
+presented by \cite{Sriram2020} are required. It is relevant to question whether the combination
+of the techniques presented here still converge to the same optimal joint policy $\mathbf{\pi}*$ or 
+to the same set of nash equilibrium strategies, although a more thorough analysis is required,
+I present the following reasoning as to why the agents will still converge to the same set of
+nash strategies:
+\begin{itemize}
+    \item \cite{Yang2018} prove that $\exists \: \boldsymbol \pi^* \backsim \{\pi_k^{MF}\}$, there exists
+        an optimal joint policy when the policies of each agent are evaluated according to the
+        mean field approximation
+    \item \cite{Devlin2014} prove that the construction of the potential difference reward \textbf{does not
+    alter the underlying nash equilibrium strategies}.
+    \item \cite{Dabney2017} prove that the repeated application of the distributional bellman operator 
+    $\mathcal{T}^\pi$ converges to a fixed point among all policies for an individual agent.
+\end{itemize}
+In summary, as there exists an optimal joint strategy $\boldsymbol \pi^*  \triangleq [\pi^1, \pi^2, \hdots, \pi^N]$ in a mean field game,
+the shaping of the reward will not change this optimal joint strategy; each agent is guranteed to converge to
+an optimal strategy which optimises it's expected contribution to the global objective.

@@ -37,6 +37,7 @@ class Bravais(object):
         self.types = self.init_types(residues)
         self.site_potentials = [self.get_contacts(x,y) for x,y in zip(self.types, self.position_buffer)]
         self.global_reward = sum(self.site_potentials)
+        self.done_flag = False
         
     
     def init_types(self, residues : str) -> List[int]:
@@ -48,14 +49,17 @@ class Bravais(object):
         return types
     
     def step(self, action : int, index : int) -> tuple:
+        if self.done_flag:
+            self.done_flag = False
+            return self.position_buffer.flatten(), 0, True #Transition into terminal state reward = 0
         old_pos = self.position_buffer[index,:].reshape(-1,1)
         new_pos = old_pos + self.e.dot(self.actions[action,:].reshape(-1,1))
         reward, new_local, new_g = self.calc_reward(index,old_pos,new_pos)
         self_avoiding = self.check_self_avoiding(index, new_pos)
         if reward == -10 or not self_avoiding:
-            done = False
+            self.done_flag = False
         else:
-            done = True
+            self.done_flag = True
             self.position_buffer[index] = new_pos.reshape(-1,1)
             self.site_potentials[index] = new_local
             self.global_reward = new_g

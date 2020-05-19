@@ -48,7 +48,7 @@
 \contentsline {section}{\numberline {3.3}Overcoming energy barriers after the hydrophobic collapse}{58}{section.3.3}% 
 \contentsline {chapter}{\numberline {4}System Design and Analysis}{59}{chapter.4}% 
 \contentsline {section}{\numberline {4.1}Environment and actions}{59}{section.4.1}% 
-\contentsline {section}{\numberline {4.2}Revising reward structures}{59}{section.4.2}% 
-\contentsline {section}{\numberline {4.3}Mean field multi-type spatial congestion games}{61}{section.4.3}% 
-\contentsline {section}{\numberline {4.4}Risk sensitive agents}{61}{section.4.4}% 
-\contentsline {subsection}{\numberline {4.4.1}Reward Shaping with Quantile Estimates}{62}{subsection.4.4.1}% 
+\contentsline {section}{\numberline {4.2}Revising reward structures}{60}{section.4.2}% 
+\contentsline {subsection}{\numberline {4.2.1}Potential based reward shaping}{61}{subsection.4.2.1}% 
+\contentsline {section}{\numberline {4.3}Mean field multi-type spatial congestion games}{62}{section.4.3}% 
+\contentsline {section}{\numberline {4.4}Risk sensitive agents}{63}{section.4.4}% 
