@@ -51,7 +51,7 @@ class Bravais(object):
     def step(self, action : int, index : int) -> tuple:
         if self.done_flag:
             self.done_flag = False
-            return self.position_buffer.flatten(), 0, True #Transition into terminal state reward = 0
+            return np.zeros(self.position_buffer.shape(0)), 0, True #Transition into terminal state with reward = 0
         old_pos = self.position_buffer[index,:].reshape(-1,1)
         new_pos = old_pos + self.e.dot(self.actions[action,:].reshape(-1,1))
         reward, new_local, new_g = self.calc_reward(index,old_pos,new_pos)
@@ -63,9 +63,12 @@ class Bravais(object):
             self.position_buffer[index] = new_pos.reshape(-1,1)
             self.site_potentials[index] = new_local
             self.global_reward = new_g
-        return self.position_buffer.flatten(), reward, done
+        return self.position_buffer.flatten(), reward, False
     
     def check_self_avoiding(self, index:int, new_pos : np.array) -> bool:
+        """
+        Measure the distance between previous index and next index to maintain the backbone
+        """
         last_index = norm(new_pos-self.position_buffer[(index-1) % len(self.position_buffer)]) in [np.sqrt(0.5),1.]
         next_index = norm(new_pos - self.position_buffer[(index+1) % len(self.position_buffer)]) in [np.sqrt(0.5),1.]
         if index == 0:
