@@ -26,7 +26,7 @@ env.seed(seed)
 
 # parameters
 num_frames = 600000
-memory_size = 50000
+memory_size = 10000
 batch_size = 32
 target_update = 1000
 max_e = 1.0
@@ -75,9 +75,9 @@ def _plot(
         plt.plot(epsilons)
         plt.show()
 
-min_train = 50000
+min_train = 10000
 for frame_idx in range(1, num_frames + 1):
-    next_state, reward, done = agent.step(state)
+    next_state, reward, done = agent.step(state, frame_idx > min_train)
     state = next_state
     score += reward
     

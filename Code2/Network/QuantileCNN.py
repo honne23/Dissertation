@@ -16,14 +16,14 @@ class QuantileCNN(nn.Module):
         )
         
         self.advantage_layer = nn.Sequential(
-            nn.Linear(7*7*64, hidden_size),
+            NoisyLinear(7*7*64, hidden_size),
             nn.ReLU(),
-            nn.Linear(hidden_size, num_actions* quantiles)
+            NoisyLinear(hidden_size, num_actions* quantiles)
         )
         self.value_layer = nn.Sequential(
-            nn.Linear(7*7*64, hidden_size),
+            NoisyLinear(7*7*64, hidden_size),
             nn.ReLU(),
-            nn.Linear(hidden_size, quantiles)
+            NoisyLinear(hidden_size, quantiles)
         )
     def forward(self, x):
         out = self.feature_layer(x)
@@ -32,4 +32,9 @@ class QuantileCNN(nn.Module):
         adv = adv.view(-1, self.num_actions, self.quantiles)
         val = val.view(-1, 1, self.quantiles)
         return val + adv - adv.mean(dim=1).view(-1, 1, self.quantiles)
+    
+    def reset_noise(self):
+        for i in [*self.advantage_layer, *self.value_layer]:
+            if isinstance(i, NoisyLinear):
+                i.sample_noise()
     

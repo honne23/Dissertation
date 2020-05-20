@@ -56,7 +56,7 @@ class QuantileAtariAgent:
         next_state = torch.FloatTensor(next_state).to(self.device)
         action = torch.LongTensor(action.astype(int)).to(self.device)
         reward = torch.FloatTensor(reward.astype(float).reshape(-1, 1)).to(self.device)
-        done = torch.FloatTensor(done.astype(bool).reshape(-1, 1)).to(self.device)
+        done = torch.LongTensor(done.astype(bool).reshape(-1, 1)).to(self.device)
         
         quantiles = self.dqn(state)
         quantiles = quantiles[torch.arange(quantiles.size(0)), action].squeeze(1) #select the quantiles of the actions chosen in each state
@@ -72,6 +72,10 @@ class QuantileAtariAgent:
         loss.backward()
         clip_grad_norm_(self.dqn.parameters(), 10.0)        
         self.optimizer.step()
+        
+        self.dqn.reset_noise()
+        self.target.reset_noise()
+        
         return loss.item()
     
     def update_epsilon(self):
@@ -103,17 +107,17 @@ class QuantileAtariAgent:
         return next_dist.sum(dim=2).max(1)[1].view(next_states.size(0), 1, 1).expand(-1, -1, self.num_quantiles)
         
         
-    def select_action(self, state) -> int:
-        if self.epsilon > np.random.random():
-            selected_action = self.env.action_space.sample()
-        else:
+    def select_action(self, state: np.array, ready: bool) -> int:
+        if ready:
             with torch.no_grad():
                 state = torch.FloatTensor(state).to(self.device)
                 selected_action = (self.dqn(state.unsqueeze(0)) * self.quantile_weight).sum(dim=2).max(dim=1)[1].item()
+        else:
+            selected_action = self.env.action_space.sample()
         return selected_action
     
-    def step(self, state: np.array) -> tuple:
-        action = self.select_action(state)
+    def step(self, state: np.array, ready:bool) -> tuple:
+        action = self.select_action(state, ready)
         next_state, reward, done, _ = self.env.step(action)
         transition = [state, action, reward, next_state, done]
         self.memory.store(transition)
