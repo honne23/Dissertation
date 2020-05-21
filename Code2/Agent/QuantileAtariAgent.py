@@ -10,13 +10,10 @@ class QuantileAtariAgent:
     def __init__(self,
                  env: gym,
                  hidden_size:int = 128,
-                 max_epsilon: float = 1.0,
-                 min_epsilon: float = 0.01,
-                 epsilon_decay: float = (1/2000),
                  mem_size: int = 5000,
                  batch_size: int = 32,
                  gamma: float = 0.99,
-                 lr: float = 1e-3,
+                 lr: float = 1e-4,
                  num_quantiles: int = 51
                  ):
         self.env = env
@@ -25,11 +22,7 @@ class QuantileAtariAgent:
         self.target = QuantileCNN(hidden_size, self.env.action_space.n, num_quantiles).to(self.device)
         self.target.eval()
         self.target.load_state_dict(self.dqn.state_dict())
-        self.optimizer = optim.Adam(params= self.dqn.parameters())
-        self.max_epsilon = max_epsilon
-        self.epsilon = max_epsilon
-        self.min_epsilon = min_epsilon
-        self.epsilon_decay = epsilon_decay
+        self.optimizer = optim.Adam(params= self.dqn.parameters(), lr=lr)
         self.batch_size = batch_size
         self.memory = PrioritisedReplay(mem_size)
         self.gamma = gamma
@@ -78,12 +71,6 @@ class QuantileAtariAgent:
         
         return loss.item()
     
-    def update_epsilon(self):
-        self.epsilon = max( \
-                    self.min_epsilon, self.epsilon - ( \
-                        self.max_epsilon - self.min_epsilon \
-                    ) * self.epsilon_decay \
-                )
     def update_beta(self, frame_idx:int, num_frames:int):
         fraction = min(frame_idx / num_frames, 1.0)
         beta = self.memory.beta 

@@ -26,12 +26,9 @@ env.seed(seed)
 
 # parameters
 num_frames = 600000
-memory_size = 10000
+memory_size = 30000
 batch_size = 32
 target_update = 1000
-max_e = 1.0
-min_e = 0.1
-epsilon_decay = 1 / (1000000) 
 
 
 num_frames = 500000
@@ -41,9 +38,7 @@ agent = QuantileAtariAgent(
     env=env, 
     gamma=0.99, 
     mem_size = memory_size,
-    batch_size=batch_size,
-    min_epsilon=min_e,
-    epsilon_decay=epsilon_decay)
+    batch_size=batch_size)
 
 """Train the agent."""
 
@@ -59,8 +54,8 @@ score = 0
 def _plot(
         frame_idx, 
         scores, 
-        losses, 
-        epsilons,
+        losses 
+        #epsilons,
     ):
         """Plot the training progresses."""
         plt.figure(figsize=(20, 5))
@@ -70,9 +65,9 @@ def _plot(
         plt.subplot(132)
         plt.title('loss')
         plt.plot(losses)
-        plt.subplot(133)
-        plt.title('epsilons')
-        plt.plot(epsilons)
+        #plt.subplot(133)
+        #plt.title('epsilons')
+        #plt.plot(epsilons)
         plt.show()
 
 min_train = 10000
@@ -82,7 +77,7 @@ for frame_idx in range(1, num_frames + 1):
     score += reward
     
     # PER: increase beta
-    agent.update_beta(frame_idx, num_frames)
+    agent.update_beta(frame_idx, 100000)
     
     # if episode ends
     if done:
@@ -95,16 +90,12 @@ for frame_idx in range(1, num_frames + 1):
         losses.append(loss)
         update_cnt += 1
         
-        # linearly decrease epsilon
-        agent.update_epsilon()
-        epsilons.append(agent.epsilon)
-        
         # if hard update is needed
         if update_cnt % target_update == 0:
             agent.target_update()
 
     # plotting
     if frame_idx % plotting_interval == 0:
-        _plot(frame_idx, scores, losses, epsilons)
+        _plot(frame_idx, scores, losses) #epsilons
         
 env.close()
