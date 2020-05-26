@@ -27,7 +27,7 @@ class Bravais(object):
         self.encoding =  ['AV','GILMFPW', 'RHK','DE','NCQSTY'] #hHPNX
         self.actions = np.array(list(product([-1,0,1])), dtype=int)
         self.num_residues = len(residues)
-        
+        self.coordination_number = 12 
         self.init_positions = init_positions
         self.position_buffer = self.reset()
         
@@ -54,7 +54,7 @@ class Bravais(object):
             return np.zeros(self.position_buffer.shape(0)), 0, True #Transition into terminal state with reward = 0
         old_pos = self.position_buffer[index,:].reshape(-1,1)
         new_pos = old_pos + self.e.dot(self.actions[action,:].reshape(-1,1))
-        reward, new_local, new_g = self.calc_reward(index,old_pos,new_pos)
+        reward, new_local, new_g, neighbours = self.calc_reward(index,old_pos,new_pos)
         self_avoiding = self.check_self_avoiding(index, new_pos)
         if reward == -10 or not self_avoiding:
             self.done_flag = False
@@ -63,7 +63,7 @@ class Bravais(object):
             self.position_buffer[index] = new_pos.reshape(-1,1)
             self.site_potentials[index] = new_local
             self.global_reward = new_g
-        return self.position_buffer.flatten(), reward, False
+        return self.position_buffer.flatten(), reward, False, {'neighbours' : neighbours}
     
     def check_self_avoiding(self, index:int, new_pos : np.array) -> bool:
         """
@@ -108,19 +108,20 @@ class Bravais(object):
         
         numerator = np.exp(-offset.T.dot(inv(Sigma).dot(offset))).item()
         coeff = (2 * pi * np.sqrt(norm(Sigma)))**-1
-        denom = (1 + (num_neighbours/12))**-self.alpha #Max number of neighbours = 12 for FCC lattice
+        denom = (1 + (num_neighbours/self.coordination_number))**-self.alpha #Max number of neighbours = 12 for FCC lattice
         
         return coeff * numerator * denom
     
     def get_contacts(self, residue_type:int, position: np.array) -> List[int]:
         """
+        TODO: Rename this to avoid confusion with find_neighbours
         Calculate the sum of the rewards of occupying a particular area without using additional memory
         """
         neighbours = self.find_neighbours(position)
         sites = np.take(self.position_buffer, neighbours.reshape(-1,1))
         if any((sites[:]==position).all(1)): 
             return -10 #if the site is overlapping or chain is broken
-        return reduce(lambda x,y : x + self.rewards[residue_type,self.types[y]], np.insert(neighbours,0,0)), neighbours.shape(1) # memory efficient reward calculation
+        return reduce(lambda x,y : x + self.rewards[residue_type,self.types[y]], np.insert(neighbours,0,0)), neighbours # memory efficient reward calculation
     
     def global_difference_reward(self, index: int, new_local_rewards : int) -> int:
         old_global_prime = self.global_reward - self.site_potentials[index]
@@ -131,9 +132,9 @@ class Bravais(object):
         """
         Shaped reward from: http://web.engr.oregonstate.edu/~ktumer/publications/files/tumer-devlin_aamas14.pdf
         """
-        new_local_rewards, num_new_neighbours = self.get_contacts(self.types[index],new_pos)
-        phi_next = self.calc_desireability(new_pos, num_new_neighbours)
+        new_local_rewards, neighbours = self.get_contacts(self.types[index],new_pos)
+        phi_next = self.calc_desireability(new_pos, len(neighbours))
         phi_current = self.calc_desireability(old_pos, self.find_neighbours(self.position_buffer[index]).shape(1))
         g_diff, new_g = self.global_difference_reward(index, new_local_rewards)
         shaped_reward = g_diff + self.gamma * phi_next - phi_current
-        return shaped_reward, new_local_rewards, new_g
+        return shaped_reward, new_local_rewards, new_g, neighbours

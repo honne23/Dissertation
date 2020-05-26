@@ -25,13 +25,11 @@ seed_torch(seed)
 env.seed(seed)
 
 # parameters
-num_frames = 600000
+num_frames = 12000
 memory_size = 30000
 batch_size = 32
 target_update = 1000
-
-
-num_frames = 500000
+memory_beta_frames = 100000
 plotting_interval = 1000
 
 agent = QuantileAtariAgent( 
@@ -77,7 +75,7 @@ for frame_idx in range(1, num_frames + 1):
     score += reward
     
     # PER: increase beta
-    agent.update_beta(frame_idx, 100000)
+    agent.update_beta(frame_idx, memory_beta_frames)
     
     # if episode ends
     if done:
@@ -96,6 +94,7 @@ for frame_idx in range(1, num_frames + 1):
 
     # plotting
     if frame_idx % plotting_interval == 0:
-        _plot(frame_idx, scores, losses) #epsilons
+        pass
+        #_plot(frame_idx, scores, losses) #epsilons
         
 env.close()

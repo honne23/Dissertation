@@ -1,15 +1,15 @@
 import torch
 import numpy as np
-import gym
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.nn.utils import clip_grad_norm_
+from Environment.Bravais import Bravais
 from Network.QuantileNetwork import QuantileNetwork
 from Memory.PrioritisedReplay import PrioritisedReplay
-class QuantileAgent:
+class ResidueAgent(object):
     
     def __init__(self,
-                 env: gym,
+                 env: Bravais,
                  hidden_size:int = 128,
                  max_epsilon: float = 1.0,
                  min_epsilon: float = 0.01,
@@ -22,7 +22,7 @@ class QuantileAgent:
                  ):
         self.env = env
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.dqn = QuantileNetwork(self.env.observation_space.shape[0], hidden_size, self.env.action_space.n, num_quantiles).to(self.device)
+        self.dqn = QuantileNetwork(self.env.observation_space_n + self.env.action_space_n, hidden_size, self.env.action_space.n, num_quantiles).to(self.device)
         self.target = QuantileNetwork(self.env.observation_space.shape[0], hidden_size, self.env.action_space.n, num_quantiles).to(self.device)
         self.target.eval()
         self.target.load_state_dict(self.dqn.state_dict())
@@ -109,15 +109,17 @@ class QuantileAgent:
         else:
             with torch.no_grad():
                 state = torch.FloatTensor(state).to(self.device)
-                selected_action = (self.dqn(state) * self.quantile_weight).sum(dim=2).max(dim=1)[1].item()
+                quantile_returns = F.softmax((self.dqn(state) * self.quantile_weight).sum(dim=2)) #.max(dim=1)[1].item()
+                selected_action =
         return selected_action
     
     def step(self, state: np.array) -> tuple:
+        action_dist = state[: -self.env.action_space_n] # 
         action = self.select_action(state)
-        next_state, reward, done, _ = self.env.step(action)
+        next_state, reward, done, info = self.env.step(action)
         transition = [state, action, reward, next_state, done]
         self.memory.store(transition)
-        return next_state, reward, done
+        return next_state, reward, done, dict({'action':action}, **info)
     
     def target_update(self):
         self.target.load_state_dict(self.dqn.state_dict())
