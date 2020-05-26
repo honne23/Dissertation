@@ -82,6 +82,7 @@ for frame_idx in range(1, num_frames + 1):
         state = env.reset()
         scores.append(score)
         score = 0
+        agent.finish_nstep()
     # if training is ready
     if frame_idx >= min_train:
         loss = agent.update_network()

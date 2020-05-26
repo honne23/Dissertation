@@ -9,7 +9,8 @@ class QuantileAtariAgent:
     
     def __init__(self,
                  env: gym,
-                 hidden_size:int = 128,
+                 #hidden_size:int = 128,
+                 hidden_size:int = 512,
                  mem_size: int = 5000,
                  batch_size: int = 32,
                  gamma: float = 0.99,
@@ -29,6 +30,9 @@ class QuantileAtariAgent:
         self.num_quantiles = num_quantiles
         self.cumulative_density = torch.tensor((2 * np.arange(num_quantiles) + 1) / (2.0 * num_quantiles), device=self.device, dtype=torch.float) 
         self.quantile_weight = 1.0 / self.num_quantiles
+        
+        self.nsteps = 3
+        self.nstep_buffer = []
         
     def huber(self, x):
         cond = (x.abs() < 1.0).float().detach()
@@ -107,8 +111,27 @@ class QuantileAtariAgent:
         action = self.select_action(state, ready)
         next_state, reward, done, _ = self.env.step(action)
         transition = [state, action, reward, next_state, done]
-        self.memory.store(transition)
+        #self.memory.store(transition)
+        self.append_to_replay(state, action, reward, next_state, done)
         return next_state, reward, done
     
     def target_update(self):
         self.target.load_state_dict(self.dqn.state_dict())
+    
+    def append_to_replay(self, s, a, r, s_, done):
+        self.nstep_buffer.append((s, a, r, s_, done))
+
+        if(len(self.nstep_buffer)<self.nsteps):
+            return
+        
+        R = sum([self.nstep_buffer[i][2]*(self.gamma**i) for i in range(self.nsteps)])
+        state, action, _, _, done = self.nstep_buffer.pop(0)
+        transition = [s, a, R, s_, done]
+        self.memory.store(transition)
+    
+    def finish_nstep(self):
+        while len(self.nstep_buffer) > 0:
+            R = sum([self.nstep_buffer[i][2]*(self.gamma**i) for i in range(len(self.nstep_buffer))])
+            state, action, _, next_state, done = self.nstep_buffer.pop(0)
+            transition = [state, action, R, next_state, done]
+            self.memory.store(transition)
