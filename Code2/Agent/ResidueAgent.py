@@ -10,7 +10,7 @@ class ResidueAgent(object):
     
     def __init__(self,
                  env: Bravais,
-                 hidden_size:int = 128,
+                 hidden_size:int = 512,
                  max_epsilon: float = 1.0,
                  min_epsilon: float = 0.01,
                  epsilon_decay: float = (1/2000),
@@ -18,7 +18,9 @@ class ResidueAgent(object):
                  batch_size: int = 32,
                  gamma: float = 0.99,
                  lr: float = 1e-3,
-                 num_quantiles: int = 51
+                 num_quantiles: int = 51,
+                 mean_field_beta : float = 0.6,
+                 mean_field_tau : float = 0.3
                  ):
         self.env = env
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -37,6 +39,8 @@ class ResidueAgent(object):
         self.num_quantiles = num_quantiles
         self.cumulative_density = torch.tensor((2 * np.arange(num_quantiles) + 1) / (2.0 * num_quantiles), device=self.device, dtype=torch.float) 
         self.quantile_weight = 1.0 / self.num_quantiles
+        self.mean_field_beta = mean_field_beta
+        self.mean_field_tau = mean_field_tau
         
     def huber(self, x):
         cond = (x.abs() < 1.0).float().detach()
@@ -55,9 +59,8 @@ class ResidueAgent(object):
         reward = torch.FloatTensor(reward.astype(float).reshape(-1, 1)).to(self.device)
         done = torch.FloatTensor(done.astype(bool).reshape(-1, 1)).to(self.device)
         
-        
         quantiles = self.dqn(state)
-        quantiles = quantiles[torch.arange(quantiles.size(0)), action].squeeze(1) #select the quantiles of the actions chosen in each state
+        quantiles = quantiles[torch.arange(quantiles.size(0)) , action].squeeze(1) #select the quantiles of the actions chosen in each state
         quantiles_next = self.next_distribution(reward, next_state, done)
           
         diff = quantiles_next.t().unsqueeze(-1) - quantiles.unsqueeze(0)
@@ -89,19 +92,30 @@ class ResidueAgent(object):
     def next_distribution(self, reward, next_state, done):
         mask = (1-done).bool().squeeze(1)
         non_final = next_state[mask,:]
+        next_neighbour_dists = next_state[:,:- self.env.action_space_n]
         with torch.no_grad():
             quantiles_next = torch.zeros((self.batch_size, self.num_quantiles), device=self.device, dtype=torch.float)
             if not (done.sum().item() == done.size(0)): #if there is at least one non-final next state
-                max_next_action = self.get_max_next_state_action(non_final)
-                quantiles_next[mask] = self.target(non_final).gather(1, max_next_action).squeeze(dim=1)
+                #max_next_action = self.get_max_next_state_action(non_final)
+                #quantiles_next[mask] = self.target(non_final).gather(1, max_next_action).squeeze(dim=1)
+                target_quantiles = self.target(non_final)
+                target_quantiles = target_quantiles.view(non_final.size(0) * self.env.action_space_n, self.env.action_space_n)
                 
-            quantiles_next = reward +  self.gamma * quantiles_next
+                target_expected_returns = (target_quantiles * self.quantile_weight).sum(1).view(non_final.size(0),self.env.action_space_n,1)
+                target_probs = F.softmax(self.mean_field_beta * target_expected_returns, dim=1).view(-1,1)
+                
+                mean_field_quantiles = target_quantiles * next_neighbour_dists.view(-1,1) * target_probs
+                
+                quantiles_next[mask] = mean_field_quantiles
+                
+            quantiles_next = reward +  self.gamma * quantiles_next #edit for mean field
         return quantiles_next
-   
+    
+    """
     def get_max_next_state_action(self, next_states):
         next_dist = self.dqn(next_states) * self.quantile_weight
         return next_dist.sum(dim=2).max(1)[1].view(next_states.size(0), 1, 1).expand(-1, -1, self.num_quantiles)
-        
+    """        
         
     def select_action(self, state) -> int:
         if self.epsilon > np.random.random():
@@ -109,12 +123,14 @@ class ResidueAgent(object):
         else:
             with torch.no_grad():
                 state = torch.FloatTensor(state).to(self.device)
-                quantile_returns = F.softmax((self.dqn(state) * self.quantile_weight).sum(dim=2)) #.max(dim=1)[1].item()
-                selected_action =
+                quantile_returns = (self.dqn(state) * self.quantile_weight).sum(dim=2)
+                action_probs = F.softmax(- self.mean_field_beta * quantile_returns) 
+                neighbour_dist = state[-self.env.action_space_n:]
+                mean_field_value = (quantile_returns * neighbour_dist * action_probs)
+                selected_action = mean_field_value.max(dim=1)[1].item()
         return selected_action
     
     def step(self, state: np.array) -> tuple:
-        action_dist = state[: -self.env.action_space_n] # 
         action = self.select_action(state)
         next_state, reward, done, info = self.env.step(action)
         transition = [state, action, reward, next_state, done]
@@ -122,4 +138,9 @@ class ResidueAgent(object):
         return next_state, reward, done, dict({'action':action}, **info)
     
     def target_update(self):
-        self.target.load_state_dict(self.dqn.state_dict())
+        target_params = self.target.state_dict()
+        behaviour_params = self.dqn.state_dict()
+        new_params = behaviour_params # temp
+        for k,v in behaviour_params.items():
+            new_params[k] = self.mean_field_tau * v + (1- self.mean_field_tau) * target_params[k] 
+        self.target.load_state_dict(new_params)

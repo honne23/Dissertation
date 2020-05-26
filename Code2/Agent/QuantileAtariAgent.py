@@ -9,7 +9,6 @@ class QuantileAtariAgent:
     
     def __init__(self,
                  env: gym,
-                 #hidden_size:int = 128,
                  hidden_size:int = 512,
                  mem_size: int = 5000,
                  batch_size: int = 32,
@@ -110,8 +109,6 @@ class QuantileAtariAgent:
     def step(self, state: np.array, ready:bool) -> tuple:
         action = self.select_action(state, ready)
         next_state, reward, done, _ = self.env.step(action)
-        transition = [state, action, reward, next_state, done]
-        #self.memory.store(transition)
         self.append_to_replay(state, action, reward, next_state, done)
         return next_state, reward, done
     

@@ -5,11 +5,13 @@ import matplotlib.pyplot as plt
 from Agent.QuantileAtariAgent import QuantileAtariAgent
 from atari_wrappers import make_atari, wrap_deepmind, wrap_pytorch
 
-env_id = 'PongNoFrameskip-v4'
+
+atari_name = 'SpaceInvaders'
+env_id = atari_name + 'NoFrameskip-v4'
 env = make_atari(env_id)
 env = wrap_deepmind(env, frame_stack=True)
 env = wrap_pytorch(env)
-directory= ('./PongVideos')
+directory= (f'./{atari_name}Videos')
 env = gym.wrappers.Monitor(env, directory, video_callable=lambda idx : idx % 10 == 0, force=True )
 
 seed = 42
@@ -25,9 +27,9 @@ seed_torch(seed)
 env.seed(seed)
 
 # parameters
-num_frames = 12000
+num_frames = 1000000
 memory_size = 30000
-batch_size = 32
+batch_size = 512
 target_update = 1000
 memory_beta_frames = 100000
 plotting_interval = 1000
@@ -47,7 +49,6 @@ epsilons = []
 losses = []
 scores = []
 score = 0
-
 
 def _plot(
         frame_idx, 
@@ -95,7 +96,6 @@ for frame_idx in range(1, num_frames + 1):
 
     # plotting
     if frame_idx % plotting_interval == 0:
-        pass
-        #_plot(frame_idx, scores, losses) #epsilons
+        _plot(frame_idx, scores, losses) #epsilons
         
 env.close()

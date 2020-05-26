@@ -1,12 +1,8 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import numpy as np
 
 from typings import List
 from Agent.ResidueAgent import ResidueAgent
 from Environment.Bravais import Bravais
-from Memory.PrioritisedReplay import PrioritisedReplay
 
 
 class GlobalBuffer(object):
