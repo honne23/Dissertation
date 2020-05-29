@@ -6,21 +6,21 @@
    Proteins are biological molecules that carry out specific functions within the body,
    they are assembled out of chemical bonds between smaller sub units called amino acid residues
    to form a poly-peptide chain. Proteins carry out their functions 
-   by conforming into specific shapes and fitting into substrates,
+   by conforming into specific shapes and fitting into substrates that compliment their structure,
    this is referred to as the "lock and key" model of proteins. A
-   protein's three-dimensional structure has been proven \textsuperscript{[reference]} to been
-   entirely determined from the ordering of a discrete set of 22 residues
+   protein's three-dimensional structure has been proven \cite{Anfinsen} to been
+   entirely determined from the ordering of a discrete set of 20 residues
    in a sequence of arbitrary length. The ability to infer a protein's precise\footnote{Within 1\AA}
    three dimensional structure directly from the sequence of residues would
    unlock the potential for designer drugs that carry out specific actions within the body;
    it would also open a path for the treatment of illnesses that arise from malformed
-   proteins such as huntington's disease \textsuperscript{[reference]}.
+   proteins such as huntington's disease \cite{lesk}.
    This has however been an open problem, as the search space of possible conformations
    for a given protein is vast and subject to numerous local minima. Traditional
-   methods of protein structure determination such as X-Ray Crystallography \textsuperscript{[reference]}
-   are extremely costly\footnote{In the order of millions \textsuperscript{reference}} and time
+   methods of protein structure determination such as X-Ray Crystallography \cite{lesk}
+   are extremely costly\footnote{In the order of millions of USD \cite{alberts}} and time
    consuming, sometimes taking up to \emph{four years} to determine the structure of a protein.
-   This has given rise to multiple computational approaches \textsuperscript{reference} as means
+   This has given rise to multiple computational approaches \cite{Cymerman2008} as means
    to drive down cost and increase the productivity of researchers. 
    \linebreak
    Naturally, many approaches using deep learning have been proposed to solve the problem,
@@ -46,7 +46,7 @@
       \item Building on Deep Q-Learning, introduce improvements to the algorithm since it's inception
       \item Compare and contrast deep learning approaches to the lattice model with an emphasis on reinforcement learning methods
       \item Introduce multi-agent learning within the framework of stochastic games
-      \item Introduce mean-field approximations in particular reference to mean field games
+      \item Introduce mean field game framework
       \item Formulate the conformation of residues on a lattice as a cooperative game of incomplete information
       \item Provide a novel approach to de-novo structure determination using mean-field multi-agent learning
       \item Benchmark my approach against the results of other groups on the same proteins to evaluate the effectiveness of the novel algorithm
@@ -69,27 +69,28 @@
          In this section I provided an overview the the protein folding problem and
          introduced the components that I will be synthesising into novel approach.
       \item \textbf{Literature Review} \\
-         In this section I will provide an overview as-well as an introduction
-         to select topics and that comprise the necessary background knowledge. 
-         This section ends with a comparative analysis of related work on the problem.
+         Many of the components I introduce throughout this project
+         use concepts from multiple fields of literature and much of
+         the related work hinges on these topics. In the interest of clarity, 
+         I have provided each topic with it's own introduction, their combined
+         application is explored in the sub-section \textbf{Related Work}. 
       \item \textbf{System Requirements and Specification} \\
          In this section I will analyse the drawbacks of methods utilized in related work,
-         and from this evaluation derive the requirements of a systems
-         required to address these limitations.
+         and from this evaluation derive the requirements of a system that
+         addresses these limitations.
       \item \textbf{System Design}\\
          This section seeks to unify the selected systems and concepts
          into an integrated learning algorithm that coherently reflects
          the underlying problem's structure. 
       \item \textbf{Testing \& Validation} \\
          In order to verify the efficacy of the learning agents,
-         a set of lattice structure of known proteins will be calculated
-         and evaluated against the results for the same set of
-         proteins in related work.
+         proteins are selected from studies in related work for training
+         and the end result is compared to previous work.
       \item  \textbf{Discussions} \\
          Limitations of my implementation are discussed here and
          possible solutions and research directions are proposed.
       \item  \textbf{Conclusion} \\
-         Here I will present my concluding thoughts and results
-         of my final analyses of the architecture.
+         Here I will present my concluding thoughts and any 
+         additional acknowledges are addressed.
   \end{enumerate}
 

@@ -9,9 +9,7 @@ Proteins themselves are composed
 of discrete molecular units termed amino acids, the precise
 way in which they amino acids arrange themselves is dependent
 of the genetic sequence of the parent organism itself.
-There exist 20 unique amino acids (examples given below) that can be combined
-that can be sequenced into strings of 
-arbitrary length of any order following chemical laws.
+A protein is a sequence of amino acids of arbitary length drawn from a 20 letter alphabet.
 \begin{table}
     \begin{center}
         \caption{}
@@ -33,7 +31,9 @@ arbitrary length of any order following chemical laws.
     \hline
     Valine &  V\\
     \hline
-    Leucine & K \\ [1ex] 
+    Leucine & K \\ 
+    \hline
+    \multicolumn{2}{||c||}{$\vdots$} \\ 
     \hline
 \end{tabular}
 \end{center}
@@ -66,10 +66,10 @@ The carbon atom that joins the side chain to
 the main chain is denoted as the $\alpha$ carbon
 atom and the carbon atoms in immediate contact with the
 $\alpha$ carbons are known as $\beta$ 
- carbons\footnote{In figure 2.2 subscript $i$ denotes membership to a unique unit}. The bond angles between the $C_{\alpha_i} - C_{\beta_i+1}$
- and $C_{\alpha_i} - N_i$ groups are commonly denoted
- as $\psi$ and $\phi$ respectively. Stereochemically
- feasible angles can be described by a Ramachandran plot as in figure 2.3. \\
+carbons\footnote{In figure 2.2 subscript $i$ denotes membership to a unique unit}. The bond angles between the $C_{\alpha_i} - C_{\beta_i+1}$
+and $C_{\alpha_i} - N_i$ groups are commonly denoted
+as $\psi$ and $\phi$ respectively. Stereochemically
+feasible angles can be described by a Ramachandran plot as in figure 2.3. \\
 
  \begin{figure}[!htb]
     \caption{Ramachandran plot}
@@ -187,7 +187,11 @@ part of their work can be summarised by the following lemmas:
     If there existed more than one unique solution, then a given
     sequence could form into multiple possible native conformations, this
     would violate the marginal stability property of the native state
-    so there cannot exist more than one unique solution. 
+    so there cannot exist more than one unique solution. However, this unique 
+    solution is in-fact a unique distribution of states that the protein
+    takes on at any instance. This can be interpreted as local fluctuations
+    in the values of $(\psi, \phi)$ or inter-residues distances, although
+    the global structure will usually remain largely consistent \cite{Yang}.
 \end{proof}
 
 \[ \Delta G = \Delta H - T \Delta S \]
@@ -205,12 +209,12 @@ enabling it to swiftly reach its native state.\\
 \begin{figure}[!htb]
     \caption{Gibbs free energy funnel}
     \begin{center}
-        \includegraphics[trim={0 0 4cm 0.25cm},scale=1, clip]{Figures/FreeEnergyLandscape}
+        \includegraphics[trim={0 0 4cm 0.25cm},scale=1.4, clip]{Figures/FreeEnergyLandscape}
     \end{center}
     \scriptsize{\dag Source: \cite{Yang}}
  \end{figure}
 
-Critically, the notion of $\Delta G$ is with respect to the distribution
+Critically,  $\Delta G$ i derived with respect to the \emph{distribution}
 over conformations, indicating that at any point the protein exists as an
 ensemble of possible conformations, and the native state consists of a
 collection of conformations whose joint distribution minimises the value of $\Delta G$.
@@ -230,9 +234,9 @@ I reformulate this property as maximum likelihood objective:
         P(T | \mathbf{F}(\mathbf{X}^n; \theta))\ =\frac{P(\mathbf{F}(\mathbf{X}^n; \theta) | T) \cdot P(T)}{P(\mathbf{F}(\mathbf{X}^n; \theta))}
     \end{equation}
 \end{theorem}                                                                                                                                                                                                                                                     
-This formulation is further explored in the \textbf{System Requirements and Specification}
-section, however an interesting detail to note is that this is equivalent to sampling
-the maximum likelihood estimate from the posterior of a \emph{Gaussian process} \footnote{See appendix A.1}.
+This is further explored in the \textbf{System Requirements and Specification}.
+%however an interesting detail to note is that this is equivalent to sampling
+%the maximum likelihood estimate from the posterior of a \emph{Gaussian process} \footnote{See appendix A.1}.
 
 \subsection{Bioinformatics}
 There exists experimental techniques to determine the protein's
@@ -241,7 +245,6 @@ however these approaches are out of the scope of this
 project and are not given a detailed analysis. Otherwise,
 these techniques can often require years of trial and error 
 and can be very costly \cite{alberts}.
-
 In recent years, advancements in both hardware and processing power
 have enabled computational methods to play increasingly significant role 
 in the PSP problem. I will focus briefly what's known
@@ -267,7 +270,7 @@ with each pair-wise comparison. When this is done for more than
 one possible pairing, this is known as Multiple Sequence Alignment (MSA).
 Highly correlated proteins with relatively low MSA scores tend to exhibit
 very similar tertiary structures \cite{lesk}; this property is used as the basis for many
-machine learning methods which is explored in \textbf{Related Work}.
+machine learning methods which is explored in \textbf{Related Work}. 
 \subsubsection{Lattice Models}
 Although approaches that utilise homology modelling in some form
 have been very successful in recent years\footnote{See \textbf{AlphaFold 2.4.2.1}},
@@ -300,9 +303,9 @@ each point in space is some linear combination of unit vectors with integer mult
     \end{gathered}
 \end{equation}
 Different values for the unit vectors give rise to different classes of lattices, the number
-of neighbours for a given vertez is denoted as $z$.
+of neighbours for a given vertex is denoted as $z$.
 In the interest of brevity 3 lattices are discussed as they are pertinent 
-to the related work and system design. \\
+to  \textbf{Related Work} and \textbf{System Design}. \\
 \begin{enumerate} 
     \item \textbf{2D Square Lattice} \\ 
         A simple lattice whose unit vectors are two dimensional: 
@@ -409,11 +412,11 @@ Where the left side is dependent on the \emph{conformation}, and the right
 side is a constant that solely depends on the lattice structure and given sequence.
 Motivated by the role of the hydrophobic collapse, the folding problem within this
 framework is a function that maximises $t_{HH}$ ; this is equivalent to
-minimizing $S$. The logic follows that the most tightly packed core, that with the minimal
-surface area should also have the densest packing of $H-H$ contacts. \\
-\cite{Dill,Lau1989} show that an unguided exhaustive search through the coformational
+minimizing $S$. Logically it follows that the most tightly packed core is that with the minimal
+surface area, consequently maximising the density $H-H$ contacts. \\
+\cite{Dill,Lau1989} show that an unguided exhaustive search through the conformational
 landscape is unlikely to find a single candidate native state but instead produce
-a set of states with high degeneracy; indicating that many conformations shared
+a set of states with high degeneracy; indicating that many conformations on the HP lattice shared
 the same free energy value due to the numerous local minima. However by introducing
 a heuristic that guided the conformation through as hydrophobic collapse, a much
 smaller set of candidate conformations with much less degeneracy was produced.
@@ -437,7 +440,7 @@ that interaction's contribution to the total $\Delta G$ of the system \cite{Hoqu
     \end{center}
 \end{table}\\
 When \cite{Lau1989} first proposed the model, only 2D lattices were explored at the time with
-exhaustive search techniques and the simulations were evaluated
+exhaustive search techniques. The simulations were evaluated
 against \emph{mean-field} approximations of the system. \cite{Yue} then introduced linear integer programming methods
 that conducted volumetric optimization such as those described by (2.10-2.11) 
 on a 3D primitive cubic lattice. There are some key limitations imposed on the mean-field
@@ -448,15 +451,15 @@ subsequent improvements to the original HP model were also introduced and are ex
 \cite{Hoque} showed that previously explored variants of the HP model on 2D and 3D
 lattices were still prone to large degeneracy in the solutions they produced. This was
 a result of the limitations imposed by having only two possible categories; stochastic
-methods end up traversing many redundant solutions for each non-native conformation visited
-in the search-space\footnote{This can be proved using Group Theory axioms as lattices form geometric groups - needs citation}.
+methods traverse many redundant solutions for each non-native conformation visited
+in the search-space\footnote{Proved using the axioms of geometric groups \cite{Conway1988}}.
 The original HP categories were further subdivided according the relative polarities of
 the side chains:
 \begin{itemize}
     \item $P \mapsto \{P, N, X\}$ 
     \item $H \mapsto \{h, H\}$
 \end{itemize}
-They then correcte errors in the calculated interaction potentials
+They then correct errors in the calculated interaction potentials
 of the previously proposed HPNX and YhHX models \cite{BornbergBauer1997} producing
 the hHPNX interaction matrix :
 \begin{table}[!htb]
@@ -485,16 +488,8 @@ separately from other hydrophobic residues as they consistently observed
 that these groups underwent different reactions, resulting in different potentials;
 this was attributed to their geometrical positions in the folded protein \cite{Crippen1991}.\\
 
-More detailed work has been conducted in the work I has cited thus far,
-including but not limited to:
-\begin{itemize}
-    \item Investigating geometric and volumentric constraints of various lattice structures\footnote{\cite{Yue,Dill}}.
-    \item Optimizing linear integer programming constraints with tighter bounds on $H-H$ contacts\footnote{\cite{Yue}}.
-    \item Analysis of conformational lanscapes with respect to free energy landscapes\footnote{\cite{Dill}}.
-    \item Probabilistic thermodynamic analysis of folding pathways\footnote{\cite{Yang,Dill}}.
-\end{itemize}
 
 Thus far I have summarised the most important results from these authors within the context of this project.
-In \textbf{Related Work} I will explore how these models have been re-contextualised within the
-reinforcement learning framework and then propose a novel method that incorporates results
-covered in this section that have yet to be exploited in recent work.
+In \textbf{Related Work} I will explore how these models have been used in combination with
+reinforcement learning and then propose a novel algorithm that incorporates 
+advancements in inter-disciplinary methods yet to be applied to PSP.

@@ -1,54 +1,54 @@
-\contentsline {chapter}{\numberline {1}Introduction}{12}{chapter.1}% 
-\contentsline {section}{\numberline {1.1}Problem Background}{12}{section.1.1}% 
-\contentsline {section}{\numberline {1.2}Project Aims and Objectives}{13}{section.1.2}% 
-\contentsline {section}{\numberline {1.3}Success Criteria}{14}{section.1.3}% 
-\contentsline {section}{\numberline {1.4}Structure of Report}{14}{section.1.4}% 
-\contentsline {chapter}{\numberline {2}Literature Review}{16}{chapter.2}% 
-\contentsline {section}{\numberline {2.1}Proteins}{16}{section.2.1}% 
-\contentsline {subsection}{\numberline {2.1.1}Amino Acids \& Poly-Peptides}{16}{subsection.2.1.1}% 
-\contentsline {subsection}{\numberline {2.1.2}Protein Structures}{17}{subsection.2.1.2}% 
-\contentsline {subsection}{\numberline {2.1.3}The Protein's Energy Landscape}{19}{subsection.2.1.3}% 
-\contentsline {subsection}{\numberline {2.1.4}Bioinformatics}{22}{subsection.2.1.4}% 
-\contentsline {subsubsection}{\numberline {2.1.4.1}Homology Modelling}{22}{subsubsection.2.1.4.1}% 
-\contentsline {subsubsection}{\numberline {2.1.4.2}Lattice Models}{23}{subsubsection.2.1.4.2}% 
-\contentsline {subsubsection}{\numberline {2.1.4.3}Bravais Lattices}{23}{subsubsection.2.1.4.3}% 
-\contentsline {subsubsection}{\numberline {2.1.4.4}HP Model}{25}{subsubsection.2.1.4.4}% 
-\contentsline {subsubsection}{\numberline {2.1.4.5}hHPNX Model}{27}{subsubsection.2.1.4.5}% 
-\contentsline {section}{\numberline {2.2}Reinforcement Learning}{28}{section.2.2}% 
-\contentsline {subsection}{\numberline {2.2.1}Markov Decision Processes}{28}{subsection.2.2.1}% 
-\contentsline {subsubsection}{\numberline {2.2.1.1}Bellman Equation}{32}{subsubsection.2.2.1.1}% 
-\contentsline {subsubsection}{\numberline {2.2.1.2}Optimality}{32}{subsubsection.2.2.1.2}% 
-\contentsline {subsubsection}{\numberline {2.2.1.3}Generalised Policy Iteration}{33}{subsubsection.2.2.1.3}% 
-\contentsline {subsubsection}{\numberline {2.2.1.4}Exploration vs Exploitation}{34}{subsubsection.2.2.1.4}% 
-\contentsline {subsubsection}{\numberline {2.2.1.5}Monte Carlo Estimation}{34}{subsubsection.2.2.1.5}% 
-\contentsline {subsubsection}{\numberline {2.2.1.6}Model Free vs Model Based}{36}{subsubsection.2.2.1.6}% 
-\contentsline {subsection}{\numberline {2.2.2}Deep Q Learning}{37}{subsection.2.2.2}% 
-\contentsline {subsubsection}{\numberline {2.2.2.1}Temporal Difference Error}{37}{subsubsection.2.2.2.1}% 
-\contentsline {subsubsection}{\numberline {2.2.2.2}Q Learning}{37}{subsubsection.2.2.2.2}% 
-\contentsline {subsubsection}{\numberline {2.2.2.3}Neural Networks}{38}{subsubsection.2.2.2.3}% 
-\contentsline {subsubsection}{\numberline {2.2.2.4}Deep Q-Networks}{40}{subsubsection.2.2.2.4}% 
-\contentsline {subsection}{\numberline {2.2.3}Improvements to Vanilla Deep Q-Networks}{43}{subsection.2.2.3}% 
-\contentsline {subsubsection}{\numberline {2.2.3.1}Prioritised Experience Replay}{43}{subsubsection.2.2.3.1}% 
-\contentsline {subsubsection}{\numberline {2.2.3.2}Dueling Networks}{45}{subsubsection.2.2.3.2}% 
-\contentsline {subsubsection}{\numberline {2.2.3.3}Double Q Learning }{46}{subsubsection.2.2.3.3}% 
-\contentsline {subsubsection}{\numberline {2.2.3.4}Distributional Reinforcement Learning}{47}{subsubsection.2.2.3.4}% 
-\contentsline {section}{\numberline {2.3}Multi-Agent Reinforcement Learning}{51}{section.2.3}% 
-\contentsline {subsection}{\numberline {2.3.1}Stochastic Games}{51}{subsection.2.3.1}% 
-\contentsline {subsection}{\numberline {2.3.2}Mean Field Games}{53}{subsection.2.3.2}% 
-\contentsline {subsection}{\numberline {2.3.3}Spatial Congestion Games}{56}{subsection.2.3.3}% 
-\contentsline {subsection}{\numberline {2.3.4}Mean Field Multi Type Reinforcement Learning}{57}{subsection.2.3.4}% 
-\contentsline {section}{\numberline {2.4}Related Work}{57}{section.2.4}% 
-\contentsline {subsection}{\numberline {2.4.1}MCMC methods for lattice models}{57}{subsection.2.4.1}% 
-\contentsline {subsection}{\numberline {2.4.2}Deep Learning methods for lattice models}{57}{subsection.2.4.2}% 
-\contentsline {subsubsection}{\numberline {2.4.2.1}Alpha-Fold}{57}{subsubsection.2.4.2.1}% 
-\contentsline {subsection}{\numberline {2.4.3}Reinforcement Learning methods for lattice models}{57}{subsection.2.4.3}% 
-\contentsline {chapter}{\numberline {3}System Requirements and Specification}{58}{chapter.3}% 
-\contentsline {section}{\numberline {3.1}PSP as a cooperative optimisation problem}{58}{section.3.1}% 
-\contentsline {section}{\numberline {3.2}Protein structures as distributions}{58}{section.3.2}% 
-\contentsline {section}{\numberline {3.3}Overcoming energy barriers after the hydrophobic collapse}{58}{section.3.3}% 
-\contentsline {chapter}{\numberline {4}System Design and Analysis}{59}{chapter.4}% 
-\contentsline {section}{\numberline {4.1}Environment and actions}{59}{section.4.1}% 
-\contentsline {section}{\numberline {4.2}Revising reward structures}{60}{section.4.2}% 
-\contentsline {subsection}{\numberline {4.2.1}Potential based reward shaping}{61}{subsection.4.2.1}% 
-\contentsline {section}{\numberline {4.3}Mean field multi-type spatial congestion games}{62}{section.4.3}% 
-\contentsline {section}{\numberline {4.4}Risk sensitive agents}{63}{section.4.4}% 
+\contentsline {chapter}{\numberline {1}Introduction}{12}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Problem Background}{12}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Project Aims and Objectives}{13}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Success Criteria}{14}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Structure of Report}{14}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Literature Review}{16}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Proteins}{16}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Amino Acids \& Poly-Peptides}{16}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Protein Structures}{17}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}The Protein's Energy Landscape}{19}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Bioinformatics}{22}{subsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.4.1}Homology Modelling}{22}{subsubsection.2.1.4.1}%
+\contentsline {subsubsection}{\numberline {2.1.4.2}Lattice Models}{23}{subsubsection.2.1.4.2}%
+\contentsline {subsubsection}{\numberline {2.1.4.3}Bravais Lattices}{23}{subsubsection.2.1.4.3}%
+\contentsline {subsubsection}{\numberline {2.1.4.4}HP Model}{24}{subsubsection.2.1.4.4}%
+\contentsline {subsubsection}{\numberline {2.1.4.5}hHPNX Model}{27}{subsubsection.2.1.4.5}%
+\contentsline {section}{\numberline {2.2}Reinforcement Learning}{28}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Markov Decision Processes}{28}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}Bellman Equation}{31}{subsubsection.2.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}Optimality}{32}{subsubsection.2.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.2.1.3}Generalised Policy Iteration}{32}{subsubsection.2.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.2.1.4}Exploration vs Exploitation}{34}{subsubsection.2.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.2.1.5}Monte Carlo Estimation}{34}{subsubsection.2.2.1.5}%
+\contentsline {subsubsection}{\numberline {2.2.1.6}Model Free vs Model Based}{36}{subsubsection.2.2.1.6}%
+\contentsline {subsection}{\numberline {2.2.2}Deep Q Learning}{37}{subsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.1}Temporal Difference Error}{37}{subsubsection.2.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2.2}Q Learning}{37}{subsubsection.2.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.3}Neural Networks}{37}{subsubsection.2.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.2.4}Deep Q-Networks}{40}{subsubsection.2.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.3}Improvements to Vanilla Deep Q-Networks}{42}{subsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.3.1}Prioritised Experience Replay}{43}{subsubsection.2.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.2.3.2}Dueling Networks}{45}{subsubsection.2.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.2.3.3}Double Q Learning }{45}{subsubsection.2.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.2.3.4}Distributional Reinforcement Learning}{47}{subsubsection.2.2.3.4}%
+\contentsline {section}{\numberline {2.3}Multi-Agent Reinforcement Learning}{51}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Stochastic Games}{51}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Mean Field Games}{53}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Spatial Congestion Games}{55}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Mean Field Multi Type Reinforcement Learning}{56}{subsection.2.3.4}%
+\contentsline {section}{\numberline {2.4}Related Work}{57}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}MCMC methods for lattice models}{57}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Deep Learning methods for lattice models}{57}{subsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.2.1}Alpha-Fold}{57}{subsubsection.2.4.2.1}%
+\contentsline {subsection}{\numberline {2.4.3}Reinforcement Learning methods for lattice models}{57}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {3}System Requirements and Specification}{58}{chapter.3}%
+\contentsline {section}{\numberline {3.1}PSP as a cooperative optimisation problem}{58}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Protein structures as distributions}{58}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Overcoming energy barriers after the hydrophobic collapse}{58}{section.3.3}%
+\contentsline {chapter}{\numberline {4}System Design and Analysis}{59}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Environment and actions}{59}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Revising reward structures}{60}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Potential based reward shaping}{61}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Mean field multi-type spatial congestion games}{62}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Risk sensitive agents}{63}{section.4.4}%

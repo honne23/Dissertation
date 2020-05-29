@@ -41,11 +41,25 @@ Chayen, N.  \harvardyearleft 2005\harvardyearright , `Methods for separating
   Biophysics and Molecular Biology} {\bf 88}(3),~329--337.
 \newline\harvardurl{https://doi.org/10.1016/j.pbiomolbio.2004.07.007}
 
+\harvarditem{Conway \harvardand\ Sloane}{1988}{Conway1988}
+Conway, J.~H. \harvardand\ Sloane, N. J.~A.  \harvardyearleft
+  1988\harvardyearright , {\em Sphere Packings, Lattices and Groups}, Springer
+  New York.
+\newline\harvardurl{https://doi.org/10.1007/978-1-4757-2016-7}
+
 \harvarditem{Crippen}{1991}{Crippen1991}
 Crippen, G.~M.  \harvardyearleft 1991\harvardyearright , `Prediction of protein
   folding from amino acid sequence over discrete conformation spaces', {\em
   Biochemistry} {\bf 30}(17),~4232--4237.
 \newline\harvardurl{https://doi.org/10.1021/bi00231a018}
+
+\harvarditem[Cymerman et~al.]{Cymerman, Feder, Paw{\L}owski, Kurowski
+  \harvardand\ Bujnicki}{2008}{Cymerman2008}
+Cymerman, I.~A., Feder, M., Paw{\L}owski, M., Kurowski, M.~A. \harvardand\
+  Bujnicki, J.~M.  \harvardyearleft 2008\harvardyearright , Computational
+  methods for protein structure prediction and fold recognition, {\em in}
+  `Practical Bioinformatics', Springer Berlin Heidelberg, pp.~1--21.
+\newline\harvardurl{https://doi.org/10.1007/978-3-540-74268-5_1}
 
 \harvarditem[Dabney et~al.]{Dabney, Rowland, Bellemare \harvardand\
   Munos}{2017}{Dabney2017}
