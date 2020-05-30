@@ -1,5 +1,5 @@
 This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
-Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: finalreport.aux
 A level-1 auxiliary file: abstract.aux
 A level-1 auxiliary file: acknowledgements.aux
@@ -11,44 +11,44 @@ A level-1 auxiliary file: chapter3.aux
 A level-1 auxiliary file: chapter4.aux
 The style file: agsm.bst
 Database file #1: references.bib
-You've used 41 entries,
+You've used 57 entries,
             2909 wiz_defined-function locations,
-            938 strings with 13131 characters,
-and the built_in function-call counts, 217477 in all, are:
-= -- 35537
-> -- 3208
-< -- 1
-+ -- 17445
-- -- 996
-* -- 19216
-:= -- 43002
-add.period$ -- 41
-call.type$ -- 41
-change.case$ -- 567
-chr.to.int$ -- 41
-cite$ -- 41
-duplicate$ -- 650
-empty$ -- 1337
-format.name$ -- 1123
-if$ -- 39054
+            1054 strings with 17187 characters,
+and the built_in function-call counts, 323329 in all, are:
+= -- 52877
+> -- 4890
+< -- 2
++ -- 26089
+- -- 1523
+* -- 28762
+:= -- 63640
+add.period$ -- 57
+call.type$ -- 57
+change.case$ -- 790
+chr.to.int$ -- 57
+cite$ -- 57
+duplicate$ -- 929
+empty$ -- 1893
+format.name$ -- 1702
+if$ -- 58106
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 38
-newline$ -- 145
-num.names$ -- 433
-pop$ -- 233
+missing$ -- 54
+newline$ -- 204
+num.names$ -- 607
+pop$ -- 298
 preamble$ -- 1
-purify$ -- 615
+purify$ -- 855
 quote$ -- 0
-skip$ -- 532
+skip$ -- 769
 stack$ -- 0
-substring$ -- 50875
-swap$ -- 113
-text.length$ -- 575
+substring$ -- 75862
+swap$ -- 177
+text.length$ -- 800
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 150
+type$ -- 212
 warning$ -- 0
-while$ -- 899
+while$ -- 1256
 width$ -- 0
-write$ -- 563
+write$ -- 798

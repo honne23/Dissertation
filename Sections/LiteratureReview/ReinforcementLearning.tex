@@ -950,7 +950,7 @@ to fit the predicted quantile to the target by minimizing the following objectiv
 \begin{equation}
     \begin{gathered}
         \rho_\tau(u) = \begin{cases}
-            \tau \cdot u & u \geq 0 \\
+            \tau \cdot u & u \geq 0 \\ %Update this!
             (1 - \tau) \cdot u & u < 0
         \end{cases} \\
         \mathcal{L}^\tau_{QR} \coloneqq  \sum_{i=1}^N \E_{\hat{Z} \backsim Z}[\rho_\tau(\hat{Z} -\theta_i)]

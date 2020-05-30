@@ -21,10 +21,22 @@
 \DeclareMathOperator*{\E}{\mathlarger{\mathbb{E}}}
 \newcommand\distributed{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily D}}}{\coloneqq}}}
 
-\usetikzlibrary{arrows,automata,positioning,decorations.pathmorphing,angles,quotes}
+\def\edgecolor{rgb:blue,4;red,1;green,4;black,3}
+\newcommand{\midarrow}{\tikz \draw[-Stealth,line width =0.8mm,draw=\edgecolor] (-0.3,0) -- ++(0.3,0);}
+
+
+\usetikzlibrary{arrows,automata,positioning,decorations.pathmorphing,angles,quotes,chains,fit,shapes,calc,arrows.meta}
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
 \newtheorem*{remark}{Remark}
+
+\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
+\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
+\def\PoolColor{rgb:red,1;black,0.3}
+\def\DcnvColor{rgb:blue,5;green,2.5;white,5}
+\def\SoftmaxColor{rgb:magenta,5;black,7}
+\def\SumColor{rgb:blue,5;green,15}
+\def\poolsep{1}
 \tikzset{%
   every neuron/.style={
     circle,

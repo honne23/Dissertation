@@ -173,6 +173,43 @@ nash strategies:
     \item \cite{Dabney2017} prove that the repeated application of the distributional bellman operator 
     $\mathcal{T}^\pi$ converges to a fixed point among all policies for an individual agent.
 \end{itemize}
-In summary, as there exists an optimal joint strategy $\boldsymbol \pi^*  \triangleq [\pi^1, \pi^2, \hdots, \pi^N]$ in a mean field game,
-the shaping of the reward will not change this optimal joint strategy; each agent is guranteed to converge to
-an optimal strategy which optimises it's expected contribution to the global objective.
+In summary, there exists an optimal joint strategy $\boldsymbol \pi^*  \triangleq [\pi^1, \pi^2, \hdots, \pi^N]$ in a mean field game,
+the shaping of the reward will not change this optimal joint strategy. Each agent is tasked with predicting
+it's own contribution to this global optimum, by modelling the contribution
+to a fixed point rather than total returns, each agent is guranteed to converge to a fixed point that
+maximizes it's contribution to the global goal determined by local interactions. This alleviates much of the instability associated with 
+the non-stationarity of the environment from the perspective of each agent. 
+I now present the combination of the methods, the equations are presented for the
+standard Mean-Field Q learning update, and are straightforwardly extended to the 
+multi-type variation.
+First, dueling quantile networks are used to estimate the quantiles for each action:
+\begin{equation}
+    \begin{gathered}
+        V(s) \coloneqq \theta_V \backsim Z_{\theta_V} \\
+        A(s,a^j, a^{-j}) \coloneqq \theta_{A}^a  \backsim Z_{\theta_A}\;\; \text{where } a \in \{1,2, \hdots, \vert \mathbf{A} \vert \} \\
+        \hat{Z}(s,a^j, a^{-j}) = \theta_V + (\theta_{A}^a - \mathbb{E}_{a \backsim \mathbf{A}}[\theta_{A}^{a}])
+    \end{gathered}
+\end{equation}
+The sum over the element-wise product of the output quantile distributions of actions and their
+corresponding quantile weight is then taken, this is expectation of the expected returns
+$\E_{Z_{\theta}}[\hat{Z}(s,a^j, a^{-j})]$, the expectation of these actions is then used to construct the 
+\emph{Boltzmann} distribution.
+The product of this boltzmann weighting, and the empircal probability of the actions
+of neighbouring residues is then used to weight the original output distribution as in 
+equations (2.74-76):
+\begin{equation}
+    \pi^j_t(a^j \mid s',a^{-j}) = \frac{\exp(- \beta \E[\hat{Z}(s,a^j, a^{-j})])}{\sum_{a^j \in \mathbf{A}^j} \exp(- \beta \E[\hat{Z}(s,a^j, a^{-j})])}
+\end{equation}
+\begin{equation}
+    Z^*(s,a^j, a^{-j}) = \pi^j_t(a^j \mid s',a^{-j}) \cdot \mathbb{E}_{a^j \backsim(\mathbf{a}^{-j}), Z_\theta \backsim Z}[\hat{Z}(s,a^j, a^{-j})]
+\end{equation}
+The sum of $Z^*(s,a^j, a^{-j})$ over all actions foragent $j$ produced the mean-field value $v^{MF}_t$ of that state as 
+in equation 2.76.,this is done for both the behaviour network $\theta$ and the target network $\theta'$.
+The huber loss is then calculated against the target as in equation 2.64,
+prioritised replay importance sampling ratios are then applied before back propagation::
+\begin{equation}
+    \begin{gathered}
+        \mathcal{L}(\theta^j) = \sum^N_{i=1} \E_{Z^* \backsim Z}[\rho_{\tau}(Z^*_{\theta'} - Z^*_{\theta})] \\
+    \nabla_\theta E = w_j \cdot \mathcal{L}(\theta^j) \cdot \nabla_\theta Z^*(s,a^j, a^{-j}\: ; \: \theta)
+    \end{gathered}
+\end{equation}

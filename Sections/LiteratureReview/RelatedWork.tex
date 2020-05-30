@@ -1,5 +1,196 @@
 \section{Related Work}
-\subsection{MCMC methods for lattice models}
-\subsection{Deep Learning methods for lattice models}
+In this section I will explore and contrast current computational approaches to the PSP problem,
+including those that operate over lattices (on-lattice) and relevant techniques and results from
+off-lattice prediction methods.
+\subsection{MCMC \& Integer Programming methods for lattice models}
+Markov Chain Monte-Carlo (MCMC) is a random sampling technique that aims to parameterise
+an approximation of the posterior distribution of a given dataset. Data points are sequentially sampled from the target distribution
+using arbitary parameters $\theta_1 , \theta_2, \hdots, \theta_n$, the distribution is then approximated
+using gradient descent (or hill-climbing) by comparing the ratios of the likelihoods of the posterior 
+for each succesive pairs of parameters $\frac{p(data | \theta_2)}{p(data | \theta_1)}$. The parameters of the approximating
+distribution are then updated using this ratio, often in addition to a standard learning 
+rate $\eta$; this is effectively an optimization in parameter space. The metropolis-random walk algorithm
+updates the parameters based on an acceptance criterion. Canonically, a random number is uniformly sampled
+on the interval $[0,1]$ and the parameter update is "accepted" if the ratio is greater than the random number.
+The sequential sampling produces auto-correlated samples, indicating that each data-point sampled is
+probabilistically dependent on the previous point as a function of time; this gives rise to the \emph{markov property}
+of the sampling technique. Under this construction, the steady state (equilibrium) distribution of the chain\footnote{See equation 2.14}
+is equal to the posterior under investigation; a more thorough analysis is out of the scope of this project however
+the reader is directed to \cite{levin2017markov}. \\
+
+\cite{Hansmann1999} gives a detailed overview of markov chain monte-carlo (MCMC) methods and genetic
+algorithms for structure prediction. Previous approaches to structure prediction generally involved stochastic
+approximation methods such as MCMC in order to tackle the curse of dimensionality when working
+with atomic parameters. This often included the use of genetic algorithms
+to generate candidate structures and crystal growth simulations where MCMC to randomly
+place a residue (obeying SAW constraints) in unrestricted 3D space followed by local optimization
+on the structure. In addition to this, if parameter updates are accepted according to a \emph{Boltzmann}
+weighting, simulated logarithmic annealing schedules were used to modulate the temperature parameter, often improving results. 
+The author notes that although this was effective in smaller peptides, the approaches generally
+did not scale to larger structures. Furthermore, the resultant structures would often lack detailed balance;
+although the global structure was approximately optimal, residues in local structures would form unfavourable
+contacts. \\
+
+\cite{Citrolo2013} describe a hybrid approach between previously mentioned MCMC methods and ant colony optimization (ACO)
+using the HP model on a 3D cubic lattice (see eq. 2.7).
+ACO is a biologically inspired heuristic search algorithm where each "ant" represents a possible solution, these
+agents communicate locally to coordinate their next move towards a more optimal position in parameter space.
+The authors present a modified version of the objective function described in table 2.2 that penalizes
+overlapping walks. As in previous work, they utilise MCMC to refine a global objective function, and then
+use the ants to optimize local solutions. The communication bias between the agents appeared to encourage
+better results as compared with previous methods. Once again, this proved to be effective on smaller peptides
+but scaling would still be an issue. An insightful observation by the authors suggested that the existence of overlapping
+solutions resulted in a rough fitness lanscape, reducing stability during the training phase. \\
+
+\cite{Yanev2017} similarly proposed a mixed integer programming solution to the HP model, once again
+on a 3D cubic lattice. Mixed integer programming (MIP) is an optimization method that optimizes constraints
+whose requirements are represented by linear relationships, in this particular case some of the constraints
+are expressed as integers whereas others may take on real values. The authors evaluate PSP as a bi-partite
+graph matching problem on local neighbourhoods, taking into account the SAW. A bi-partite graph in one whose
+vertices can be divided into two disjoint and independent sets \cite{Handa1999BipartitieGW}, an example is
+provided:
+
+\definecolor{myblue}{RGB}{80,80,160}
+\definecolor{mygreen}{RGB}{80,160,80}
+\begin{figure}[!htb]
+\begin{center}
+    \begin{tikzpicture}[thick,
+        every node/.style={draw,circle},
+        fsnode/.style={fill=myblue},
+        ssnode/.style={fill=mygreen},
+        every fit/.style={ellipse,draw,inner sep=-2pt,text width=2cm},
+        ->,shorten >= 3pt,shorten <= 3pt
+      ]
+      
+      % the vertices of U
+      \begin{scope}[start chain=going below,node distance=7mm]
+      \foreach \i in {1,2,...,5}
+        \node[fsnode,on chain] (f\i) [label=left: \i] {};
+      \end{scope}
+      
+      % the vertices of V
+      \begin{scope}[xshift=4cm,yshift=-0.5cm,start chain=going below,node distance=7mm]
+      \foreach \i in {6,7,...,9}
+        \node[ssnode,on chain] (s\i) [label=right: \i] {};
+      \end{scope}
+      
+      % the set U
+      \node [myblue,fit=(f1) (f5),label=above:$U$] {};
+      % the set V
+      \node [mygreen,fit=(s6) (s9),label=above:$V$] {};
+      
+      % the edges
+      \draw (f1) -- (s6);
+      \draw (s6) -- (f2);
+      \draw (f2) -- (s7);
+      \draw (s7) -- (f3);
+      \draw (s8) -- (f3);
+      \draw (f3) -- (s9);
+      \draw (s9) -- (f5);
+      \draw (f5) -- (s6);
+      
+      \end{tikzpicture}  
+\end{center}
+\caption{A bi-partite graph}
+\end{figure}
+\cite{Yanev2017} succesively join adjacent sites by optimizing constraints on bi-partite graphs in local neighbourhoods
+on the lattice using MIP, their methods suffer from the same drawbacks as previously listed.
+\subsection{Deep Learning methods for protein structure prediction}
+Deep learning methods surrounding PSP generally follow the same approach; predicting properties
+such as inter-residue distances or torsion angles from a dataset of proteins and their known tertiary structures,
+effectively modelling the problem as a supervised learning task which can be optimised using a differentiable loss 
+function with gradient descent.
+The most effective contemporary approaches all share a core structure, a Convolutional Neural Network (CNN)
+with residual connections (ResNet: \cite{He2016}):
+
+A CNN takes in a matrix $x \in \mathbb{R}^n \times \mathbb{R}^n$ as input with an arbitary number of channels.
+In image recognition, the input is three matrices of the image resolution (e.g 1920 x 1080), one for each
+colour channel RGB. A square matrix (usually $3 \times 3$ \emph{kernel}) is initialised to arbitary values, then slid over each
+input channel, the element-wise product is summed over the overlapping components to produce a scalar value that
+is taken as input again in the next layer where the process is repeated. The elements of the kernel are parameters 
+learned by the network and multiple such kernels can be learned. The inner-most layers of the network form high level
+representations of the input data that can be utilised for computation by the output layers. \cite{Hou2019,Gao2019,Senior2020,Yang2020}
+all use feature maps derived from MSA analysis to produce multiple channels as input to the CNN. The aim here 
+is to exploit the spatial coherance bias imposed by the sliding kernels that act on local neighbourhoods. 
+As depicted in the figure, the output is a matrix of contact maps although the exact nature of this varies among 
+the author's approaches. A contact map $a_{ij}$ for $n$ residues is a $n \times n$ matrix whose components encode
+the distances between residues at indices $i,k$ in Angstroms $\mathring{A}$, an atomic unit of measurement.
 \subsubsection{Alpha-Fold}
-\subsection{Reinforcement Learning methods for lattice models}
+It is necessary to bring particular attention to the results of AlphaFold \cite{Senior2020} due
+to their impressive results at the Critical Assesment for Structure Prediction 13 (CASP13) competition.
+First place was awared for the work of \cite{Senior2020}; beating second by a large margin when they correctly
+predicted the structures of 23/45 proteins to significant accuracy, which had not been previously released to the public.
+Their pipeline consists of input data derived from MSA features and contact map data, this is passed into
+a ResNet as described previously, however their output is a 3D tensor. This tensor encodes the contacts
+of indices $i,j$ along the 2-dimensional axis, and the 3rd dimension represents a distribution over possible
+inter-residue distances at that contact. This is similar to the previously explore \textbf{Distributional Learning}, where a
+distribution of returns is estimate for each action; in this case a distribution is approximated using
+64 bins for every contact $i,j$ which they call a \emph{distogram}. This distogram is then used to inform
+a differentiable model of the protein's specific potential (energy function) parameterised by its torsion
+angles $(\phi, \psi)$. The precise implementation is out of the scope of this work, however is it important to note 
+that the authors attribute the success of their model to its particular ability to predict \emph{distributions}, arguing
+that this allowed them to generate much more plausible lowest-energy conformation candidate structures during an ensemble
+prediction phase. Intuitively, this is inline with the biological consensus that proteins exist as a 
+specific distribution of strutures in their native tertiary form \cite{Yang}, and so by incorporating the calculation
+of distributions into their model, they implicitly embed this prior in the architecture of their model (see Section \textbf{2.1.3}).\\
+
+\cite{Yang2020} build on the success of AlphaFold and improve upon their results by additionally predicting
+distributions of inter-residue orientations and incorporating that into the model of the protein's specific potential.
+\subsection{Deep Reinforcement Learning methods for lattice models}
+We now turn to reinforcement learning methods on lattice models. Where as previous methods relied on
+training data in order to parameterise a generative model, these works learn to construct tertiary structures
+from raw sequence data along, this is unsupervised learning.
+\cite{Wu2019} use reinforcement learning on a 2D HP lattice to construct proteins by iteratively
+placing residues on points on the lattice using $Q$ learning. Although the authors make no mention of
+deep learning in particular,they use function approximation to represent the Q values. In their setting,
+the agent has access to a "bag" of residues that must be placed on points in the lattice in the appropriate
+sequence, where the state that is input to the agent is the current coordinates of the placed residues. 
+The actions available to the agent are movement vectors that determine the next location of the residue on the 
+lattice, the agent is rewarded for making favourable contacts along the way, and when the terminal state is reached
+the total reward for the whole structure is provided. They describe a \emph{rigid selection criterion}, where the agent
+repeatedly selects an action until a legal action is chosen, one that does not violate the SAW. The authors note that having access
+to the full set of actions at anytime allowed the network to form a better description of the energy landscape. They 
+use the reward structure of the HP model as a proxy for the energy function (or \emph{Hamiltonian}), similar to the 
+protein specific potential described by \cite{Senior2020}. They also describe a \emph{flexible} selection criterion
+that would give the agent a reward of $-10$ for violating the SAW, once the action is taken the agent is placed in the invalid
+position and the reward is reset to 0. The show that the rigid criterion was more effective in their results.\\
+
+\cite{Yanjun2018} describe a similar architecture using a 2D HP grid, this time with the explicit use of deep reinforcement learning.
+However instead of providing the residue's current coordinates, they provide the entire grid as input to agent. Formally,
+the input is a 3D tensor that encoded the occupation status of a site aswell as the type of occupant, other parameters may additionally be encoded
+for each coordinate in the grid. They use an on-policy technique called the Actor-Critic architecture \cite{Mnih2016} to optimise the placement
+of residues. A regularization constraint is also imposed, called regularised Upper-Confidence-Bound for Trees (R-UCT) for 
+additional stability during training, this was shown to improve results. The algorithm they implemented, Advantage Actor Critic (A2C),
+is performed asynchronously, \cite{Yanjun2018}'s approach lends itself to parallel compute and scales much more favourably than
+previously described methods, with the exception of \cite{Senior2020,Yang2020}.
+
+\subsection{Multi-agent structure prediction methods}
+Turning now to multi-agent approaches to PSP, these methods use agents that collaborate
+amongst themselves in a variety of schemes in an effort to optimise a global goal, usually the protein's specific
+potential, by building upon local interactions. This is a more biologically consistent view of the micro-level
+interactions between the residues. There is limited work at the intersection between the fields of multi-agent learning
+and structure prediction, the most relevant works are presented here.\\
+
+ \cite{Muscalagiu2013,Czibula2011} utilize agents in a distributed contraint optimization setting is similar fashion to previously described MIP
+ approaches. Each residue is an agent, and agents are of heterogenous types, together they colaborate to take
+ actions to move on the lattice in order to optimize mutual constraints between them,
+ \cite{Muscalagiu2013} use the hHPNX reward structure on 3D/2D cubic and triangular lattice and \cite{Czibula2011} uses a 2D HP lattice.
+ They both make use of a distributed variant of $Q$ learning to optimise the constraint parameters. They both
+ describe two different types of agents that interact, some agents act as the actual residues, whereas
+ a separate "blackboard" agent is used to keep track of all the agents $Q$ values. The agents then 
+ incorporate these Q values into their decision policy. Although these techniques are supported in cluster-computing
+ environments, the existence of a central agent inhibits scalability, many of these results were performed 
+ on small peptides and were inhibited by their inherent time complexity. If every agent must communicate with 
+ the blackboard agent to obtain the $Q$ values of all the other agents to complete a full round, then as the number
+ of agents grow then this will begin to incur a significant computational cost interms of both network overhead and
+ storage requirements. \cite{Czibula2011} suggested the use of function approximation to mitigate these effects;
+ these approaches use notably older algorithms with poorer convergence properties compared to current advanced,
+ this also played a factor in their final results, reducing the efficacy of an otherwise well structured system.
+
+ \cite{deLimaCorrea2017} use a multi-agent approach to attain extremely compelling results in a free-space environment
+ without the use of a discretized lattice. They utilise a hiearchical structure of agents,\emph{search agents} generate possible
+ sub-structures according to a partition of the total peptide assigned to them. They do so using heuristic search strategies 
+ discussed previously, the \emph{optimization} agent then performs global optimization, refining the structure
+ using evolutionary algorithms and simmulated annealing methods, akin to the crystal growth approaches of MCMC.
+ The authors use PDB data to generate a histogram of torsion angles experimentally gathered and this is used to 
+ guide the agents towards optimal solutions.

@@ -41,6 +41,13 @@ Chayen, N.  \harvardyearleft 2005\harvardyearright , `Methods for separating
   Biophysics and Molecular Biology} {\bf 88}(3),~329--337.
 \newline\harvardurl{https://doi.org/10.1016/j.pbiomolbio.2004.07.007}
 
+\harvarditem{Citrolo \harvardand\ Mauri}{2013}{Citrolo2013}
+Citrolo, A.~G. \harvardand\ Mauri, G.  \harvardyearleft 2013\harvardyearright ,
+  `A hybrid monte carlo ant colony optimization approach for protein structure
+  prediction in the {HP} model', {\em Electronic Proceedings in Theoretical
+  Computer Science} {\bf 130},~61--69.
+\newline\harvardurl{https://doi.org/10.4204/eptcs.130.9}
+
 \harvarditem{Conway \harvardand\ Sloane}{1988}{Conway1988}
 Conway, J.~H. \harvardand\ Sloane, N. J.~A.  \harvardyearleft
   1988\harvardyearright , {\em Sphere Packings, Lattices and Groups}, Springer
@@ -61,11 +68,26 @@ Cymerman, I.~A., Feder, M., Paw{\L}owski, M., Kurowski, M.~A. \harvardand\
   `Practical Bioinformatics', Springer Berlin Heidelberg, pp.~1--21.
 \newline\harvardurl{https://doi.org/10.1007/978-3-540-74268-5_1}
 
+\harvarditem[Czibula et~al.]{Czibula, Bocicor \harvardand\
+  Czibula}{2011}{Czibula2011}
+Czibula, G., Bocicor, I. \harvardand\ Czibula, I.  \harvardyearleft
+  2011\harvardyearright , `A reinforcement learning model for solving the
+  folding problem', {\em International Journal of Computer Technology and
+  Applications} {\bf 02}.
+
 \harvarditem[Dabney et~al.]{Dabney, Rowland, Bellemare \harvardand\
   Munos}{2017}{Dabney2017}
 Dabney, W., Rowland, M., Bellemare, M.~G. \harvardand\ Munos, R.
   \harvardyearleft 2017\harvardyearright , `Distributional reinforcement
   learning with quantile regression'.
+
+\harvarditem[de~Lima~Correa et~al.]{de~Lima~Correa, Inostroza-Ponta
+  \harvardand\ Dorn}{2017}{deLimaCorrea2017}
+de~Lima~Correa, L., Inostroza-Ponta, M. \harvardand\ Dorn, M.  \harvardyearleft
+  2017\harvardyearright , An evolutionary multi-agent algorithm to explore the
+  high degree of selectivity in three-dimensional protein structures, {\em in}
+  `2017 {IEEE} Congress on Evolutionary Computation ({CEC})', {IEEE}.
+\newline\harvardurl{https://doi.org/10.1109/cec.2017.7969431}
 
 \harvarditem[Devlin et~al.]{Devlin, Yliniemi, Kudenko \harvardand\
   Tumer}{2014}{Devlin2014}
@@ -84,6 +106,30 @@ Dill, K.~A., Bromberg, S., Yue, K., Chan, H.~S., Ftebig, K.~M., Yee, D.~P.
   {\em Protein Science} {\bf 4}(4),~561--602.
 \newline\harvardurl{https://doi.org/10.1002/pro.5560040401}
 
+\harvarditem[Gao et~al.]{Gao, Zhou \harvardand\ Skolnick}{2019}{Gao2019}
+Gao, M., Zhou, H. \harvardand\ Skolnick, J.  \harvardyearleft
+  2019\harvardyearright , `{DESTINI}: A deep-learning approach to
+  contact-driven protein structure prediction', {\em Scientific Reports} {\bf
+  9}(1).
+\newline\harvardurl{https://doi.org/10.1038/s41598-019-40314-1}
+
+\harvarditem{Handa}{1999}{Handa1999BipartitieGW}
+Handa, K.  \harvardyearleft 1999\harvardyearright , `Bipartitie graphs with
+  balanced (a, b)-partitions', {\em Ars Comb.} {\bf 51}.
+
+\harvarditem{Hansmann \harvardand\ Okamoto}{1999}{Hansmann1999}
+Hansmann, U.~H. \harvardand\ Okamoto, Y.  \harvardyearleft
+  1999\harvardyearright , `New monte carlo algorithms for protein folding',
+  {\em Current Opinion in Structural Biology} {\bf 9}(2),~177--183.
+\newline\harvardurl{https://doi.org/10.1016/s0959-440x(99)80025-6}
+
+\harvarditem[{He} et~al.]{{He}, {Zhang}, {Ren} \harvardand\
+  {Sun}}{2016}{He2016}
+{He}, K., {Zhang}, X., {Ren}, S. \harvardand\ {Sun}, J.  \harvardyearleft
+  2016\harvardyearright , Deep residual learning for image recognition, {\em
+  in} `2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',
+  pp.~770--778.
+
 \harvarditem[Hessel et~al.]{Hessel, Modayil, van Hasselt, Schaul, Ostrovski,
   Dabney, Horgan, Piot, Azar \harvardand\ Silver}{2017}{Hessel2017}
 Hessel, M., Modayil, J., van Hasselt, H., Schaul, T., Ostrovski, G., Dabney,
@@ -96,6 +142,13 @@ Hoque, T., Chetty, M. \harvardand\ Sattar, A.  \harvardyearleft
   2009\harvardyearright , `Extended {HP} model for protein structure
   prediction', {\em Journal of Computational Biology} {\bf 16}(1),~85--103.
 \newline\harvardurl{https://doi.org/10.1089/cmb.2008.0082}
+
+\harvarditem[Hou et~al.]{Hou, Wu, Cao \harvardand\ Cheng}{2019}{Hou2019}
+Hou, J., Wu, T., Cao, R. \harvardand\ Cheng, J.  \harvardyearleft
+  2019\harvardyearright , `Protein tertiary structure modeling driven by deep
+  learning and contact distance prediction in {CASP}13', {\em Proteins:
+  Structure, Function, and Bioinformatics} {\bf 87}(12),~1165--1178.
+\newline\harvardurl{https://doi.org/10.1002/prot.25697}
 
 \harvarditem{Hu \harvardand\ Wellman}{2003}{Hu2003}
 Hu, J. \harvardand\ Wellman, M.  \harvardyearleft 2003\harvardyearright , `Nash
@@ -137,6 +190,15 @@ Lee, J., Xiao, L., Schoenholz, S.~S., Bahri, Y., Novak, R., Sohl-Dickstein, J.
 Lesk, A.  \harvardyearleft 2018\harvardyearright , {\em Introduction to
   bioinformatics}, Oxford University Press, Oxford New York.
 
+\harvarditem{Levin}{2017}{levin2017markov}
+Levin, D.  \harvardyearleft 2017\harvardyearright , {\em Markov chains and
+  mixing times}, American Mathematical Society, Providence, Rhode Island.
+
+\harvarditem[Li et~al.]{Li, Kang, Ye, Yin \harvardand\ Li}{2018}{Yanjun2018}
+Li, Y., Kang, H., Ye, K., Yin, S. \harvardand\ Li, X.  \harvardyearleft
+  2018\harvardyearright , `Foldingzero: Protein folding from scratch in
+  hydrophobic-polar model'.
+
 \harvarditem[Lucrezia et~al.]{Lucrezia, Slanzi, Poli, Polticelli \harvardand\
   Minervini}{2012}{delucrezia}
 Lucrezia, D.~D., Slanzi, D., Poli, I., Polticelli, F. \harvardand\ Minervini,
@@ -162,6 +224,17 @@ Mguni, D., Jennings, J. \harvardand\ Munoz~de Cote, E.  \harvardyearleft
   2018\harvardyearright , `Decentralised learning in systems with many, many
   strategic agents'.
 
+\harvarditem[Mnih et~al.]{Mnih, Badia, Mirza, Graves, Lillicrap, Harley, Silver
+  \harvardand\ Kavukcuoglu}{2016}{Mnih2016}
+Mnih, V., Badia, A.~P., Mirza, M., Graves, A., Lillicrap, T., Harley, T.,
+  Silver, D. \harvardand\ Kavukcuoglu, K.  \harvardyearleft
+  2016\harvardyearright , Asynchronous methods for deep reinforcement learning,
+  {\em in} M.~F. Balcan \harvardand\ K.~Q. Weinberger, eds, `Proceedings of The
+  33rd International Conference on Machine Learning', Vol.~48 of {\em
+  Proceedings of Machine Learning Research}, PMLR, New York, New York, USA,
+  pp.~1928--1937.
+\newline\harvardurl{http://proceedings.mlr.press/v48/mniha16.html}
+
 \harvarditem[Mnih et~al.]{Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare,
   Graves, Riedmiller, Fidjeland, Ostrovski, Petersen, Beattie, Sadik,
   Antonoglou, King, Kumaran, Wierstra, Legg \harvardand\
@@ -174,10 +247,31 @@ Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
   learning', {\em Nature} {\bf 518}(7540),~529--533.
 \newline\harvardurl{https://doi.org/10.1038/nature14236}
 
+\harvarditem[Muscalagiu et~al.]{Muscalagiu, Popa, Panoiu \harvardand\
+  Negru}{2013}{Muscalagiu2013}
+Muscalagiu, I., Popa, H.~E., Panoiu, M. \harvardand\ Negru, V.
+  \harvardyearleft 2013\harvardyearright , Multi-agent systems applied in the
+  modelling and simulation of the protein folding problem using distributed
+  constraints, {\em in} `Multiagent System Technologies', Springer Berlin
+  Heidelberg, pp.~346--360.
+\newline\harvardurl{https://doi.org/10.1007/978-3-642-40776-5_29}
+
 \harvarditem[Schaul et~al.]{Schaul, Quan, Antonoglou \harvardand\
   Silver}{2015}{Schaul2015}
 Schaul, T., Quan, J., Antonoglou, I. \harvardand\ Silver, D.  \harvardyearleft
   2015\harvardyearright , `Prioritized experience replay'.
+
+\harvarditem[Senior et~al.]{Senior, Evans, Jumper, Kirkpatrick, Sifre, Green,
+  Qin, {\v{Z}}{\'{\i}}dek, Nelson, Bridgland, Penedones, Petersen, Simonyan,
+  Crossan, Kohli, Jones, Silver, Kavukcuoglu \harvardand\
+  Hassabis}{2020}{Senior2020}
+Senior, A.~W., Evans, R., Jumper, J., Kirkpatrick, J., Sifre, L., Green, T.,
+  Qin, C., {\v{Z}}{\'{\i}}dek, A., Nelson, A. W.~R., Bridgland, A., Penedones,
+  H., Petersen, S., Simonyan, K., Crossan, S., Kohli, P., Jones, D.~T., Silver,
+  D., Kavukcuoglu, K. \harvardand\ Hassabis, D.  \harvardyearleft
+  2020\harvardyearright , `Improved protein structure prediction using
+  potentials from deep learning', {\em Nature} {\bf 577}(7792),~706--710.
+\newline\harvardurl{https://doi.org/10.1038/s41586-019-1923-7}
 
 \harvarditem{Shoham}{2009}{shoham2009multiagent}
 Shoham, Y.  \harvardyearleft 2009\harvardyearright , {\em Multiagent systems :
@@ -227,6 +321,29 @@ Weisz, G., Budzianowski, P., Su, P.-H. \harvardand\ Gasic, M.  \harvardyearleft
   dialogue systems with large action spaces', {\em {IEEE}/{ACM} Transactions on
   Audio, Speech, and Language Processing} {\bf 26}(11),~2083--2097.
 \newline\harvardurl{https://doi.org/10.1109/taslp.2018.2851664}
+
+\harvarditem[Wu et~al.]{Wu, Yang, Fu, Chen, Lu \harvardand\ Li}{2019}{Wu2019}
+Wu, H., Yang, R., Fu, Q., Chen, J., Lu, W. \harvardand\ Li, H.
+  \harvardyearleft 2019\harvardyearright , `Research on predicting 2d-{HP}
+  protein folding using reinforcement learning with full state space', {\em
+  {BMC} Bioinformatics} {\bf 20}(S25).
+\newline\harvardurl{https://doi.org/10.1186/s12859-019-3259-6}
+
+\harvarditem[Yanev et~al.]{Yanev, Traykov, Milanov \harvardand\
+  Yurukov}{2017}{Yanev2017}
+Yanev, N., Traykov, M., Milanov, P. \harvardand\ Yurukov, B.  \harvardyearleft
+  2017\harvardyearright , `Protein folding prediction in a cubic lattice in
+  hydrophobic-polar model', {\em Journal of Computational Biology} {\bf
+  24}(5),~412--421.
+\newline\harvardurl{https://doi.org/10.1089/cmb.2016.0181}
+
+\harvarditem[Yang et~al.]{Yang, Anishchenko, Park, Peng, Ovchinnikov
+  \harvardand\ Baker}{2020}{Yang2020}
+Yang, J., Anishchenko, I., Park, H., Peng, Z., Ovchinnikov, S. \harvardand\
+  Baker, D.  \harvardyearleft 2020\harvardyearright , `Improved protein
+  structure prediction using predicted interresidue orientations', {\em
+  Proceedings of the National Academy of Sciences} {\bf 117}(3),~1496--1503.
+\newline\harvardurl{https://doi.org/10.1073/pnas.1914677117}
 
 \harvarditem[Yang et~al.]{Yang, Ji \harvardand\ Liu}{2013}{Yang}
 Yang, L.-Q., Ji, X.-L. \harvardand\ Liu, S.-Q.  \harvardyearleft
