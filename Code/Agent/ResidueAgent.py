@@ -10,6 +10,7 @@ class ResidueAgent(object):
     
     def __init__(self,
                  env: Bravais,
+                 idx :int,
                  hidden_size:int = 512,
                  max_epsilon: float = 1.0,
                  min_epsilon: float = 0.01,
@@ -24,8 +25,8 @@ class ResidueAgent(object):
                  ):
         self.env = env
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.dqn = QuantileNetwork(self.env.observation_space_n + self.env.action_space_n, hidden_size, self.env.action_space.n, num_quantiles).to(self.device)
-        self.target = QuantileNetwork(self.env.observation_space.shape[0], hidden_size, self.env.action_space.n, num_quantiles).to(self.device)
+        self.dqn = QuantileNetwork(self.env.observation_space_n, hidden_size, self.env.action_space_n, num_quantiles).to(self.device)
+        self.target = QuantileNetwork(self.env.observation_space_n, hidden_size, self.env.action_space_n, num_quantiles).to(self.device)
         self.target.eval()
         self.target.load_state_dict(self.dqn.state_dict())
         self.optimizer = optim.Adam(params= self.dqn.parameters())
@@ -41,6 +42,7 @@ class ResidueAgent(object):
         self.quantile_weight = 1.0 / self.num_quantiles
         self.mean_field_beta = mean_field_beta
         self.mean_field_tau = mean_field_tau
+        self.idx=idx
         
     def huber(self, x):
         cond = (x.abs() < 1.0).float().detach()
@@ -53,7 +55,7 @@ class ResidueAgent(object):
         
         samples = np.vstack(samples)
         state, action, reward, next_state, done = samples.T
-        state = torch.FloatTensor(np.vstack(state)).to(self.device)
+        state = torch.FloatTensor(np.vstack(state)[:,:-self.env.action_space_n]).to(self.device)
         next_state = torch.FloatTensor(np.vstack(next_state)).to(self.device)
         action = torch.LongTensor(action.astype(int)).to(self.device)
         reward = torch.FloatTensor(reward.astype(float).reshape(-1, 1)).to(self.device)
@@ -99,12 +101,12 @@ class ResidueAgent(object):
                 #max_next_action = self.get_max_next_state_action(non_final)
                 #quantiles_next[mask] = self.target(non_final).gather(1, max_next_action).squeeze(dim=1)
                 target_quantiles = self.target(non_final)
-                target_quantiles = target_quantiles.view(non_final.size(0) * self.env.action_space_n, self.env.action_space_n)
                 
-                target_expected_returns = (target_quantiles * self.quantile_weight).sum(1).view(non_final.size(0),self.env.action_space_n,1)
-                target_probs = F.softmax(self.mean_field_beta * target_expected_returns, dim=1).view(-1,1)
+                #FIX THIS \/
+                target_expected_returns = (target_quantiles * self.quantile_weight).sum(1)
+                target_probs = F.softmax(self.mean_field_beta * target_expected_returns, dim=1)
                 
-                mean_field_quantiles = target_quantiles * next_neighbour_dists.view(-1,1) * target_probs
+                mean_field_quantiles = target_quantiles * next_neighbour_dists * target_probs
                 
                 quantiles_next[mask] = mean_field_quantiles
                 
@@ -117,23 +119,24 @@ class ResidueAgent(object):
         return next_dist.sum(dim=2).max(1)[1].view(next_states.size(0), 1, 1).expand(-1, -1, self.num_quantiles)
     """        
         
-    def select_action(self, state) -> int:
-        if self.epsilon > np.random.random():
-            selected_action = self.env.action_space.sample()
+    def select_action(self, state : np.array,ready : bool) -> int:
+        if ready == False or (self.epsilon > np.random.random()):
+            selected_action = self.env.sample_action()
         else:
             with torch.no_grad():
                 state = torch.FloatTensor(state).to(self.device)
-                quantile_returns = (self.dqn(state) * self.quantile_weight).sum(dim=2)
+                quantile_returns = (self.dqn(state) * self.quantile_weight).sum(dim=1)
                 action_probs = F.softmax(- self.mean_field_beta * quantile_returns) 
-                neighbour_dist = state[-self.env.action_space_n:]
-                mean_field_value = (quantile_returns * neighbour_dist * action_probs)
+                neighbour_distribution = state[:-self.env.action_space_n]
+                mean_field_value = (quantile_returns * neighbour_distribution * action_probs)
                 selected_action = mean_field_value.max(dim=1)[1].item()
         return selected_action
     
-    def step(self, state: np.array) -> tuple:
-        action = self.select_action(state)
-        next_state, reward, done, info = self.env.step(action)
+    def step(self, state: np.array, ready : bool) -> tuple:
+        action = self.select_action(state[:-self.env.action_space_n], ready)
+        next_state, reward, done, info = self.env.step(action,self.idx)
         transition = [state, action, reward, next_state, done]
+        
         self.memory.store(transition)
         return next_state, reward, done, dict({'action':action}, **info)
     
