@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['main.py', 'MultiAgent/MeanField.py', 'Network/QuantileCNN.py', 'Agent/QuantileAtariAgent.py', 'Agent/ResidueAgent.py']
+recent_files = ['Network/QuantileCNN.py', 'Agent/ResidueAgent.py', 'MultiAgent/MeanField.py', 'Environment/Bravais.py', 'Agent/QuantileAtariAgent.py', 'Network/QuantileNetwork.py']
 

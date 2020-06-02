@@ -7,7 +7,7 @@ from functools import reduce
 
 class Bravais(object):
     
-    def __init__(self, residues : str, gamma: float, init_positions : bool = True):
+    def __init__(self, residues : str, gamma: float, init_positions : bool = True, limit : int = 150):
         
         self.e = np.array([
             [0., 0.5, 0.5],
@@ -32,13 +32,13 @@ class Bravais(object):
         self.position_buffer = self.reset().reshape(self.num_residues, 3)
         self.observation_space_n = self.position_buffer.reshape(-1,1).shape[0]
         self.action_space_n = self.actions.shape[0]
-        
+        self.phi_current = np.zeros(self.num_residues)
         self.types = self.init_types(residues)
         
-        self.site_potentials = [self.get_sites(v[0],v[1],i)[0] \
-                                for i,v in enumerate(zip(self.types, self.position_buffer)) ]
+        self.site_potentials = self.get_sites(self.position_buffer)[0]
         self.global_reward = sum(self.site_potentials)
-        self.done_flag = False
+        self.count_down = 0
+        self.limit = limit
         
     
     def init_types(self, residues : str) -> List[int]:
@@ -47,43 +47,60 @@ class Bravais(object):
             for j in range(len(self.encoding)):
                 if i in self.encoding[j]:
                     types.append(j)
-        return types
+        return np.array(types)
     
-    def step(self, action : int, index : int) -> tuple:
+    def step(self, joint_action : np.array) -> tuple:
         """
         Step in the environment
         returns state, reward, info
 
         """
-        if self.done_flag:
-            #Transition into terminal state with reward = 0
-            self.done_flag = False
-            return np.zeros(self.position_buffer.shape[0]), 0, True 
-        old_pos = self.position_buffer[index,:].reshape(-1,1)
-        new_pos = old_pos + self.e.dot(self.actions[action,:].reshape(-1,1))
-        reward, new_local, new_g, neighbours = self.calc_reward(index,old_pos,new_pos)
-        self_avoiding = self.check_self_avoiding(index, new_pos)
-        if reward == -10 or not self_avoiding:
-            self.done_flag = False
-        else:
-            self.done_flag = True
-            self.position_buffer[index] = new_pos.reshape(-1,1)
-            self.site_potentials[index] = new_local
-            self.global_reward = new_g
-        return self.position_buffer.flatten(), reward, False, {'neighbours' : neighbours}
+        
+        action_vectors = np.take(self.actions, joint_action, axis=0)
+        
+        movement_vectors = self.e.dot(action_vectors.T).T
+        new_pos = self.position_buffer + movement_vectors
+        
+        self_avoiding = np.array([self.check_self_avoiding(new_pos,i) for i in range(new_pos.shape[0])], dtype= np.bool)
+        
+        reward, new_local, new_g, neighbours = self.calc_reward(new_pos)
+        reward[~self_avoiding] += -10
     
-    def check_self_avoiding(self, index:int, new_pos : np.array) -> bool:
+        #print(reward)
+        done = False
+        if sum(self_avoiding) == 0:
+            self.count_down = 0
+            reward = np.zeros(self.num_residues)
+            done = True
+            return self.position_buffer.flatten(), reward, done, {'neighbours' : neighbours, 'self-avoiding': sum(self_avoiding)}
+        
+        if sum(reward) < 0 :
+            self.count_down += 1
+            
+        if self.count_down % self.limit == 0 and self.count_down != 0:
+            self.count_down = 0
+            reward = np.zeros(self.num_residues)
+            done = True
+            return self.position_buffer.flatten(), reward, done, {'neighbours' : neighbours, 'self-avoiding': sum(self_avoiding)}
+        #self.position_buffer = proposed
+        self.site_potentials = new_local
+        self.global_reward = new_g
+        self.position_buffer = new_pos
+        return self.position_buffer.flatten(), reward, done, {'neighbours' : neighbours, 'self-avoiding': sum(self_avoiding)}
+    
+    def check_self_avoiding(self, new_pos : np.array, index : int) -> bool:
         """
         Measure the distance between previous index and next index to maintain the backbone
         """
-        last_index = norm(new_pos-self.position_buffer[(index-1) % len(self.position_buffer)]) in [np.sqrt(0.5),1.]
-        next_index = norm(new_pos - self.position_buffer[(index+1) % len(self.position_buffer)]) in [np.sqrt(0.5),1.]
+        last_index = norm(new_pos[index] -new_pos[(index-1) % new_pos.shape[0]]) in [np.sqrt(0.5),1.]
+        next_index = norm(new_pos[index] - new_pos[(index+1) % new_pos.shape[0]]) in [np.sqrt(0.5),1.]
+        overlap = sum((norm(new_pos - new_pos[index], axis=1) == 0).astype(int)) == 1
         if index == 0:
-            return next_index
+            return next_index and overlap
         elif index == self.num_residues - 1:
-            return last_index
+            return last_index and overlap
         else:
-            return next_index and last_index
+            return next_index and last_index and overlap
         
     def reset(self) -> np.array:
         """
@@ -94,64 +111,71 @@ class Bravais(object):
             position_buffer = np.vstack([(i * x1) for i in range(self.num_residues)])
         else:
             position_buffer = np.zeros(self.num_residues)
+        self.position_buffer = position_buffer
+        self.site_potentials = self.get_sites(self.position_buffer)[0]
+        self.global_reward = sum(self.site_potentials)
         return position_buffer.flatten()
     
-    def find_neighbours(self, position : np.array, index : int = -1) -> np.array:
+    def find_neighbours(self, conformation : np.array, index : int ) -> np.array:
         """
         Find neighbours of prospective position, including any overlapping sites
         """
-        distances = norm(self.position_buffer - position, axis=1)
+        distances = norm(conformation - conformation[index], axis=1)
         neighbours = np.nonzero((distances == 1.) | (distances == np.sqrt(0.5)) | (distances == 0.)) #indexes of neighbours
-        if index != -1:
-            return neighbours[0][neighbours[0] != index]
-        return neighbours[0]
+        neighbour_indexes = neighbours[0][neighbours[0] != index] #cannot be our own neighbours
+        neighbour_positions = np.take(conformation, neighbour_indexes, axis=0)
+        return  index, neighbour_indexes, neighbour_positions
     
-    def calc_desireability(self, position:np.array, num_neighbours: int) -> float:
+    def calc_desireability(self, 
+                           positions:np.array, 
+                           num_neighbours: int,
+                           mean_pos: np.array,
+                           covar: np.array,
+                           offset: np.array) -> float:
         """
-        Calculate the desirebiilty of a prospective point according to agent density)
+        Calculate the desirebiilty of a prospective point according to new agent density)
         """
-        if num_neighbours == 0:
-            return 0
-        position = position
-        mean_pos = np.mean(self.position_buffer, axis=0)
-        Sigma = np.cov(self.position_buffer.T) #Covariance 
-        offset = position - mean_pos
         try:
-            numerator = np.exp(-offset.T.dot(inv(Sigma).dot(offset))).item()
+            numerator = np.exp(-offset.T.dot(inv(covar).dot(offset))).item()
         except:
             return 0
-        coeff = (2 * pi * np.sqrt(norm(Sigma)))**-1
+        coeff = (2 * pi * np.sqrt(norm(covar)))**-1
         denom = (1 + (num_neighbours/self.coordination_number))**-self.alpha #Max number of neighbours = 12 for FCC lattice
         
         return coeff * numerator * denom
     
-    def get_sites(self, residue_type:int, position: np.array, index : int = -1) -> List[int]:
+    def get_sites(self, new_positions: np.array) -> List[int]:
         """
         Calculate the sum of the rewards of occupying a particular area without using additional memory
         """
-        neighbours = self.find_neighbours(position, index)
-        sites = np.take(self.position_buffer, neighbours, axis=0)
-        if sum((sites[:]==position).all(1)) > 1: 
-            return -10 #if the site is overlapping or chain is broken
-        site_potential = reduce(lambda x,y : x + self.rewards[residue_type,self.types[y]], np.insert(neighbours,0,0))
-        return (site_potential, neighbours) # memory efficient reward calculation
+        
+        indices, neighbours, sites = zip(*[self.find_neighbours(new_positions, i) for i in range(new_positions.shape[0])])
+        rewards = np.zeros(new_positions.shape[0])
+        for residue in range(len(sites)):
+            rewards[indices[residue]] += self.rewards[self.types[residue], self.types[neighbours[residue]]].sum()
+        return (rewards, neighbours) # memory efficient reward calculation
     
-    def global_difference_reward(self, index: int, new_local_rewards : int) -> int:
-        old_global_prime = self.global_reward - self.site_potentials[index]
+    def global_difference_reward(self, new_local_rewards : int) -> int:
+        old_global_prime = self.global_reward - self.site_potentials
         new_global = old_global_prime + new_local_rewards
         return new_global - old_global_prime, new_global
     
-    def calc_reward(self, index: int, old_pos: np.array, new_pos: np.array) -> float:
+    def calc_reward(self, new_pos: np.array) -> float:
         """
         Shaped reward from: http://web.engr.oregonstate.edu/~ktumer/publications/files/tumer-devlin_aamas14.pdf
         """
-        new_pos = new_pos.reshape(1,3)
-        old_pos = old_pos.reshape(1,3)
-        new_local_rewards, neighbours = self.get_sites(self.types[index],new_pos, index)
-        phi_next = self.calc_desireability(new_pos, len(neighbours))
-        phi_current = self.calc_desireability(old_pos, self.find_neighbours(self.position_buffer[index]).shape[0])
-        g_diff, new_g = self.global_difference_reward(index, new_local_rewards) 
-        shaped_reward = g_diff + self.gamma * phi_next - phi_current
+        new_local_rewards, neighbours = self.get_sites(new_pos)
+        #print(new_local_rewards)
+        mean_pos = np.mean(new_pos, axis=0)
+        covar = np.cov(new_pos.T) #Covariance 
+        offset = new_pos - mean_pos
+        
+        phi_next = np.array([self.calc_desireability(new_pos[i], len(neighbours[i]), mean_pos, covar, offset)  \
+                             for i in range(len(neighbours))], dtype=np.float32)
+        
+        g_diff, new_g = self.global_difference_reward(new_local_rewards) 
+        shaped_reward = g_diff + self.gamma * phi_next - self.phi_current
+        self.phi_current = phi_next
         return shaped_reward, new_local_rewards, new_g, neighbours
     
     def sample_action(self):

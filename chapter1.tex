@@ -29,7 +29,37 @@
    results were state of the art, their methods still relied on building a predictive model of the
    properties of available proteins in the Protein Data Bank (PDB)\textsuperscript{[reference]}; as 
    opposed to inferring the tertiary structure from the primary sequence alone.
+\section{Overview}
+Within the scope of this project, I discuss the use of 
+multi-agent learning systems to study an as of yet unresolved question 
+at the heart of bioinformatics: how exactly does a protein's sequence
+of amino acids determine its native, 3-dimensional structure?
+Protein's themselves are molecules that obey standard laws of physics,
+and so a naive, reductionist approach has been to directly simulate 
+the interactions between each of the amino acids as a protein cycles
+through conformations until it reaches its native state. However this 
+approach has not proven fruitful for proteins of practical interest, as 
+these proteins are commonly composed of many thousands of amino acids which
+makes detailed simulations very difficult to compute. Progress in the fields
+of protein structure determination and design hinges on advances in 
+computational modelling, where budget costs and slow analogue processes 
+inhibit the pace of innovation. \\
 
+Despite other attempts at this problem, I take a reinforcement learning approach,
+more specifically in a multi-agent setting. Reinforcement learning is a machine
+learning technique that allows an agent to learn from interactions with the environment
+alone, making it the perfect candidate for modelling processes whose outcome is 
+dependent on choices taken along the way. Mean-field games are a generalisation
+of this paradigm to multiple interacting processes. As anticipated, we can begin
+to draw parallels between the nature of multiple chemical reactions that are underway
+concurrently, each spawning a new reaction as the consequence of the last, and systems
+of multiple agents communicating and collaborating to optimise a global goal.\\
+
+I investigate this relationship by building a multi-agent system that simulates
+these interacting amino acids. To do so I draw on topics from reinforcement learning,
+multi-agent learning, bioinformatics and molecular dynamics. Each of these areas 
+are presented separately for clarity; their mutual combinations are then explored 
+throughout the rest of this project.
 \section{Project Aims and Objectives}
    Over the course of this dissertation I aim to explore and contrast
    modern deep learning approaches for approximating the native conformations
