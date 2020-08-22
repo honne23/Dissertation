@@ -1,9 +1,17 @@
+
+import magent
+import math 
+import time
+
+import matplotlib.pyplot as plt
 import numpy as np
 
 from typing import List
 from Agent.ResidueAgent import ResidueAgent
 from Environment.Bravais import Bravais
-import matplotlib.pyplot as plt
+
+import wandb
+wandb.init(project="mean-field")
 
 class GlobalBuffer(object):
     def __init__(self, env : Bravais, num_agents : int):
@@ -18,7 +26,7 @@ class GlobalBuffer(object):
         actions = np.take(self.action_selection, neighbours, axis=0) 
         action_one_hot = np.zeros((actions.shape[0], self.env.action_space_n))
         action_one_hot[np.arange(actions.shape[0]), actions] = 1
-        return action_one_hot.sum(axis=0) / actions.shape[0]
+        return action_one_hot.sum(axis=0) / neighbours.shape[0]
 
 
 
@@ -70,19 +78,18 @@ class MultiAgentRoutine(object):
                 joint_action[agent_idx] = self.agents[agent_idx].select_action(input_state, e >= min_train)    
       
             next_state, reward, done, info = self.env.step(joint_action)
-            print(reward)
             if 'neighbours' in info.keys():
                 self.global_buffer.neighbouring_sites = info['neighbours']
             self.global_buffer.action_selection = joint_action
-            
             
             for agent_idx in range(self.env.num_residues):
                 transition = [self.buffer[agent_idx], joint_action[agent_idx], reward[agent_idx], next_state, done]
                 self.agents[agent_idx].memory.store(transition)
                 self.agents[agent_idx].update_beta(e, self.memory_beta_frames)
+                self.agents[agent_idx].decay_boltzman(e)
             
             state = next_state
-            mean_score += (sum(reward) / len(reward) - mean_score) / e
+            mean_score += (sum(reward) / len(reward) - mean_score) / (e+1) if sum(reward) != 0 else 0
       
             # if episode ends
             if done:
@@ -96,8 +103,11 @@ class MultiAgentRoutine(object):
                     # if hard update is needed
                     if e -(min_train + 1) % self.target_update == 0:
                         self.agents[agent_idx].target_update()
+                if e % 20 == 0:
+                    self.env.render()
                 epoch_scores.append(sum(reward))
                 epoch_losses.append(sum(agent_losses) / len(agent_losses))
+                wandb.log({"Loss": epoch_losses[-1], 'Rewards': epoch_scores[-1], "Boltzman constant": self.agents[0].mean_field_beta })
                 if e % 10 == 0:
                     self._plot(e, epoch_scores, epoch_losses)
             
@@ -123,9 +133,11 @@ class MultiAgentRoutine(object):
         #plt.title('epsilons')
         #plt.plot(epsilons)
         plt.show()
+        
+        
 experiment = MultiAgentRoutine('GVIDTSAVESAITDGQGDMKAIGGYIVGALVILAVAGLIYSMLRKA', 
                                0.95, 
                                100000, 
                                memory_beta_frames=10000,
-                               target_update = 500)
-experiment.train(min_train=1000)
+                               target_update = 5)
+experiment.train(min_train=5000)

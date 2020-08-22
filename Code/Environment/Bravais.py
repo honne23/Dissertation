@@ -3,8 +3,9 @@ from itertools import product
 from numpy.linalg import inv, norm
 from math import pi
 from typing import List
-from functools import reduce
-
+import random
+import json
+from datetime import datetime
 class Bravais(object):
     
     def __init__(self, residues : str, gamma: float, init_positions : bool = True, limit : int = 150):
@@ -15,16 +16,19 @@ class Bravais(object):
             [0.5, 0.5, 0.]
             ])
         self.rewards = np.array([
-            [-2,4,0,0,0],
-            [4,3,0,0,0],
-            [0,0,-1,1,0],
-            [0,0,1,-1,0],
-            [0,0,0,0,0]
+            [-2,4, 0, 0,0],
+            [ 4,3, 0, 0,0],
+            [ 0,0,-1, 1,0],
+            [ 0,0, 1,-1,0],
+            [ 0,0, 0, 0,0]
             ])
+        
+        self.encoding =  ['AV','GILMFPW', 'RHK','DE','NCQSTY'] #hHPNX
+        self.types = self.init_types(residues)
         
         self.alpha = -0.4
         self.gamma = gamma
-        self.encoding =  ['AV','GILMFPW', 'RHK','DE','NCQSTY'] #hHPNX
+        
         self.actions = np.array(list(product([-1,0,1], repeat=3)), dtype=int)
         self.num_residues = len(residues)
         self.coordination_number = 12 
@@ -33,7 +37,6 @@ class Bravais(object):
         self.observation_space_n = self.position_buffer.reshape(-1,1).shape[0]
         self.action_space_n = self.actions.shape[0]
         self.phi_current = np.zeros(self.num_residues)
-        self.types = self.init_types(residues)
         
         self.site_potentials = self.get_sites(self.position_buffer)[0]
         self.global_reward = sum(self.site_potentials)
@@ -49,6 +52,23 @@ class Bravais(object):
                     types.append(j)
         return np.array(types)
     
+    def construct_random_walk(self) -> np.array:
+        sites = np.zeros((self.num_residues, 3))
+        visited = [False] * self.num_residues
+        for i in range(self.num_residues):
+            if i == 0:
+                visited[i] = True
+                continue
+            while visited[i] == False:
+                rand_action = random.randint(0,self.actions.shape[0]-1)
+                action = self.actions[rand_action]
+                movement_vec = self.e.dot(action.T).T
+                new_pos = sites[i-1] + movement_vec
+                if any((sites[:] == new_pos).all(1)) == False:
+                    sites[i] = new_pos
+                    visited[i] = True
+        return sites
+    
     def step(self, joint_action : np.array) -> tuple:
         """
         Step in the environment
@@ -57,31 +77,19 @@ class Bravais(object):
         """
         
         action_vectors = np.take(self.actions, joint_action, axis=0)
-        
         movement_vectors = self.e.dot(action_vectors.T).T
         new_pos = self.position_buffer + movement_vectors
         
         self_avoiding = np.array([self.check_self_avoiding(new_pos,i) for i in range(new_pos.shape[0])], dtype= np.bool)
         
         reward, new_local, new_g, neighbours = self.calc_reward(new_pos)
-        reward[~self_avoiding] += -10
-    
-        #print(reward)
+        reward[~self_avoiding] = -10
         done = False
-        if sum(self_avoiding) == 0:
-            self.count_down = 0
-            reward = np.zeros(self.num_residues)
+        if sum(~self_avoiding) >= 5:
             done = True
-            return self.position_buffer.flatten(), reward, done, {'neighbours' : neighbours, 'self-avoiding': sum(self_avoiding)}
+            return new_pos.flatten(), reward, done, {'neighbours' : neighbours, 'self-avoiding': sum(self_avoiding)}
         
-        if sum(reward) < 0 :
-            self.count_down += 1
-            
-        if self.count_down % self.limit == 0 and self.count_down != 0:
-            self.count_down = 0
-            reward = np.zeros(self.num_residues)
-            done = True
-            return self.position_buffer.flatten(), reward, done, {'neighbours' : neighbours, 'self-avoiding': sum(self_avoiding)}
+        
         #self.position_buffer = proposed
         self.site_potentials = new_local
         self.global_reward = new_g
@@ -94,23 +102,35 @@ class Bravais(object):
         """
         last_index = norm(new_pos[index] -new_pos[(index-1) % new_pos.shape[0]]) in [np.sqrt(0.5),1.]
         next_index = norm(new_pos[index] - new_pos[(index+1) % new_pos.shape[0]]) in [np.sqrt(0.5),1.]
-        overlap = sum((norm(new_pos - new_pos[index], axis=1) == 0).astype(int)) == 1
+        overlap_areas = (new_pos[:]==new_pos[index]).all(1)
+        if np.argmax(overlap_areas) == index and sum(overlap_areas) == 1:
+            overlap = True
+        else:
+            overlap = False
         if index == 0:
             return next_index and overlap
         elif index == self.num_residues - 1:
             return last_index and overlap
         else:
             return next_index and last_index and overlap
+    
+    def render(self):
+        colours = ['0xD8DBE2', '0xA9BCD0', '0x58A4B0', '0x373F51', '0xDAA49A']
+        node_mapping = {'nodes':{}, 'edges':[]}
+        for i in range(len(self.position_buffer)):
+            node_mapping['nodes'][i] = {'color':colours[self.types[i]], 'location':tuple(10 * self.position_buffer[i]), 'size':1}
+            if i != len(self.position_buffer)-1:
+                node_mapping['edges'].append({'source':i, 'target':i+1, 'size:':1})
+        with open(f'../Peptides/{str(datetime.now())}.json', 'w') as fp:
+            json.dump(node_mapping, fp)
+        
         
     def reset(self) -> np.array:
         """
         Denature the protein
         """
-        if self.init_positions == True:
-            x1 = np.array([1,0,0])
-            position_buffer = np.vstack([(i * x1) for i in range(self.num_residues)])
-        else:
-            position_buffer = np.zeros(self.num_residues)
+        #x1 = np.array([1.0,0.0,0.0])
+        position_buffer = self.construct_random_walk() #np.vstack([(i * x1) for i in range(self.num_residues)])
         self.position_buffer = position_buffer
         self.site_potentials = self.get_sites(self.position_buffer)[0]
         self.global_reward = sum(self.site_potentials)
@@ -151,6 +171,7 @@ class Bravais(object):
         
         indices, neighbours, sites = zip(*[self.find_neighbours(new_positions, i) for i in range(new_positions.shape[0])])
         rewards = np.zeros(new_positions.shape[0])
+        
         for residue in range(len(sites)):
             rewards[indices[residue]] += self.rewards[self.types[residue], self.types[neighbours[residue]]].sum()
         return (rewards, neighbours) # memory efficient reward calculation

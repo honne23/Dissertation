@@ -2,9 +2,10 @@ import torch
 import numpy as np
 import torch.optim as optim
 import torch.nn.functional as F
+from math import exp
 from torch.nn.utils import clip_grad_norm_
 from Environment.Bravais import Bravais
-from Network.QuantileNetwork import QuantileNetwork
+from Network.ResidueNetwork import ResidueNetwork
 from Memory.PrioritisedReplay import PrioritisedReplay
 class ResidueAgent(object):
     
@@ -17,19 +18,19 @@ class ResidueAgent(object):
                  epsilon_decay: float = (1/2000),
                  mem_size: int = 10000,
                  batch_size: int = 128,
-                 gamma: float = 0.99,
-                 lr: float = 1e-5,
+                 gamma: float = 0.95,
+                 lr: float = 1e-4,
                  num_quantiles: int = 51,
-                 mean_field_beta : float = 0.6,
-                 mean_field_tau : float = 0.01
+                 mean_field_beta : float = 1,
+                 mean_field_tau : float = 0.005
                  ):
         self.env = env
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         
-        self.dqn = QuantileNetwork(self.env.observation_space_n + self.env.action_space_n, \
+        self.dqn = ResidueNetwork(self.env.observation_space_n, \
                                    hidden_size, self.env.action_space_n, num_quantiles).to(self.device)
             
-        self.target = QuantileNetwork(self.env.observation_space_n + self.env.action_space_n, \
+        self.target = ResidueNetwork(self.env.observation_space_n, \
                                       hidden_size, self.env.action_space_n, num_quantiles).to(self.device)
         self.target.eval()
         self.target.load_state_dict(self.dqn.state_dict())
@@ -44,13 +45,19 @@ class ResidueAgent(object):
         self.num_quantiles = num_quantiles
         self.cumulative_density = torch.tensor((2 * np.arange(num_quantiles) + 1) / (2.0 * num_quantiles), device=self.device, dtype=torch.float) 
         self.quantile_weight = 1.0 / self.num_quantiles
-        self.mean_field_beta = mean_field_beta
+        self.mean_field_beta_max = mean_field_beta
+        self.mean_field_beta = self.mean_field_beta_max
         self.mean_field_tau = mean_field_tau
         self.idx=idx
         
     def huber(self, x):
         cond = (x.abs() < 1.0).float().detach()
         return 0.5 * x.pow(2) * cond + (x.abs() - 0.5) * (1.0 - cond)
+    
+    def decay_boltzman(self, epoch):
+        if self.mean_field_beta >=0.1:
+            lrate = self.mean_field_beta_max * (1-10e-5)**(epoch)
+            self.mean_field_beta = lrate
     
     def update_network(self) -> float:
         
@@ -65,7 +72,7 @@ class ResidueAgent(object):
             for x in state:
                 print(state)
             print(state.size())
-        
+        #dist = distributon
         neighbour_dists = torch.FloatTensor(state[:,-self.env.action_space_n:]).to(self.device)
         
         state = torch.FloatTensor(state).to(self.device)
@@ -105,22 +112,25 @@ class ResidueAgent(object):
         with torch.no_grad():
             quantiles_next = torch.zeros((self.batch_size, self.num_quantiles), device=self.device, dtype=torch.float)
             if not (done.sum().item() == done.size(0)): #if there is at least one non-final next state
-                #max_next_action = self.get_max_next_state_action(non_final)
-                #quantiles_next[mask] = self.target(non_final).gather(1, max_next_action).squeeze(dim=1)
                 neighbour_dists = neighbour_dists[mask]
+                
                 non_final = torch.cat((non_final, neighbour_dists), dim=1)
-                target_quantiles = self.target(non_final)
                 
+                #predict target quantiles
+                target_quantiles = self.target(non_final) 
                 
-                target_expected_returns = (target_quantiles * self.quantile_weight).sum(2)
+                #quantile weights
+                target_expected_returns = (target_quantiles * self.quantile_weight).sum(2) 
                 
-                target_probs = F.softmax(-self.mean_field_beta * target_expected_returns, dim=1)
+                #Boltzman weighting
+                #sigmoid?
+                target_probs = F.softmax(target_expected_returns / -self.mean_field_beta , dim=1)
                 
                 weight = (neighbour_dists * target_probs)
                 
-                mean_field_quantiles = (target_quantiles * weight.view(weight.size(0), weight.size(1), 1)).sum(2).max(1)[1]
-                quantiles_next[mask] = target_quantiles[torch.arange(target_quantiles.size(0)), mean_field_quantiles, :]
+                mean_field_quantiles = torch.abs((target_quantiles * weight.view(weight.size(0), weight.size(1), 1)).sum(2)).max(1)[1]
                 
+                quantiles_next[mask] = target_quantiles[torch.arange(target_quantiles.size(0)), mean_field_quantiles, :]
             quantiles_next = reward +  self.gamma * quantiles_next #edit for mean field
         return quantiles_next
     
@@ -135,11 +145,11 @@ class ResidueAgent(object):
             selected_action = self.env.sample_action()
         else:
             with torch.no_grad():
-                state = torch.FloatTensor(state).to(self.device)
+                state = torch.FloatTensor(state).unsqueeze(0).to(self.device)
                 quantiles = self.dqn(state)
                 quantile_returns = (quantiles * self.quantile_weight).sum(dim=2)
-                action_probs = F.softmax(- self.mean_field_beta * quantile_returns, dim=0) 
-                neighbour_distribution = state[-self.env.action_space_n:]
+                action_probs = F.softmax(quantile_returns / -self.mean_field_beta, dim=0) 
+                neighbour_distribution = state[:,-self.env.action_space_n:]
                 mean_field_value = (quantiles * neighbour_distribution.view(-1,1) * action_probs.view(-1,1)).sum(dim=2)
                 selected_action = mean_field_value.max(dim=1)[1].item()
         return selected_action
@@ -151,5 +161,5 @@ class ResidueAgent(object):
         behaviour_params = self.dqn.state_dict()
         new_params = behaviour_params # temp
         for k,v in behaviour_params.items():
-            new_params[k] = self.mean_field_tau * v + (1- self.mean_field_tau) * target_params[k] 
+            new_params[k] = (self.mean_field_tau * v) + ((1- self.mean_field_tau) * target_params[k] )
         self.target.load_state_dict(new_params)

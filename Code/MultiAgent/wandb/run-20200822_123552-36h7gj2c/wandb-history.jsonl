@@ -1,0 +1,11 @@
+{"Loss": 39.08472090182097, "Rewards": 0.0, "Boltzman constant": 0.6065154956247782, "_runtime": 32.717406034469604, "_timestamp": 1598099785.519416, "_step": 0}
+{"Loss": 30.78661230336065, "Rewards": 0.0, "Boltzman constant": 0.6064548440752158, "_runtime": 33.47324585914612, "_timestamp": 1598099786.275256, "_step": 1}
+{"Loss": 25.087596292081088, "Rewards": 0.0, "Boltzman constant": 0.6063941985908083, "_runtime": 34.07338094711304, "_timestamp": 1598099786.875391, "_step": 2}
+{"Loss": 22.914541721343994, "Rewards": 0.0, "Boltzman constant": 0.6063335591709492, "_runtime": 34.68143820762634, "_timestamp": 1598099787.4834483, "_step": 3}
+{"Loss": 20.674354408098303, "Rewards": 0.0, "Boltzman constant": 0.6062729258150321, "_runtime": 35.28501296043396, "_timestamp": 1598099788.087023, "_step": 4}
+{"Loss": 18.86279653466266, "Rewards": 0.0, "Boltzman constant": 0.6062122985224506, "_runtime": 35.89945316314697, "_timestamp": 1598099788.7014632, "_step": 5}
+{"Loss": 17.4949457541756, "Rewards": 0.0, "Boltzman constant": 0.6061516772925984, "_runtime": 36.525206089019775, "_timestamp": 1598099789.3272161, "_step": 6}
+{"Loss": 17.130454436592434, "Rewards": 0.0, "Boltzman constant": 0.6060910621248692, "_runtime": 37.151703119277954, "_timestamp": 1598099789.9537132, "_step": 7}
+{"Loss": 16.580317030782286, "Rewards": 0.0, "Boltzman constant": 0.6060304530186567, "_runtime": 37.78938412666321, "_timestamp": 1598099790.5913942, "_step": 8}
+{"Loss": 15.17750971213631, "Rewards": 0.0, "Boltzman constant": 0.6059698499733548, "_runtime": 38.464221715927124, "_timestamp": 1598099791.2662318, "_step": 9}
+{"Loss": 14.397414570269378, "Rewards": 0.0, "Boltzman constant": 0.6059092529883575, "_runtime": 39.097962856292725, "_timestamp": 1598099791.899973, "_step": 10}
