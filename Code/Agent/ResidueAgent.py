@@ -123,7 +123,6 @@ class ResidueAgent(object):
                 target_expected_returns = (target_quantiles * self.quantile_weight).sum(2) 
                 
                 #Boltzman weighting
-                #sigmoid?
                 target_probs = F.softmax(target_expected_returns / -self.mean_field_beta , dim=1)
                 
                 weight = (neighbour_dists * target_probs)

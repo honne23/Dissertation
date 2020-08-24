@@ -1,4 +1,107 @@
+In this section I will clearly list the drawbacks of the previous approaches cited in \textbf{Related Work}
+and thereby derive a set of requirements of a system that aims to address those drawbacks.
 \section{Drawbacks of previous approaches}
-\section{Modelling inductive bias}
-\section{Combining methods}
-\subsection{Scalability}
+The drawbacks of previous approaches can be grouped into the following categories:
+\begin{itemize}
+    \item Curse of dimensionality
+    \begin{itemize}
+        \item As the number of residues grows the input feature space required for
+        inference grows super-linearly.
+    \end{itemize}
+    \item Time / Storage complexity
+    \begin{itemize}
+        \item The time complexity of certain algorithms becomes increasingly intractable as
+        the number of residues grows
+    \end{itemize}
+    \item Degeneracy
+    \begin{itemize}
+        \item Some of the on-lattice approaches cited previously use the HP lattice, which, for reasons
+        explained previously lead to high levels of degeneracy and those provide a poor training environment
+        for reinforcement learning agents to generalise from beyong short, simple peptides.
+    \end{itemize}
+    \item Lack of available data
+    \begin{itemize}
+        \item Eventhough approaches such as AlphaFold have proved extremely effective, as a supervised
+        learning method, it relies on the existence of available data. The authors note that the model
+        did not perform as well when trying to infer the tertiary structure of proteins whose available 
+        homologues\footnote{Relatves or ancestors.} were limited. This limitation prevents such methods
+        from accurately inferring the structure of wholly new proteins for which no homologues are available
+        as is in the case of \emph{de novo} protein design.
+    \end{itemize}
+    \item Horizontal scalability
+    \begin{itemize}
+        \item Contraint based and single agent approaches suffer from the inability to scale as a replicated
+        process across a cluster of machines. This is an important property when considering proteins
+        of practical interest which are typically on the order of 1000+ amino acids, as in the case of
+        Hungtingtin (HTT), a protein critical to the investigation of Hungtinton's disease which enumerates at 
+        3144 total residues in length. 
+    \end{itemize}
+    \item Lacking inductive bias
+    \begin{itemize}
+        \item Despite the evidence suggesting that proteins infact exist as a distribution
+        over stable states rather than a single stable state, many approaches cited previously do
+        not incorporate this element into their models. However, those that do, such as AlphaFold which 
+        models a distribution over torsion angles for each residue, perform the best out of all related work.
+    \end{itemize}
+\end{itemize}
+\section{Requirements}
+Given these shortcomings, I propose a model that reflects the practical requirements of a system
+designed to infer a protein's structure with minimum prior knowledge of other protein interactions.
+In order to accomplish this, I propose the use of a multi-agent reinforcement learning system that learns from 
+interactions within a local neighbourhood while implicitly preserving long range dependencies along the peptide. The agent should
+also interact with the environment under a distributional framework in order to incorporate the inductive bias
+which posits that proteins exist as a distribution of states rather than a single state.
+
+In addition to the learning agents themselves, the environment they operate in is equally important,
+as suggested by the previously mentioned degeneracy issues. It is important that the environment 
+encourages unique, compact solutions and has enough degrees of freedom so as to accomodate many possible conformations.
+Finally, the system should required minimal expert knowledge, although the process of a
+protein's folding procedure can be decomposed into two tiers of reactions, these tiers of
+reacts should not be modelled explicitly but rather as an implicit by product of the entire process.
+
+\subsection{Functional Requirements}
+\begin{enumerate}
+    \item The environment must minimize the the number of degenerate solutions while reporting local and global information about structure.
+    \begin{itemize}
+        \item In order for the learning agents to interact with each other in a multi agent setting, a
+        novel lattice environment must be designed and implemented that can report local information about
+        sites on the lattice (such as neighbours and their types).
+    \end{itemize}
+    \item The system must be able to generalise to unseen proteins without relying on pre-existing data.
+    \begin{itemize}
+        \item The process of uncovering the tertiary structure of a novel protein is usually hindered
+        by the lack of available homologues to study. By casting the PSP problem as a reinforcement learning
+        problem, I remove the dependency on pre-existing data when trying to uncover the 3-dimensional structure of a protein.
+    \end{itemize}
+    \item The system must incorporate adequate inductive biases.
+    \begin{itemize}
+        \item The most succesful of the previous approaches incorporated inductive biases
+        by modelling the torsion angles between residues as a distribution, this mirrors the unique
+        distribution of states at the bottom of the Gibbs energy funnel. In order to accurately
+        mirror the underlying folding process, learning agents should model distributions over
+        possible actions they can take.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Non functional requirements}
+\begin{enumerate}
+    \item The environment should be easy to use such that other researches could also conduct multi-agent
+    experiments on lattice structures.
+    \begin{itemize}
+        \item The environment should be easy to manipulate and reuseable without being dependent on a particular
+        deep learning framework.
+    \end{itemize}
+    \item The system should produce optimal, maximally compact 3D protein structures.
+    \begin{itemize}
+        \item In order to be of practical use, the system should be able to take in a string of amino acids
+        and produce an optimised 3d tertiary structure. The system should also output a 3d model of the output structure
+        for inspection.
+    \end{itemize}
+    \item The system must be able to scale to a protein of arbitary length while remaining computationally tractable.
+    \begin{itemize}
+        \item In order for the system to be of practical use, it must be horizontaly scalable and lend itself
+        to parallel compute. Using a multi-agent model naturally lends itself to horizontal scalability
+        as each agent can be placed in its own process or machine while reporting results to a central hub.
+    \end{itemize}
+\end{enumerate}
+\section{Experimental Procedure}

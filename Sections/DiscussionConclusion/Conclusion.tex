@@ -1,0 +1,69 @@
+\section{Discussion}
+Overall I did not forsee the action space being a major limiting factor in
+my model, eventhough I tried to alleviate this problem in many ways
+unfortunately nothing bore fruit. That said, the development
+of a novel environment within which to conduct research was 
+a major milestone in the project as this could serve as a solid
+foundation for further research. Much of the problems throughout
+this project were only uncovered by inspecting the input and outputs of various mathematical 
+operations as well as examining the rewards at each residue site.
+
+With regard to the functional requirements, functional requirement 1
+and 3 were met fully met, as the environment was succesfully implemented
+with all features mentioned and the learning agents use quantile regression
+in order to form a distributional model of the cumulative expected rewards for
+each outcome. Due to the lack of success during training, I was unable to completely meet
+functional requirement 2; although the use of the reinforcement learning
+paradigm removed the reliance on pre existing data (as the only input into the model
+is the amino acid string and hyper-parameters), it could not be verified that
+the model generalises to unseen proteins.
+
+Regarding non functional requirements, the environment was implemented similarly
+to the OpenAI Gym API, with common function calls such as \texttt{step(), render(),
+reset()} and \texttt{sample_action()} in order to make it's use straightforward
+for other researchers. The \texttt{render()} method produces a \texttt{.json} 
+of the current state of the poly peptide chain as it appears on the lattice 
+that can be visualised using the easy-to-use \texttt{jgraph} python package and
+an example jupyter notebook is provided in the top level directory. This implementation
+fully meets the expectations laid out in non-functional requirement 1 and partially
+meets the expectations of non-functional requirement 2 insofar that the system
+only takes the residue sequence as input and can output a 3D model, however
+the resultant peptide is neither optimal or maximally compact. Non functional
+requirement 3 could not be verified, however previous approaches using reinforcement learning
+such as that of \cite{Wu2019} were only tested for sequences up to length 21, whereas
+the the model I proposed could reasonably complete a training time step for a sequence
+of length 90 in up to 5 seconds. \cite{Mguni2018} show that a similar mean-field 
+regime could reasonably scale up to a 1000 agents, indicating that such a system
+would be fit for evaluating proteins of practical interest. Additionally,
+the distributed nature of computation allows each agent to be placed on a separate 
+machine for horizontal scalability, and so eventhough functional requirement 3 could 
+not be verified, the merits of the system in comparison to previous approaches
+warrants further investigation into possible solutions.
+
+\section{Future Work}
+I beleive the model proposed certainly suffered from over engineering, however
+the design choices taken reflected the underlying problem's structure. For future 
+work I aim to perform simple experiments using regular deep Q learning with the 
+mean field regime rather than using a rainbow quantile agent. In order to prevent
+the number of neighbours from masking the discrete action space (limiting the number
+of actions available to the agent) I would investigate techniques that embed the discrete
+actions into a continuous space exemplified in the work of \cite{Gabriel2015}. In order
+to do so I would instead implement the alternate variant of the mean-field regime
+proposed by \cite{Yang2018}, rather than using Q learning I would seek to implement
+the Mean Field Actor-Critic (MF-AC) in order to take advantage of the continuous 
+action space. I will also be making all my work open source on Github in order
+to promote the use of multi agent strategies for the PSP problem.
+
+\section{Conclusion}
+In conclusion although I was unable to achieve my intial goals within this project,
+researched showed that although many advancements
+in the field of protein structure prediction have been made, many
+authors have worked in siloed fields. Many strides have been made in various areas of the 
+field however improvements have not been mutally shared across all works.
+Despite the shortcomings of my model, the mean field regime is a promising
+avenue of research that could hold the key to solving issues surrounding
+the PSP problem regarding the curse of dimensionality, scalability and 
+available data. It is my hope that the existence of a 
+previously unavailable multi agent environment
+for protein folding on a lattice will help
+facilitate further research in this critical area.

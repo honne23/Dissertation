@@ -203,7 +203,7 @@ equations (2.74-76):
 \begin{equation}
     Z^*(s,a^j, a^{-j}) = \pi^j_t(a^j \mid s',a^{-j}) \cdot \mathbb{E}_{a^j \backsim(\mathbf{a}^{-j}), Z_\theta \backsim Z}[\hat{Z}(s,a^j, a^{-j})]
 \end{equation}
-The sum of $Z^*(s,a^j, a^{-j})$ over all actions foragent $j$ produced the mean-field value $v^{MF}_t$ of that state as 
+The sum of $Z^*(s,a^j, a^{-j})$ over all actions for agent $j$ produced the mean-field value $v^{MF}_t$ of that state as 
 in equation 2.76.,this is done for both the behaviour network $\theta$ and the target network $\theta'$.
 The huber loss is then calculated against the target as in equation 2.64,
 prioritised replay importance sampling ratios are then applied before back propagation::
