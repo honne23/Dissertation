@@ -350,6 +350,8 @@ INPUT chapter4.aux
 INPUT chapter4.aux
 INPUT chapter5.aux
 INPUT chapter5.aux
+INPUT chapter6.aux
+INPUT chapter6.aux
 OUTPUT finalreport.aux
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -535,6 +537,11 @@ INPUT chapter5.tex
 INPUT chapter5.tex
 INPUT Sections/TestingValidation/Evaluation.tex
 INPUT Sections/TestingValidation/Evaluation.tex
+OUTPUT chapter6.aux
+INPUT chapter6.tex
+INPUT chapter6.tex
+INPUT Sections/DiscussionConclusion/Conclusion.tex
+INPUT Sections/DiscussionConclusion/Conclusion.tex
 INPUT finalreport.bbl
 INPUT finalreport.bbl
 INPUT finalreport.aux
@@ -556,6 +563,8 @@ INPUT chapter4.aux
 INPUT chapter4.aux
 INPUT chapter5.aux
 INPUT chapter5.aux
+INPUT chapter6.aux
+INPUT chapter6.aux
 INPUT ./finalreport.out
 INPUT ./finalreport.out
 INPUT /usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc

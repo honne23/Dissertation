@@ -213,3 +213,10 @@ prioritised replay importance sampling ratios are then applied before back propa
     \nabla_\theta E = w_j \cdot \mathcal{L}(\theta^j) \cdot \nabla_\theta Z^*(s,a^j, a^{-j}\: ; \: \theta)
     \end{gathered}
 \end{equation}
+
+\section{Implementation}
+The learning agents have been implemented using the Pytorch
+machine learning framework whereas the environment was implemented
+solely using Numpy in order to remain agnostic of the underlying machine
+learning framework as well as to promotehigh levels of interoperability
+with other frameworks and projects as Numpy is a common Python package.

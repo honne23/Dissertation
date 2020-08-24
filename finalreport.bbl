@@ -106,6 +106,13 @@ Dill, K.~A., Bromberg, S., Yue, K., Chan, H.~S., Ftebig, K.~M., Yee, D.~P.
   {\em Protein Science} {\bf 4}(4),~561--602.
 \newline\harvardurl{https://doi.org/10.1002/pro.5560040401}
 
+\harvarditem[Dulac-Arnold et~al.]{Dulac-Arnold, Evans, van Hasselt, Sunehag,
+  Lillicrap, Hunt, Mann, Weber, Degris \harvardand\ Coppin}{2015}{Gabriel2015}
+Dulac-Arnold, G., Evans, R., van Hasselt, H., Sunehag, P., Lillicrap, T., Hunt,
+  J., Mann, T., Weber, T., Degris, T. \harvardand\ Coppin, B.  \harvardyearleft
+  2015\harvardyearright , `Deep reinforcement learning in large discrete action
+  spaces'.
+
 \harvarditem[Gao et~al.]{Gao, Zhou \harvardand\ Skolnick}{2019}{Gao2019}
 Gao, M., Zhou, H. \harvardand\ Skolnick, J.  \harvardyearleft
   2019\harvardyearright , `{DESTINI}: A deep-learning approach to

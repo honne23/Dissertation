@@ -4,9 +4,12 @@ my model, eventhough I tried to alleviate this problem in many ways
 unfortunately nothing bore fruit. That said, the development
 of a novel environment within which to conduct research was 
 a major milestone in the project as this could serve as a solid
-foundation for further research. Much of the problems throughout
+foundation for further research. Many of the problems throughout
 this project were only uncovered by inspecting the input and outputs of various mathematical 
-operations as well as examining the rewards at each residue site.
+operations as well as examining the rewards at each residue site, unfortunately
+this was the only way to diagnose issues with the system as the output
+graphs that tracked the average reward and losses for the agents could not
+be used to infer any underlying problems.
 
 With regard to the functional requirements, functional requirement 1
 and 3 were met fully met, as the environment was succesfully implemented
@@ -20,7 +23,7 @@ the model generalises to unseen proteins.
 
 Regarding non functional requirements, the environment was implemented similarly
 to the OpenAI Gym API, with common function calls such as \texttt{step(), render(),
-reset()} and \texttt{sample_action()} in order to make it's use straightforward
+reset()} and \texttt{sample\_action()} in order to make it's use straightforward
 for other researchers. The \texttt{render()} method produces a \texttt{.json} 
 of the current state of the poly peptide chain as it appears on the lattice 
 that can be visualised using the easy-to-use \texttt{jgraph} python package and
