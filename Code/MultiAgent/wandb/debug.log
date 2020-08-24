@@ -9835,12 +9835,12 @@ wandb.apis.CommError: [Errno 32] Broken pipe
 2020-08-22 14:44:27,783 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
 2020-08-22 14:44:33,788 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
 2020-08-22 14:44:49,797 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
-on/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
-2020-08-22 13:46:15,272 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
-2020-08-22 13:46:21,273 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
-2020-08-22 13:46:37,279 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
-2020-08-22 13:46:45,284 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
-2020-08-22 13:46:53,288 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
+2020-08-22 14:44:57,800 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
+2020-08-22 14:45:05,802 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
+2020-08-22 14:45:21,806 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
+2020-08-22 14:45:27,807 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
+2020-08-22 14:45:37,809 INFO    Thread-4  :26117 [run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
+1] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
 2020-08-22 13:47:09,292 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
 2020-08-22 13:47:16,294 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
 2020-08-22 13:47:26,301 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
@@ -10206,3 +10206,8 @@ wandb.apis.CommError: [Errno 32] Broken pipe
 2020-08-22 14:44:27,783 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
 2020-08-22 14:44:33,788 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
 2020-08-22 14:44:49,797 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
+2020-08-22 14:44:57,800 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
+2020-08-22 14:45:05,802 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
+2020-08-22 14:45:21,806 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json
+2020-08-22 14:45:27,807 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-events.jsonl
+2020-08-22 14:45:37,809 INFO    Thread-4  :26117 [1cmqf0ts:run_manager.py:_on_file_modified():691] file/dir modified: /home/adrian/Dissertation/Code/MultiAgent/wandb/run-20200821_142404-1cmqf0ts/wandb-metadata.json

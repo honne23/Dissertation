@@ -1,0 +1,26 @@
+{
+    "root": "/home/adrian/Dissertation",
+    "program": "/home/adrian/Dissertation/Code/MultiAgent/MeanField.py",
+    "git": {
+        "remote": "https://github.com/honne23/Dissertation.git",
+        "commit": "ae8a5c5b188088ef13e8cdc82499fa0ca1d53337"
+    },
+    "email": "adriancoutsoftides@gmail.com",
+    "startedAt": "2020-08-24T11:40:30.424692",
+    "host": "deep-phi",
+    "username": "adrian",
+    "executable": "/home/adrian/miniconda3/bin/python",
+    "os": "Linux-5.3.0-64-generic-x86_64-with-debian-buster-sid",
+    "python": "3.7.4",
+    "gpu": "GeForce GTX 1080 Ti",
+    "gpu_count": 1,
+    "cpu_count": 12,
+    "cuda": "10.2.89",
+    "args": [],
+    "state": "running",
+    "jobType": null,
+    "mode": "run",
+    "name": "denim-sunset-99",
+    "project": "mean-field",
+    "heartbeatAt": "2020-08-24T11:53:39.503822"
+}

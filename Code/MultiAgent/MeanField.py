@@ -135,7 +135,7 @@ class MultiAgentRoutine(object):
         plt.show()
         
         
-experiment = MultiAgentRoutine('GVIDTSAVESAITDGQGDMKAIGGYIVGALVILAVAGLIYSMLRKA', 
+experiment = MultiAgentRoutine('QKASVSGPNSPSETRRERAFDANTMTSAEKVLCQFCDQDPAQDAVKTCVTCEVSYCDECLKATHPNKKPFTGHRLIEP', 
                                0.95, 
                                100000, 
                                memory_beta_frames=10000,

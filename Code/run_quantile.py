@@ -6,7 +6,7 @@ from Agent.QuantileAtariAgent import QuantileAtariAgent
 from atari_wrappers import make_atari, wrap_deepmind, wrap_pytorch
 
 
-atari_name = 'SpaceInvaders'
+atari_name = 'Pong'
 env_id = atari_name + 'NoFrameskip-v4'
 env = make_atari(env_id)
 env = wrap_deepmind(env, frame_stack=True)

@@ -1,5 +1,5 @@
 This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
-Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: finalreport.aux
 A level-1 auxiliary file: abstract.aux
 A level-1 auxiliary file: acknowledgements.aux
@@ -11,11 +11,12 @@ A level-1 auxiliary file: chapter3.aux
 A level-1 auxiliary file: chapter4.aux
 A level-1 auxiliary file: chapter5.aux
 A level-1 auxiliary file: chapter6.aux
+A level-1 auxiliary file: chapter7.aux
 The style file: agsm.bst
 Database file #1: references.bib
 You've used 59 entries,
             2909 wiz_defined-function locations,
-            1064 strings with 17665 characters,
+            1065 strings with 17677 characters,
 and the built_in function-call counts, 344721 in all, are:
 = -- 56467
 > -- 5198
