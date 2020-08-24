@@ -1,0 +1,26 @@
+{
+    "root": "/home/adrian/Dissertation",
+    "program": "/home/adrian/Dissertation/Code/MultiAgent/MeanField.py",
+    "git": {
+        "remote": "https://github.com/honne23/Dissertation.git",
+        "commit": "40ae51bfe20d6c88ebb048f26297db19baa9e782"
+    },
+    "email": "adriancoutsoftides@gmail.com",
+    "startedAt": "2020-08-24T13:33:11.767912",
+    "host": "deep-phi",
+    "username": "adrian",
+    "executable": "/home/adrian/miniconda3/bin/python",
+    "os": "Linux-5.3.0-64-generic-x86_64-with-debian-buster-sid",
+    "python": "3.7.4",
+    "gpu": "GeForce GTX 1080 Ti",
+    "gpu_count": 1,
+    "cpu_count": 12,
+    "cuda": "10.2.89",
+    "args": [],
+    "state": "running",
+    "jobType": null,
+    "mode": "run",
+    "name": "swift-deluge-102",
+    "project": "mean-field",
+    "heartbeatAt": "2020-08-24T13:35:50.172397"
+}

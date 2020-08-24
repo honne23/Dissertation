@@ -9,7 +9,7 @@ import numpy as np
 from typing import List
 from Agent.ResidueAgent import ResidueAgent
 from Environment.Bravais import Bravais
-
+import time
 import wandb
 wandb.init(project="mean-field")
 
@@ -71,6 +71,9 @@ class MultiAgentRoutine(object):
         joint_action = np.zeros(len(self.agents), dtype=int)
         mean_score = 0
         for e in range(self.num_epochs):
+            start_time = 0
+            if e >= min_train:
+                start_time = time.time()
             
             for agent_idx in range(self.env.num_residues):
                 input_state = self.get_action_dist(agent_idx, state, e == 0)
@@ -103,6 +106,9 @@ class MultiAgentRoutine(object):
                     # if hard update is needed
                     if e -(min_train + 1) % self.target_update == 0:
                         self.agents[agent_idx].target_update()
+                elapsed = time.time() - start_time
+                print(f'Rewards: {reward}')
+                print(f'Time to complete training step: {elapsed}')
                 if e % 20 == 0:
                     self.env.render()
                 epoch_scores.append(sum(reward))
@@ -135,7 +141,7 @@ class MultiAgentRoutine(object):
         plt.show()
         
         
-experiment = MultiAgentRoutine('QKASVSGPNSPSETRRERAFDANTMTSAEKVLCQFCDQDPAQDAVKTCVTCEVSYCDECLKATHPNKKPFTGHRLIEP', 
+experiment = MultiAgentRoutine('IDCGHVDSLVRPCLSYVQGGPGPSGQCCDGVKNLHNQARSQSDRQSACNCLKGIARGIHNLNEDNARSIPPKCGVNLPYTISLNIDCSRV', 
                                0.95, 
                                100000, 
                                memory_beta_frames=10000,
