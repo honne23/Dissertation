@@ -295,3 +295,41 @@ The folder structure of the project is as follows:
     \end{itemize}
 \end{itemize}
 
+The final hyperparameters for the project are provided as follows:
+
+\begin{table}[!htb]
+    \begin{center}
+        \caption{Hyperparameters}
+\begin{tabular}{||c | c||}
+    \hline
+    Hyperparameter & Value\\
+    \hline\hline
+    Total episodes  & 100,000  \\ 
+    \hline
+    Prioritised experience replay $\beta$ frames & 10,000  \\
+    \hline
+    Target update frequency & 5 \\
+    \hline
+    Steps before training & 5000  \\
+    \hline
+    $\gamma$ & 0.95 \\
+    \hline
+    Agent memory buffer size & 10000 \\
+    \hline
+    Memory batch size & 128 \\
+    \hline
+    Neural network hidden layer size & 512 \\
+    \hline
+    Action embedding layer size & $64 \times 32$ \\
+    \hline
+    Number of quantles & 51 \\
+    \hline
+    Mean field $\beta$ at initialisation & 1 \\
+    \hline
+    Mean field $\beta$ final value & 0.1 \\
+    \hline
+    Mean field $\tau$ & 0.005 \\
+    \hline
+\end{tabular}
+\end{center}
+\end{table}

@@ -37,6 +37,20 @@ learning was taking place, the actual structures produced faired no
 better than random. The system was tested against all 4 mentioned proteins,
 no experiment proved to be successful, as a result I was unable to compare
 the afore mentioned proteins to their true structures from the PDB.
+A training run for each of the proteins is shown below,
+the figures track the average reward and loss for each peptide:
+
+\begin{figure}[!htb]
+    \centering     
+    \subfigure[1GH1]{\includegraphics[width=60mm]{Figures/1gh1.png}}
+    \subfigure[1PJF]{\includegraphics[width=60mm]{Figures/1pjf.png}}
+    \subfigure[2CRT]{\includegraphics[width=60mm]{Figures/2crt.png}}
+    \subfigure[2FFW]{\includegraphics[width=60mm]{Figures/2ffw.png}}
+    \caption{Training run for each of the peptides.}
+\end{figure}
+
+Longer training runs were recorded using a service called Weights \& Biases
+and can be found at \url{https://app.wandb.ai/honne23/mean-field/overview?workspace=user-honne23}.
 
 \subsection{Environment}
 The environment was successfully implemented as a 3D FCC Bravais lattice.
