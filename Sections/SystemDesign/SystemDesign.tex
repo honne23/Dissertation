@@ -17,7 +17,7 @@ column space of the bravaise lattice, within a discrete action setting,
 this can be viewed as a choice among $3^3$ possible actions $ a = \begin{bmatrix}
     x \\ y \\ z
 \end{bmatrix}$ s.t $(x,y,z) \in \{-1,0,1 \}$.
-The chains of amino acids are initialised as a straight line in space, and each
+The chains of amino acids are initialised as a random walk on the lattice, and each
 time-step each residue moves to another position $x_t$ by selecting a movement vector
 $a_{\mathbf{j}}$ to be applied to it's current position. The transition function
 is characterised as:
@@ -26,7 +26,7 @@ is characterised as:
 \end{equation}
 In order to preserve constraints between neighbouring resisues on the backbone, each agent
 continues to take steps in the environment until a \emph{legal} action in made, otherwise
-being punishived for violating the self avoiding walk, occupying active sites and occupying a lattice site that is 
+being punished for violating the self avoiding walk, occupying active sites and occupying a lattice site that is 
 too far from neighbouring residues i.e if the distance between residues with index $(i-1, i)$
 and $(i, i+1)$ is not an element of $\{\sqrt{0.5}, 1\}$ in an FCC configuration, then the backbone
 of the chain has been broken. Once a permitted action is taken, the agent is rewarded accordingly,
@@ -87,7 +87,7 @@ $G = \sum_J L_j$.
     factor used by the agent. 
     \begin{displayquote}[\cite{Devlin2014}]
         This formulation of reward shaping has been proven to not
-        alter the optimal policy of a single agent in both infinite- andfinite- state MDPs. 
+        alter the optimal policy of a single agent in both infinite- and finite- state MDPs. 
     \end{displayquote}
 \end{itemize}
 \cite{Devlin2014} describe the generic form of a shaped reward (4.3) and formulate \emph{DRiP} (4.4) within this framework:
@@ -177,7 +177,7 @@ In summary, there exists an optimal joint strategy $\boldsymbol \pi^*  \triangle
 the shaping of the reward will not change this optimal joint strategy. Each agent is tasked with predicting
 it's own contribution to this global optimum, by modelling the contribution
 to a fixed point rather than total returns, each agent is guranteed to converge to a fixed point that
-maximizes it's contribution to the global goal determined by local interactions. This alleviates much of the instability associated with 
+maximizes it's contribution to the global goal determined by local interactions. This aims to alleviate much of the instability associated with 
 the non-stationarity of the environment from the perspective of each agent. 
 I now present the combination of the methods, the equations are presented for the
 standard Mean-Field Q learning update, and are straightforwardly extended to the 

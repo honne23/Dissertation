@@ -74,7 +74,7 @@ represents joint rewards of all agents.
 that the Q function will eventually converge to the values that constitute the Nash equilibrium
 of the game, the \emph{Nash Q value}. \\
 
-One can see that the dimension of the dimension of cartesian product of the joint action $\mathbf{a}$ 
+One can see that the dimension of the cartesian product of the joint action $\mathbf{a}$ 
 grows proportionally with respect to the number agents, this limitation was initially thought
 to be computationally intractable for a large to infinte number of players, \cite{Yang2018}
 circumvent this limitation by introducing the mean field game framework.
@@ -116,13 +116,13 @@ of the one-hot encoded neighbouring agent's actions:
     \end{gathered}
 \end{equation}
 Although this reduces the complexity significantly, it still preserves global interactions implicitly
-\cite{Blume1993}. Assuming that the joint Q function is \emph{Lipschitz continuous} \footnote{See Appendix}, \cite{Yang2018}
+\cite{Blume1993}. Assuming that the joint Q function is \emph{Lipschitz continuous}, \cite{Yang2018}
 show that if we examine the interaction between a central agent $j$ and an arbitary neighbour $k$ as $Q^j(s,a^j,a^k)$
 and evaluate the second order Taylor approximation of this interaction, we find that from
 the perspective of agent $j$, it's immediate neighbour will choose it's actions based on its
 own respective neighbours. This is tantamount to the action taken by immediate neighbour $k$ being determined
 according to some external action \emph{distribution} of it's own neighbours, and so by the findings of \cite{Blume1993}
-we can approximate the pairwise interactions of each neighbour as that between $j$
+one can approximate the pairwise interactions of each neighbour as that between $j$
 and the virtual mean agent $k$ that captures the mean effect of all of the neighbours within $j$'s neighbourhood
 while conserverving global interactions implicitly.\\
 
@@ -186,7 +186,7 @@ of the neighbouring actions:
 \end{equation}
 At each time step, the tuple $(s, {a^k}, {r^j}, s')$ is stored in memory,
 each agent then computes the empirical distribution of the neighbouring
-agents actions that have been optimalling selected according to a policy 
+agents actions that have been optimally selected according to a policy 
 $\pi^k_t$ parameterised by the previous distributions of actions $a^{-k}_-$ read from memory:
 \begin{equation}
     a^{-j} = \frac{1}{N^j} \sum_k \arg \max_{a^k} \pi^k_t(\cdot \mid s, a^{-k}_-)
@@ -198,7 +198,7 @@ $\mathbf{v}^{MF} \triangleq [v^1(s),\hdots, v^N(s)]$ at time $t$:
     v^j_t(s')= \sum_{a^j}\pi^j_t(s^j \mid s', a^{-j}) \mathbb{E}_{a^{-j}(\mathbf{a}^{-j}) \backsim \boldsymbol \pi_t^{-j}}[Q^j_t(s',a^j,a^{-j})]
 \end{equation}
 This is consolidated into a Q value update for some learning rate $\alpha$ where the Q values are
-assumed to be greey w.r.t the policy:
+assumed to be greedy w.r.t the policy:
 \begin{equation}
     Q^j_{t+1}(s,a^j,a^{-j})= (1-\alpha)Q^j_t(s,a^j,a^{-j}) +\alpha[r^j+ \gamma v^j_t(s')]
 \end{equation}

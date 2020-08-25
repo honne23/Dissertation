@@ -130,7 +130,7 @@ plausible values of $(\phi, \psi)$, the possible number of conformations
 for a given sequence are extraordinarily large. 
 Given that each possible conformation has an associated free energy,
 Levinthal's paradox states that if all conformations were equally
-energetically favourable, then protein would essentially have to undergo
+energetically favourable, then proteins would essentially have to undergo
 a random walk along the \emph{Gibbs free energy} surface until it has found its native conformation.
 The free energy surface in this respect refers to the manifold that is formed
 by taking the \emph{distribution} over conformations $((\phi, \psi)_1\ldots(\phi,\psi)_n)$ at every time-step
@@ -173,7 +173,7 @@ part of their work can be summarised by the following lemmas:
     constrains the possible conformations, followed by a 
     second tier of faster interactions that enables the system to
     quickly overcome the local maxima and minima 
-    which gives way to the global optimum at the bottom of the subset.
+    which gives way to the global optimum at the bottom of the subspace.
 \end{proof}
 \begin{lemma}
     If there exists only one unique conformation whose Gibbs free energy
@@ -380,6 +380,12 @@ Hydrophobic and Polar, and a conformation was formulated as a self avoiding walk
             \underset{(b)}{PHP}
         \end{align*}
     \end{multicols}
+\end{itemize}
+These quantities are related by the following equations:
+\begin{equation}
+    2b_{HH} + b_{HP} + h_{term} + (z-2)n_H = 2(t_{HH} + b_{HH}) + b_{HP} + t_{HP} + t_{H-Solvent}
+\end{equation}
+\begin{itemize}
     \item $x \in \{H,P\}$
     \item $n_x$ is the number of $x$ monomers in the sequence. \\
         I.e: $n_H$ is the number of $H$ monomers in the entire sequence.
@@ -387,10 +393,6 @@ Hydrophobic and Polar, and a conformation was formulated as a self avoiding walk
     \item $t_{xx}$ is the number of \emph{bonds + contacts} between $xx$.
     \item $h_{term}$ is the number of segements that terminate in $H$ monomers
 \end{itemize}
-These quantities are related by the following equations:
-\begin{equation}
-    2b_{HH} + b_{HP} + h_{term} + (z-2)n_H = 2(t_{HH} + b_{HH}) + b_{HP} + t_{HP} + t_{H-Solvent}
-\end{equation}
 \begin{equation}
     \begin{gathered}
          G = \frac{b_{HP} + h_{term}}{2} \\

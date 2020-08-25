@@ -3,32 +3,32 @@
 \chapter{Introduction}
 
 \section{Problem Background}
-   Proteins are biological molecules that carry out specific functions within the body,
-   they are assembled out of chemical bonds between smaller sub units called amino acid residues
-   to form a poly-peptide chain. Proteins carry out their functions 
-   by conforming into specific shapes and fitting into substrates that compliment their structure,
-   this is referred to as the "lock and key" model of proteins. A
-   protein's three-dimensional structure has been proven \cite{Anfinsen} to been
-   entirely determined from the ordering of a discrete set of 20 residues
-   in a sequence of arbitrary length. The ability to infer a protein's precise\footnote{Within 1\AA}
-   three dimensional structure directly from the sequence of residues would
-   unlock the potential for designer drugs that carry out specific actions within the body;
-   it would also open a path for the treatment of illnesses that arise from malformed
-   proteins such as huntington's disease \cite{lesk}.
-   This has however been an open problem, as the search space of possible conformations
+
+\subsection{What is protein folding?}
+
+A protein is synthesised by a ribosome. It comes out like a long string of beads (each bead is called a “residue” or amino acid). A protein is a molecule that obeys standard laws of physics, they have intermolecular forces of attraction and repulsion; this causes the string to deform and fold into some final shape (native shape). Over the course of folding residues at two different parts of the chain may come into “contact” with each other; contact here means close proximity, but not directly connected. Some contacts are more favourable than others due to intermolecular forces. The final native shape is one that maximises favourable contacts. Knowing the final shape is very important because it determines the protein’s function.
+
+\subsection{The analogue approach}
+
+The Protein Structure Prediction (PSP) problem is still an open problem, as the search space of possible conformations
    for a given protein is vast and subject to numerous local minima. Traditional
    methods of protein structure determination such as X-Ray Crystallography \cite{lesk}
    are extremely costly\footnote{In the order of millions of USD \cite{alberts}} and time
    consuming, sometimes taking up to \emph{four years} to determine the structure of a protein.
    This has given rise to multiple computational approaches \cite{Cymerman2008} as means
    to drive down cost and increase the productivity of researchers. 
-   \linebreak
-   Naturally, many approaches using deep learning have been proposed to solve the problem,
-   recently a breakthrough by DeepMind \textsuperscript{[reference]} propelled them to success
+
+   \subsection{Why is this a difficult problem?}
+
+  Many approaches using deep learning have been proposed to solve the problem,
+   recently a breakthrough by DeepMind \cite{Senior2020} propelled them to success
    at the bi-annual Critical Assessment of Structure Prediction (CASP) competition. Though their
    results were state of the art, their methods still relied on building a predictive model of the
-   properties of available proteins in the Protein Data Bank (PDB)\textsuperscript{[reference]}; as 
+   properties of available proteins in the Protein Data Bank (PDB); as 
    opposed to inferring the tertiary structure from the primary sequence alone.
+   Additional, many computation methods suffer from problems such as the curse of
+   dimensionality and horizontal scalability which makes it difficult to investigate
+   proteins of practical importance.
 \section{Overview}
 Within the scope of this project, I discuss the use of 
 multi-agent learning systems to study an as of yet unresolved question 
@@ -87,6 +87,7 @@ throughout the rest of this project.
    mark this project as a success.
    \begin{enumerate}
       \item Provide comprehensive overview of the underlying problem of protein folding
+      \item Implement a novel multi-agent environment for protein folding on a lattice.
       \item Describe markov decision processes (MDPs) and its ties to reinforcement learning
       \item Highlight drawbacks to the default DQN algorithms and notable improvements to address those
       \item Demonstrate multi-agent learning as a generalisation of single MDPs into markov games

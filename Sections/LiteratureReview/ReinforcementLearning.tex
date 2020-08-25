@@ -2,7 +2,7 @@
 In this section I will introduce the Reinforcement Learning (RL)
 paradigm. Then, its integration with deep learning is explored, and
 subsequent improvements in the algorithm are also elaborated upon.
-The end result, the Rainbow DQN agent, is integrated as part of the \textbf{System Design and Specification}.
+The end result, the Rainbow Quantile agent, is integrated as part of the \textbf{System Design and Specification}.
 \subsection{Markov Decision Processes}
 A finite markov chain is a process that consists of a set of states
 $\mathbf{S^n} \coloneqq \{S_1, S_2, \hdots, S_n\}$ and a transition
@@ -20,7 +20,7 @@ The next state in a process that obeys the markov property is determined
 solely by the value of the current state, and for any given sequence, the transition
 probability between any two states remains the same. Thus, markov chains can begin
 characterised by a transition matrix $\mathbf{P} \coloneqq |\mathbf{S}^n| \times |\mathbf{S}^n|$
-where each row $j$ is a distribution $P(i, \cdot)$ such that:
+where each row $i$ is a distribution $P(i, \cdot)$ such that:
 \begin{equation}
     i \in \mathbf{S}^n, \sum_{j \in \mathbf{S}^n} P(i,j) = 1
 \end{equation}\\
@@ -53,8 +53,7 @@ the \textbf{steady state} probability of being in any particular state $P(S_j)$.
 A Markov Decision Process (MDP) is a generalisation of this framework to sequential
 decision making \cite{sutton2018reinforcement}. An MDP consists of an agent-environment
 interface, where the \emph{Agent} is the learner and decision maker and the \emph{Environment}
-consists of everything outside of the agent. The agent interacts with the environment
-bny taking action $a \in \mathbf{A}$ in the current state $S_t$ and receives a reward $R_{t+1}$\footnote{Reward received at $t+1$ to indicate the fact that 
+consists of everything outside of the agent. The agent interacts with the environmentbny taking action $a \in \mathbf{A}$ in the current state $S_t$ and receives a reward $R_{t+1}$\footnote{Reward received at $t+1$ to indicate the fact that 
 an action must be taken first to move to a new state in order to obtain a reward}, the outcome of the agents actions
 transitions the environment from state $S_t$ to $S_{t+1}$.
 The agent's long term reward is maximised by taking actions that move the agents into 
@@ -98,7 +97,7 @@ tasks with non-stationary distributions of rewards becomes computationally tract
 \end{equation}
 Where $\gamma$ is referred to as the \emph{discount factor}. The use of a discount
 factor contracts rewards further into the future asymptotically towards zero as (2.19) forms a geometric
-series\footnote{See Appendix A.3} with ratio $r < 1$:
+series with ratio $r < 1$:
 \begin{equation}
     \begin{gathered}
         \lim_{n \rightarrow \infty} \biggl( \sum_{k= 0}^{n} \alpha \cdot r^k \biggl) = \frac{\alpha}{1-r}, \;\; \forall \; 0 < r < 1, \;\;\; \alpha \in \mathbb{R}^+ \\
@@ -143,7 +142,7 @@ of taking a particular action in a given state:
     q_\pi(s,a) = \E_\pi \biggl [R_{t+1} + \gamma G_{t+1} \: \biggl | \: S_t = s,\textcolor{red}{ A_t = a} \biggl]
 \end{equation}
 Formally, the \emph{action value} function describes the expected return of being in state $s$ and taking
-action $a$ and following $\pi$ thereafter. It it expected reward described in (2.24) conditioned
+action $a$ and following $\pi$ thereafter. It is the expected reward described in (2.24) conditioned
 additionally upon a fixed action being taken in the current state.
 \subsubsection{Bellman Equation}
 The state value function and the action value fuction for a given MDP can be estimated from
@@ -248,7 +247,7 @@ the greedy strategy it has already learned. A naive exploration strategy\footnot
 in \textbf{2.2.3.2} and \textbf{Related Work}.} is to choose the greedy action with fixed probability
 $\mathbf{\varepsilon}$ and otherwise choose a random action with probability $1-\varepsilon$; this is called an
 \textbf{$\varepsilon$ greedy strategy}. However the agent would still require an infinite
-amountof episodes to form the optimal policy and value functions, they must instead be approximated
+amount of episodes to form the optimal policy and value functions, they must instead be approximated
 in such a way that preserves the gurantees of GPI.
 \subsubsection{Monte Carlo Estimation}
 Monte carlo estimation enables an agent to \emph{learn} optimal policies and value functions
@@ -278,7 +277,7 @@ policy and the latter as the \emph{behaviour} policy. The goal is to estimate $\
 or $q_\pi$. We also assume that $\pi(a\:|\:s) > 0 \rightarrow b(a \:|\:s) >0$ implying that 
 every action taken under $\pi$ is also taken at least once under $b$; this is the assumption of \emph{coverage}.
 From coverage it follows that $b$ must be stochastic in states where it is not identical to
-$\pi$ as $\pi_*$, being the optimal policy, is greedy and deterministic.\\
+$\pi$ as $\pi_*$ is the optimal policy and therefore is greedy and deterministic.\\
 First I will introduce \emph{importance sampling}, a method for estimating
 expected values under on distribution given samples from another distribution. This is 
 a general technique used in off-policy methods \cite{sutton2018reinforcement} as well as in later discussed \emph{Prioritised
@@ -298,7 +297,7 @@ target policy and and the behaviour policy:
         = \prod_{k=t}^{T-1}\frac{\pi\condition{A_k}{S_k}}{b\condition{A_k}{S_k}}
     \end{gathered}
 \end{equation}
-Intuitively, this is a ratio of how much more or less probably the trajectory is under $\pi$ relative to $b$,
+Intuitively, this is a ratio of how much more or less probable the trajectory is under $\pi$ relative to $b$,
 given that $\upsilon_b(s) = \E\Condition{G_t}{S_t = s}$ we can transform
 the returns under $b$ to have to correct expected value by multiplying them
 by the importance sampling ratio:
@@ -306,7 +305,7 @@ by the importance sampling ratio:
     \E\Condition{\rho_{t:T-1}G_t}{S_t = s} = \upsilon_\pi(s)
 \end{equation}
 In the case of full monte carlo methods, the returns are averaged at the end of each episode,
-\emph{weighted importance sampling} applies the importance sampling ratio as weighted
+\emph{weighted importance sampling} applies the importance sampling ratio as a weighted
 average of the returns over the whole episode with terminal state $T(t)$to form our \emph{estimate} $V$:
 \begin{equation}
     V_\pi(s) = \frac{\sum_{t \in T(t)} \rho_{t:T-1} \cdot G_t}{\sum_{t \in T(t)} \rho_{t:T-1}}
@@ -341,7 +340,7 @@ a model is not computationally tractable. With the foundations lain, I will intr
 the central algorithm to contemporary reinforcement learning.
 \subsection{Deep Q Learning}
 \subsubsection{Temporal Difference Error}
-The temporal difference (TF) error is a special case of monte carlo estimation where the action
+The temporal difference (TD) error is a special case of monte carlo estimation where the action
 value functions and the state value functions are updates with each timestep instead of at the end of each episode.
 \begin{equation}
     V(S_t) \leftarrow V(s_t) + \alpha \biggl[\textcolor{red}{R_{t+1} + \gamma V(S_{t+1}) - V(S_t)} \biggl]
@@ -391,7 +390,7 @@ vector $\mathbf{w}$ and bias $b$.
 \begin{equation}
     \mathbf{\hat{y}} =\mathbf{x} \cdot \mathbf{w}^\top + b
 \end{equation}
-Perceptrons canbe organised into layers hence become multi-layer perceptrons MLP.
+Perceptrons can be organised into layers hence become multi-layer perceptrons MLP.
 If an MLP contains more than a single intermediate layer between the input and the output
 layer, it is known as a deep neural net. When organised into layers, the output
 of each perceptron must be passed through a non-linearity \[ReLU(\mathbf{\hat{y}}) = max (\mathbf{\hat{y}},0)\] to remove the correlation between
@@ -474,7 +473,7 @@ negative gradient, steepest descent with respect to error $E$ with some constant
 \begin{equation}
     \mathbf{W}_{k+1}=\mathbf{W}_{k} - \eta \nabla E_{\mathbf{W}_k}
 \end{equation}
-The gradients for the biases are updates likewise. This error is then back-propagated
+The gradients for the biases are updated likewise. This error is then back-propagated
 using reverse mode differentiation on a computational graph \cite{Margossian2019} through the remaining nodes,
 where the weights adjusted after the gradient updates are used as the target for the preceeding layer.
 \begin{remark}
@@ -590,7 +589,7 @@ This may not be a desireable attribute, as we may want to explore more in some s
 and this preference for exploration may change over time as learn new information and update
 our estimates (via bootstrapping). \\
 In follow up work \cite{Hessel2017} combine subsequent improvements to the original DQN algorithm
-addressing the issues listed above into a single agent termedthe "Rainbow" agent. I will
+addressing the issues listed above into a single agent termed the "Rainbow" agent. I will
 go over each of the suggested improvements.
 \subsubsection{Prioritised Experience Replay}
 The motivation behind \emph{Prioritised Experience Replay} \cite{Schaul2015} is the notion that given
@@ -613,7 +612,7 @@ The authors assign a probability of being played to each memory as such:
 \end{equation}
 Where $\epsilon$ is some small positive constant to prevent the priority $p_i$ from being zero
 and $P(i)$ is the probability of the transition being chosen for replay. The exponent $\alpha$
-determines the amound of prioritisation used where $\alpha = 0$ is uniform (regular experience replay).
+determines the amount of prioritisation used where $\alpha = 0$ is uniform (regular experience replay).
 However the use of such a distribution introduces bias into the updates of the $Q$ value. The estimation
 of an expected value with stochastic updates relies on those updates come from the same distribution as
 our estimatiom, by construction the distribution as in (2.51), we are now drawing on observations
@@ -778,7 +777,7 @@ The action value is then calculated:
 \begin{equation}
     Q(s,a \: ; \: \theta) = V(s\:;\:\theta_2 ) + (A(s,a\:;\:\theta_1) - \mathbb{E}[A(s,a\:;\:\theta_1)])
 \end{equation}
-We fix this lack of identifiability by forcing the function approximator to maximise the
+One can fix this lack of identifiability by forcing the function approximator to maximise the
 value of the state by having a 0 advantage at the chosen action, hence we subtract the mean.
 The $Q$ values for bothe the behaviour and target network are calculated this way.
 \subsubsection{Double Q Learning }
@@ -806,7 +805,7 @@ Consider the MDP given by fig (2.10),
 the agent begins in state A and can either move left or right for a reward in 0.
 Moving right will terminate the process with reward 0. Moving left (with reward 0)
 puts the agent in a state where it can choose amongst a multitude of actions whose
-rewards are normaly distributed with a mean of 0.1 and variance of 1.
+rewards are normaly distributed with a mean of -0.1 and variance of 1.
 During policy iteration we select actions according to $\underset{a}{argmax} \: Q(s,a)$,
 this incurs a significant \emph{positive} bias due to the nature of the maximization, in
 fig (2.10) the agent will always choose the left action as it seeks to maximise the expected
@@ -826,11 +825,11 @@ By doing so we decouple the estimation of an actions value from its selection. T
 show that this is effective in combination with the previously discussed improvements.
 \subsubsection{Distributional Reinforcement Learning}
 Recalling equation (2.41), the expected future discounted reward is a weighted mean,
-whose final output is a scalar value. This mean ignors the variance and possible multi-modality
+whose final output is a scalar value. This mean ignores the variance and possible multi-modality
 of the underlying distribution. Assuming that the process of generalized policy iteration
 reaches a fixed point $\pi^* = \pi_\theta$ where the policy under the neural network's parameters
 aproximates the optimal policy arbitarily well, this approximation is only in their means, and equality
-of means does gurantee that the "shape" of the underlying distributions are the same.
+of means does not gurantee that the "shape" of the underlying distributions are the same.
 Motivated by these shortcomings, \cite{Bellemare2017} proposed an alternative distributional perspective
 on reinforcement learning. The authors reinterpret equation (2.41) under a distributional variant;
 first they contextualize the Q learning update under the \emph{Bellman operator} $\mathcal{T}^\pi$ and in the control setting
@@ -894,7 +893,7 @@ as the highest element-wise absolute difference between the two:
     \bar{d}_p(Z_1, Z_2) \coloneqq \sup_{x,a} W_p(Z_1(x,a), Z_2(x,a)) 
 \end{equation}
 The authors show that similarly to equation (2.20) the $\bar{d}_p$ metric is a contraction in $\gamma$
-by \emph{Banach's fixed point theorem}\footnote{See Appendix}:
+by \emph{Banach's fixed point theorem}:
 \begin{equation}
     \begin{gathered}
         \bar{d}_p( \mathcal{T}^\pi Z_1, \mathcal{T}^\pi Z_2) \leqslant \bar{d}_p(R + \gamma \mathcal{P}^\pi Z_1, R + \gamma \mathcal{P}^\pi Z_2) \\
@@ -944,7 +943,7 @@ median of the interval:
 \end{equation}
 They utilise \emph{quantile regression loss} developed within economics, to fit the predicted
 quantile distribution of action-values to a target quantile distribution. Formally, a dirac delta
-function positioned on the quantiled is scaled proportionally when the distance $\xi = \hat{Z} - \theta$ 
+function positioned on the quantile is scaled proportionally when the distance $\xi = \hat{Z} - \theta$ 
 is overestimated $\xi \geq 0$ or underestimated $\xi < 0$. Quantile regression is used
 to fit the predicted quantile to the target by minimizing the following objective:
 \begin{equation}

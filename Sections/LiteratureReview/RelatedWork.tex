@@ -139,7 +139,7 @@ distributions of inter-residue orientations and incorporating that into the mode
 \subsection{Deep Reinforcement Learning methods for lattice models}
 We now turn to reinforcement learning methods on lattice models. Where as previous methods relied on
 training data in order to parameterise a generative model, these works learn to construct tertiary structures
-from raw sequence data along, this is unsupervised learning.
+from raw sequence data alone, this is unsupervised learning.
 \cite{Wu2019} use reinforcement learning on a 2D HP lattice to construct proteins by iteratively
 placing residues on points on the lattice using $Q$ learning. Although the authors make no mention of
 deep learning in particular,they use function approximation to represent the Q values. In their setting,
@@ -153,7 +153,7 @@ to the full set of actions at anytime allowed the network to form a better descr
 use the reward structure of the HP model as a proxy for the energy function (or \emph{Hamiltonian}), similar to the 
 protein specific potential described by \cite{Senior2020}. They also describe a \emph{flexible} selection criterion
 that would give the agent a reward of $-10$ for violating the SAW, once the action is taken the agent is placed in the invalid
-position and the reward is reset to 0. The show that the rigid criterion was more effective in their results.\\
+position and the reward is reset to 0. They show that the rigid criterion was more effective in their results.\\
 
 \cite{Yanjun2018} describe a similar architecture using a 2D HP grid, this time with the explicit use of deep reinforcement learning.
 However instead of providing the residue's current coordinates, they provide the entire grid as input to agent. Formally,
@@ -175,7 +175,7 @@ and structure prediction, the most relevant works are presented here.\\
  approaches. Each residue is an agent, and agents are of heterogenous types, together they colaborate to take
  actions to move on the lattice in order to optimize mutual constraints between them,
  \cite{Muscalagiu2013} use the hHPNX reward structure on 3D/2D cubic and triangular lattice and \cite{Czibula2011} uses a 2D HP lattice.
- They both make use of a distributed variant of $Q$ learning to optimise the constraint parameters. They both
+ They both make use of a distributed variant\footnote{Not to be confused with \emph{distributional}} of $Q$ learning to optimise the constraint parameters. They both
  describe two different types of agents that interact, some agents act as the actual residues, whereas
  a separate "blackboard" agent is used to keep track of all the agents $Q$ values. The agents then 
  incorporate these Q values into their decision policy. Although these techniques are supported in cluster-computing
@@ -188,7 +188,7 @@ and structure prediction, the most relevant works are presented here.\\
  this also played a factor in their final results, reducing the efficacy of an otherwise well structured system.
 
  \cite{deLimaCorrea2017} use a multi-agent approach to attain extremely compelling results in a free-space environment
- without the use of a discretized lattice. They utilise a hiearchical structure of agents,\emph{search agents} generate possible
+ without the use of a discretized lattice. They utilise a hiearchical structure of agents. \emph{Search agents} generate possible
  sub-structures according to a partition of the total peptide assigned to them. They do so using heuristic search strategies 
  discussed previously, the \emph{optimization} agent then performs global optimization, refining the structure
  using evolutionary algorithms and simmulated annealing methods, akin to the crystal growth approaches of MCMC.
