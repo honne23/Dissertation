@@ -56,11 +56,11 @@ The environment was successfully implemented as a 3D FCC Bravais lattice. The en
 
 I tried multiple reward strategies in order to encourage learning:
 
-(1) Setting a constant reward of -10 for actions which broke the self-avoiding-walk (SAW).
-(2) Adding -10 to the total reward at local sites on the lattice.
-(3) Rewarding all agents only with their immediate local rewards.
-(4) Rewarding all agents with the global reward (sum of all local rewards).
-(5) Rewarding all agents with the average of all local rewards.
+1. Setting a constant reward of -10 for actions which broke the self-avoiding-walk (SAW).
+2. Adding -10 to the total reward at local sites on the lattice.
+3. Rewarding all agents only with their immediate local rewards.
+4. Rewarding all agents with the global reward (sum of all local rewards).
+5. Rewarding all agents with the average of all local rewards.
 
 Strategies 3-5 were tried in combination with strategy 1 or 2, none of which were successful. When none of the reward strategies were shown to work I tried to set different initialisation conditions. At first, all proteins were initialised as a straight line in space but the drawback of this approach was that at the beginning of training, the only neighbours a residue would have access to are it’s immediate neighbours on the torsion backbone. 
  
