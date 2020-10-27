@@ -27,7 +27,7 @@ coloredlogs==14.0
 conda-package-handling==1.6.0
 conda==4.8.3
 configparser==5.0.0
-cryptography==2.8
+cryptography==3.2
 cycler==0.10.0
 cython==0.29.17
 decorator==4.4.2
