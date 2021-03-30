@@ -133,7 +133,7 @@ pydot==1.4.1
 pyflakes==2.1.1
 pygame==2.0.0.dev10
 pyglet==1.5.0
-pygments==2.6.1
+pygments==2.7.4
 pyjwt==1.7.1
 pylint==2.4.4
 pymol==2.3.5
