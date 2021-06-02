@@ -192,7 +192,7 @@ tornado==6.0.4
 tqdm==4.46.0
 traitlets==4.3.3
 ujson==1.35
-urllib3==1.25.8
+urllib3==1.26.5
 wandb==0.8.36
 watchdog==0.10.2
 wcwidth==0.1.9
