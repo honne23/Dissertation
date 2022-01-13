@@ -107,7 +107,7 @@ pathtools==0.1.2
 pdb2pqr-minimal==0.0.0
 pexpect==4.8.0
 pickleshare==0.7.5
-pillow==7.0.0
+pillow==9.0.0
 plotly==4.5.4
 pluggy==0.13.1
 progressbar2==3.51.3
