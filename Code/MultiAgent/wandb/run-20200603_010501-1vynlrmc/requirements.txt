@@ -127,7 +127,7 @@ pydot==1.4.1
 pyflakes==2.1.1
 pyglet==1.5.0
 pygments==2.6.1
-pyjwt==1.7.1
+pyjwt==2.4.0
 pylint==2.4.4
 pymol==2.3.5
 pynvim==0.4.1
